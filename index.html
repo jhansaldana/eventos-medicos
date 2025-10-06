@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos Médicos - Semana del 6 al 11 de Octubre 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .loading {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #ffe6e6;
+            border: 2px solid #ff4444;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            color: #cc0000;
+        }
+
+        .filters {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        select, input[type="text"] {
+            padding: 10px 15px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .day-section {
+            margin-bottom: 30px;
+        }
+
+        .day-header {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .day-title {
+            color: #667eea;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid #667eea;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .event-time {
+            color: #764ba2;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .event-title {
+            color: #333;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .event-organizer {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .event-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .event-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .stats {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .refresh-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .refresh-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📅 Agenda de Eventos Médicos</h1>
+            <p class="subtitle">Semana del 6 al 11 de Octubre 2025</p>
+        </header>
+
+        <div id="loadingSection" class="loading">
+            <div class="loading-spinner"></div>
+            <p>Cargando eventos desde Google Sheets...</p>
+        </div>
+
+        <div id="errorSection" class="error" style="display: none;"></div>
+
+        <div id="mainContent" style="display: none;">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalEvents">0</div>
+                    <div class="stat-label">Eventos Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="visibleEvents">0</div>
+                    <div class="stat-label">Eventos Visibles</div>
+                </div>
+            </div>
+
+            <div class="filters">
+                <span class="filter-label">Filtrar por:</span>
+                <select id="dayFilter" onchange="filterEvents()">
+                    <option value="all">Todos los días</option>
+                </select>
+                <input type="text" id="searchFilter" placeholder="Buscar por tema..." oninput="filterEvents()">
+                <button class="refresh-btn" onclick="loadEvents()">🔄 Actualizar</button>
+            </div>
+
+            <div id="eventsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ IMPORTANTE: PEGA AQUÍ TU ENLACE DE GOOGLE SHEETS PUBLICADO
+        // Debe ser el enlace CSV que obtuviste al publicar la hoja
+        const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
+        
+        // Si quieres usar datos de ejemplo mientras configuras, cambia esto a true
+        const USE_SAMPLE_DATA = false;
+
+        let events = [];
+        let allDates = new Set();
+
+        const dayNames = {
+            '2025-10-06': 'Lunes 6 de Octubre',
+            '2025-10-07': 'Martes 7 de Octubre',
+            '2025-10-08': 'Miércoles 8 de Octubre',
+            '2025-10-09': 'Jueves 9 de Octubre',
+            '2025-10-10': 'Viernes 10 de Octubre',
+            '2025-10-11': 'Sábado 11 de Octubre'
+        };
+
+        function parseCSV(csv) {
+            const lines = csv.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const data = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                if (lines[i].trim() === '') continue;
+                
+                const values = lines[i].split(',');
+                const row = {};
+                
+                headers.forEach((header, index) => {
+                    row[header] = values[index] ? values[index].trim() : '';
+                });
+                
+                if (row.date && row.time && row.title) {
+                    data.push(row);
+                    allDates.add(row.date);
+                }
+            }
+            
+            return data;
+        }
+
+        function getSampleData() {
+            return [
+                {date: "2025-10-06", time: "06:15", title: "Accesos vasculares por ecografía", link: "https://meet.google.com/kct-tbkz-qup", organizer: "UniSinu", category: "Ultrasonografía"},
+                {date: "2025-10-06", time: "10:00", title: "3° Simposio Internacional de Excelencia en Educación Médica", link: "https://acortar.link/i8rXeV", organizer: "UDEM", category: "Educación Médica"},
+                {date: "2025-10-06", time: "11:00", title: "Nutrition in critical ill children", link: "https://shorturl.at/IXhwA", organizer: "WICCEM", category: "Cuidados Críticos"},
+                {date: "2025-10-06", time: "13:00", title: "Revolutionising Thrombosis Treatment in ACS, SSP and AF", link: "https://acortar.link/xFG5V4", organizer: "Radcliffe", category: "Cardiología"},
+                {date: "2025-10-06", time: "14:00", title: "The Thrombus That Connects Us", link: "https://acortar.link/mb1RAO", organizer: "ISHTL", category: "Hematología"},
+                {date: "2025-10-07", time: "06:00", title: "Manejo ventilatorio en paciente con patología obstructiva", link: "https://acortar.link/HXHg1a", organizer: "UniCartagena", category: "Cuidados Críticos"},
+                {date: "2025-10-07", time: "09:00", title: "V Congreso Internacional de Bioética", link: "https://acortar.link/pTFKcH", organizer: "Universitat de Barcelona", category: "Bioética"},
+                {date: "2025-10-07", time: "11:00", title: "Update on dyslipidaemia management", link: "https://acortar.link/9MCKS8", organizer: "ESC", category: "Cardiología"},
+                {date: "2025-10-08", time: "12:00", title: "Miércoles de Nefrología", link: "https://acortar.link/YKLSZo", organizer: "SLANH", category: "Nefrología"},
+                {date: "2025-10-09", time: "11:00", title: "Ateneo Central", link: "https://acortar.link/5CKvbq", organizer: "ICBA", category: "Educación Médica"},
+                {date: "2025-10-10", time: "12:00", title: "THI Grandrounds", link: "https://acortar.link/d8I9jO", organizer: "THI", category: "Educación Médica"},
+                {date: "2025-10-11", time: "09:00", title: "Curso de simulación", link: "https://acortar.link/szvQrp", organizer: "SLACIP", category: "Simulación"}
+            ];
+        }
+
+        async function loadEvents() {
+            document.getElementById('loadingSection').style.display = 'block';
+            document.getElementById('errorSection').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'none';
+            
+            try {
+                if (USE_SAMPLE_DATA || GOOGLE_SHEET_URL === 'TU_ENLACE_AQUI') {
+                    // Usar datos de ejemplo
+                    events = getSampleData();
+                    events.forEach(e => allDates.add(e.date));
+                } else {
+                    // Cargar desde Google Sheets
+                    const response = await fetch(GOOGLE_SHEET_URL);
+                    if (!response.ok) throw new Error('Error al cargar datos');
+                    const csv = await response.text();
+                    events = parseCSV(csv);
+                }
+                
+                // Ordenar eventos por fecha y hora
+                events.sort((a, b) => {
+                    if (a.date !== b.date) return a.date.localeCompare(b.date);
+                    return a.time.localeCompare(b.time);
+                });
+                
+                updateDateFilter();
+                filterEvents();
+                
+                document.getElementById('loadingSection').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loadingSection').style.display = 'none';
+                document.getElementById('errorSection').style.display = 'block';
+                document.getElementById('errorSection').innerHTML = `
+                    <strong>⚠️ Error al cargar eventos</strong><br>
+                    ${USE_SAMPLE_DATA || GOOGLE_SHEET_URL === 'TU_ENLACE_AQUI' 
+                        ? 'Mostrando datos de ejemplo. Por favor, configura tu enlace de Google Sheets.'
+                        : 'Verifica que el enlace de Google Sheets esté correcto y que la hoja esté publicada correctamente.'}
+                    <br><br>
+                    <button class="refresh-btn" onclick="loadEvents()">Reintentar</button>
+                `;
+            }
+        }
+
+        function updateDateFilter() {
+            const select = document.getElementById('dayFilter');
+            select.innerHTML = '<option value="all">Todos los días</option>';
+            
+            Array.from(allDates).sort().forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.textContent = dayNames[date] || date;
+                select.appendChild(option);
+            });
+        }
+
+        function renderEvents(filteredEvents) {
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = '';
+
+            if (filteredEvents.length === 0) {
+                container.innerHTML = '<div class="loading"><p>No se encontraron eventos</p></div>';
+                return;
+            }
+
+            const eventsByDay = {};
+            filteredEvents.forEach(event => {
+                if (!eventsByDay[event.date]) {
+                    eventsByDay[event.date] = [];
+                }
+                eventsByDay[event.date].push(event);
+            });
+
+            Object.keys(eventsByDay).sort().forEach(date => {
+                const daySection = document.createElement('div');
+                daySection.className = 'day-section';
+                
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.innerHTML = `<div class="day-title">${dayNames[date] || date}</div>`;
+                daySection.appendChild(dayHeader);
+
+                const eventsGrid = document.createElement('div');
+                eventsGrid.className = 'events-grid';
+
+                eventsByDay[date].forEach(event => {
+                    const card = document.createElement('div');
+                    card.className = 'event-card';
+                    card.innerHTML = `
+                        <div class="category-tag">${event.category || 'General'}</div>
+                        <div class="event-time">🕐 ${event.time}</div>
+                        <div class="event-title">${event.title}</div>
+                        <div class="event-organizer">📍 ${event.organizer}</div>
+                        <a href="${event.link}" target="_blank" class="event-link">Unirse al evento →</a>
+                    `;
+                    eventsGrid.appendChild(card);
+                });
+
+                daySection.appendChild(eventsGrid);
+                container.appendChild(daySection);
+            });
+
+            document.getElementById('totalEvents').textContent = events.length;
+            document.getElementById('visibleEvents').textContent = filteredEvents.length;
+        }
+
+        function filterEvents() {
+            const dayFilter = document.getElementById('dayFilter').value;
+            const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+
+            const filtered = events.filter(event => {
+                const matchDay = dayFilter === 'all' || event.date === dayFilter;
+                const matchSearch = event.title.toLowerCase().includes(searchFilter) || 
+                                  event.organizer.toLowerCase().includes(searchFilter) ||
+                                  (event.category && event.category.toLowerCase().includes(searchFilter));
+                return matchDay && matchSearch;
+            });
+
+            renderEvents(filtered);
+        }
+
+        // Cargar eventos al iniciar
+        loadEvents();
+
+        // Auto-actualizar cada 5 minutos
+        setInterval(loadEvents, 300000);
+    </script>
+</body>
+</html>
