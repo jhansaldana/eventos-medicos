@@ -401,14 +401,28 @@
             try {
                 if (USE_SAMPLE_DATA || GOOGLE_SHEET_URL === 'TU_ENLACE_AQUI') {
                     // Usar datos de ejemplo
-                    events = getSampleData();
-                    events.forEach(e => allDates.add(e.date));
+                    events.length = 0;
+                    allDates.clear();
+                    const sampleData = getSampleData();
+                    sampleData.forEach(e => {
+                        events.push(e);
+                        allDates.add(e.date);
+                    });
                 } else {
                     // Cargar desde Google Sheets
                     const response = await fetch(GOOGLE_SHEET_URL);
                     if (!response.ok) throw new Error('Error al cargar datos');
                     const csv = await response.text();
-                    events = parseCSV(csv);
+                    
+                    // Clear existing data
+                    events.length = 0;
+                    allDates.clear();
+                    
+                    // Parse new data
+                    const parsedEvents = parseCSV(csv);
+                    console.log('Parsed events:', parsedEvents.length);
+                    
+                    parsedEvents.forEach(e => events.push(e));
                 }
                 
                 // Ordenar eventos por fecha y hora
@@ -416,6 +430,8 @@
                     if (a.date !== b.date) return a.date.localeCompare(b.date);
                     return a.time.localeCompare(b.time);
                 });
+                
+                console.log('Total events after sort:', events.length);
                 
                 updateDateFilter();
                 filterEvents();
