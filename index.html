@@ -499,71 +499,94 @@
     // ARCHIVO – Semana anterior
     // ==============================
     function renderArchive(weekKey){
-      const acc=document.getElementById('archiveAccordion');
-      const data=archive[weekKey];
-      const week=WEEKS.find(w=>w.key===weekKey);
-      if(!data || !week) return;
+  const acc = document.getElementById('archiveAccordion');
+  const data = archive[weekKey];
+  const week = WEEKS.find(w => w.key === weekKey);
+  if (!data || !week) return;
 
-      const total=data.flat.length;
-      if(weekKey==='prev'){ document.getElementById('prevWeekEvents').textContent=String(total||70); }
+  const total = data.flat.length;
+  if (weekKey === 'prev') {
+    document.getElementById('prevWeekEvents').textContent = String(total || 70);
+  }
 
-      const header=document.createElement('button'); header.className='accordion-header open';
-      header.textContent=`${week.label} · total ${total} eventos`;
+  const header = document.createElement('button');
+  header.className = 'accordion-header'; // inicia cerrado
+  header.textContent = `${week.label} · total ${total} eventos`;
 
-      const content=document.createElement('div'); content.className='accordion-content'; content.style.display='block';
+  const content = document.createElement('div');
+  content.className = 'accordion-content';
+  content.style.display = 'none'; // oculto por defecto
 
-      const exportBtn=document.createElement('button'); exportBtn.className='btn-secondary'; exportBtn.style.margin='6px 0 12px 0';
-      exportBtn.textContent='📥 Exportar semana (.ics)';
-      exportBtn.onclick=()=>exportICS(data.flat, `eventos_${week.label.replace(/\s+/g,'_')}.ics`);
-      content.appendChild(exportBtn);
+  const exportBtn = document.createElement('button');
+  exportBtn.className = 'btn-secondary';
+  exportBtn.style.margin = '6px 0 12px 0';
+  exportBtn.textContent = '📥 Exportar semana (.ics)';
+  exportBtn.onclick = () => exportICS(data.flat, `eventos_${week.label.replace(/\s+/g,'_')}.ics`);
+  content.appendChild(exportBtn);
 
-      Object.keys(data.byDay).sort().forEach(date=>{
-        const list=data.byDay[date];
-        const wrap=document.createElement('div'); wrap.className='day-section';
+  Object.keys(data.byDay).sort().forEach(date => {
+    const list = data.byDay[date];
+    const wrap = document.createElement('div');
+    wrap.className = 'day-section';
 
-        const dayHeader=document.createElement('div'); dayHeader.className='day-header';
-        dayHeader.innerHTML=`
-          <div class="day-title">${(week.dayNames[date]||date)} <span style="color:#999; font-weight:600;">(${list.length})</span></div>
-          <button class="btn-secondary" data-archived-day="${weekKey}__${date}">📥 Exportar día (.ics)</button>
-        `;
-        wrap.appendChild(dayHeader);
+    const dayHeader = document.createElement('div');
+    dayHeader.className = 'day-header';
+    dayHeader.innerHTML = `
+      <div class="day-title">${(week.dayNames[date] || date)} <span style="color:#999; font-weight:600;">(${list.length})</span></div>
+      <button class="btn-secondary" data-archived-day="${weekKey}__${date}">📥 Exportar día (.ics)</button>
+    `;
+    wrap.appendChild(dayHeader);
 
-        const grid=document.createElement('div'); grid.className='events-grid';
-        list.forEach(ev=>{
-          const card=document.createElement('div'); card.className='event-card';
-          card.innerHTML=`
-            <div class="category-tag">${ev.category||'General'}</div>
-            <div class="event-time">🕐 ${ev.time}</div>
-            <div class="event-title">${ev.title}</div>
-            <div class="event-organizer">📍 ${ev.organizer||'—'}</div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              ${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link">Unirse al evento →</a>` : ''}
-              <button class="ics-btn" data-archived-ics="${weekKey}__${ev.date}__${ev.time}">.ics</button>
-            </div>
-          `;
-          grid.appendChild(card);
-        });
+    const grid = document.createElement('div');
+    grid.className = 'events-grid';
+    list.forEach(ev => {
+      const card = document.createElement('div');
+      card.className = 'event-card';
+      card.innerHTML = `
+        <div class="category-tag">${ev.category || 'General'}</div>
+        <div class="event-time">🕐 ${ev.time}</div>
+        <div class="event-title">${ev.title}</div>
+        <div class="event-organizer">📍 ${ev.organizer || '—'}</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          ${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link">Unirse al evento →</a>` : ''}
+          <button class="ics-btn" data-archived-ics="${weekKey}__${ev.date}__${ev.time}">.ics</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
 
-        wrap.appendChild(grid);
-        content.appendChild(wrap);
-      });
+    wrap.appendChild(grid);
+    content.appendChild(wrap);
+  });
 
-      const block=document.createElement('div'); block.className='accordion-item';
-      block.appendChild(header); block.appendChild(content); acc.appendChild(block);
+  const block = document.createElement('div');
+  block.className = 'accordion-item';
+  block.appendChild(header);
+  block.appendChild(content);
+  acc.appendChild(block);
 
-      header.onclick=()=>{ header.classList.toggle('open'); content.style.display = header.classList.contains('open') ? 'block' : 'none'; };
+  // 🔽 Toggle: abre o cierra el bloque al hacer clic
+  header.onclick = () => {
+    const isOpen = header.classList.toggle('open');
+    content.style.display = isOpen ? 'block' : 'none';
+  };
 
-      content.querySelectorAll('[data-archived-day]').forEach(btn=>{
-        btn.onclick=()=>{ const [,date]=btn.dataset.archivedDay.split('__'); exportICS(archive[weekKey].byDay[date], `eventos-${date}.ics`); };
-      });
-      content.querySelectorAll('[data-archived-ics]').forEach(btn=>{
-        btn.onclick=()=>{
-          const [,d,t]=btn.dataset.archivedIcs.split('__');
-          const ev=archive[weekKey].flat.find(e=>e.date===d && e.time===t);
-          if(ev) exportICS([ev], `evento-${d}-${t.replace(':','')}.ics`);
-        };
-      });
-    }
+  // Exportadores individuales
+  content.querySelectorAll('[data-archived-day]').forEach(btn => {
+    btn.onclick = () => {
+      const [, date] = btn.dataset.archivedDay.split('__');
+      exportICS(archive[weekKey].byDay[date], `eventos-${date}.ics`);
+    };
+  });
+  content.querySelectorAll('[data-archived-ics]').forEach(btn => {
+    btn.onclick = () => {
+      const [, d, t] = btn.dataset.archivedIcs.split('__');
+      const ev = archive[weekKey].flat.find(e => e.date === d && e.time === t);
+      if (ev) exportICS([ev], `evento-${d}-${t.replace(':', '')}.ics`);
+    };
+  });
+}
+
 
     // ==============================
     // FILTROS – Semana actual
