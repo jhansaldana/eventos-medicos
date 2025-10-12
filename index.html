@@ -4,86 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Critical Care Webinars</title>
-
-  <!-- PapaParse para CSV robusto -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh; padding: 20px; color: #111;
-    }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; color: #111; }
     .container { max-width: 1200px; margin: 0 auto; }
-    header {
-      background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-    h1 { color: #667eea; font-size: 2.5em; margin-bottom: 10px; }
-    .subtitle { color: #666; font-size: 1.1em; }
-    .loading {
-      background: white; border-radius: 15px; padding: 40px; text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 30px;
-    }
-    .loading-spinner {
-      border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%;
-      width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px;
-    }
+    header { background: white; border-radius: 15px; padding: 30px; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    h1 { color: #667eea; font-size: 2.4em; margin-bottom: 10px; }
+    .subtitle { color: #666; font-size: 1.05em; }
+    .intro { margin-top: 14px; color: #333; line-height: 1.5; font-size: 0.98em; background: #f8f8ff; border: 1px solid rgba(102,126,234,.25); padding: 12px 14px; border-radius: 10px; }
+    .loading { background: white; border-radius: 15px; padding: 40px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 30px; }
+    .loading-spinner { border: 4px solid #f3f3f3; border-top: 4px solid #667eea; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
     @keyframes spin { 0% { transform: rotate(0deg);} 100%{ transform: rotate(360deg);} }
-    .error {
-      background: #ffe6e6; border: 2px solid #ff4444; border-radius: 10px;
-      padding: 20px; margin-bottom: 30px; color: #cc0000;
-    }
-    .filters {
-      background: white; border-radius: 15px; padding: 20px; margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; gap: 15px; flex-wrap: wrap; align-items: center;
-    }
+    .error { background: #ffe6e6; border: 2px solid #ff4444; border-radius: 10px; padding: 20px; margin-bottom: 30px; color: #cc0000; }
+    .filters { background: white; border-radius: 15px; padding: 20px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
     .filter-label { font-weight: bold; color: #667eea; }
-    select, input[type="text"] {
-      padding: 10px 15px; border: 2px solid #667eea; border-radius: 8px; font-size: 1em; outline: none; transition: all 0.3s;
-      background: #fff;
-    }
+    select, input[type="text"] { padding: 10px 15px; border: 2px solid #667eea; border-radius: 8px; font-size: 1em; outline: none; transition: all 0.3s; background: #fff; }
     select:focus, input[type="text"]:focus { border-color: #764ba2; box-shadow: 0 0 0 3px rgba(102,126,234,.1); }
     .day-section { margin-bottom: 30px; }
-    .day-header {
-      background: white; border-radius: 10px; padding: 15px 20px; margin-bottom: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;
-    }
+    .day-header { background: white; border-radius: 10px; padding: 15px 20px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
     .day-title { color: #667eea; font-size: 1.5em; font-weight: bold; }
     .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-    .event-card {
-      background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s; border-left: 5px solid #667eea;
-    }
+    .event-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; border-left: 5px solid #667eea; }
     .event-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
     .event-time { color: #764ba2; font-weight: bold; font-size: 1.1em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .event-title { color: #333; font-size: 1.2em; font-weight: bold; margin-bottom: 10px; line-height: 1.4; }
     .event-organizer { color: #666; font-size: 0.9em; margin-bottom: 15px; font-style: italic; }
-    .event-link, .ics-btn {
-      display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;
-      padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s; border: none; cursor: pointer;
-    }
+    .event-link, .ics-btn { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 16px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: all 0.3s; border: none; cursor: pointer; }
     .event-link:hover, .ics-btn:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
-    .btn-secondary {
-      background: white; color: #667eea; border: 2px solid #667eea; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all .3s;
-    }
+    .btn-secondary { background: white; color: #667eea; border: 2px solid #667eea; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all .3s; }
     .btn-secondary:hover { background: #667eea; color: #fff; }
-    .category-tag {
-      display: inline-block; background: #f0f0f0; color: #667eea; padding: 5px 12px; border-radius: 15px;
-      font-size: 0.85em; margin-bottom: 10px; font-weight: 600;
-    }
-    .stats {
-      background: white; border-radius: 15px; padding: 20px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;
-    }
+    .category-tag { display: inline-block; background: #f0f0f0; color: #667eea; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; margin-bottom: 10px; font-weight: 600; }
+    .stats { background: white; border-radius: 15px; padding: 20px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
     .stat-item { text-align: center; }
     .stat-number { font-size: 2.5em; color: #667eea; font-weight: bold; }
     .stat-label { color: #666; font-size: 1em; }
     .small-note { font-size: .85em; color:#555; }
-    @media (max-width: 768px) {
-      h1 { font-size: 1.8em; } .events-grid { grid-template-columns: 1fr; }
-    }
+    .archive { background: white; border-radius: 15px; padding: 18px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-top: 24px; }
+    .accordion { border-top: 1px solid #eee; margin-top: 10px; }
+    .accordion-item { border-bottom: 1px solid #eee; }
+    .accordion-header { width: 100%; text-align: left; background: #f9f9ff; border: 1px solid rgba(102,126,234,.25); padding: 12px 14px; border-radius: 10px; margin: 10px 0; cursor: pointer; font-weight: 600; color: #4b5bdc; display:flex; align-items:center; justify-content:space-between; }
+    .accordion-content { display: none; padding: 6px 0 14px 0; }
+    .accordion-header.open + .accordion-content { display: block; }
+    @media (max-width: 768px) { h1 { font-size: 1.8em; } .events-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -91,8 +54,13 @@
     <header>
       <h1>📅 Critical Care Webinars</h1>
       <p class="subtitle">
-        Semana del 6 al 11 de Octubre 2025 · <span class="small-note">Horarios según tu hoja (recomendado America/Lima)</span>
+        Semana del <strong>13 al 18 de octubre 2025</strong> · <span class="small-note">Horarios según hora de Lima (GMT-5)</span>
       </p>
+      <div class="intro">
+        <strong>¿Qué es Critical Care Webinars?</strong><br>
+        Es una agenda viva y curada de <em>webinars, cursos y eventos</em> en medicina crítica, ECMO, simulación clínica, seguridad del paciente e IA en salud, reunidos en un solo lugar y con conversión horaria a Lima.
+        <br><strong>La semana pasada participamos en 70 eventos</strong> y seguimos actualizándonos constantemente: sincronizamos nuevas sesiones desde nuestras hojas de Google.
+      </div>
     </header>
 
     <div id="loadingSection" class="loading">
@@ -106,14 +74,18 @@
       <div class="stats">
         <div class="stat-item">
           <div class="stat-number" id="totalEvents">0</div>
-          <div class="stat-label">Eventos Totales</div>
+          <div class="stat-label">Eventos Totales (Semana actual)</div>
         </div>
         <div class="stat-item">
           <div class="stat-number" id="visibleEvents">0</div>
           <div class="stat-label">Eventos Visibles</div>
         </div>
         <div class="stat-item">
-          <button id="exportWeek" class="btn-secondary">📥 Exportar semana (.ics)</button>
+          <div class="stat-number" id="prevWeekEvents">70</div>
+          <div class="stat-label">Eventos semana anterior</div>
+        </div>
+        <div class="stat-item">
+          <button id="exportWeek" class="btn-secondary">📥 Exportar semana actual (.ics)</button>
           <div class="small-note" style="margin-top:6px">Crea un archivo para Google/Outlook</div>
         </div>
       </div>
@@ -126,6 +98,12 @@
       </div>
 
       <div id="eventsContainer"></div>
+
+      <!-- Archivo de semanas -->
+      <div class="archive" id="archiveBlock" style="display:none;">
+        <h2 style="color:#667eea; margin-bottom:8px;">🗂️ Archivo de semanas</h2>
+        <div class="accordion" id="archiveAccordion"></div>
+      </div>
     </div>
   </div>
 
@@ -133,78 +111,87 @@
     // ==============================
     // CONFIG
     // ==============================
-    // 👇 Reemplaza por TU enlace de Sheet publicado como CSV
-    const GOOGLE_SHEET_URL =
-      'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
+    const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
 
-    // Día -> etiqueta bonita (opcional)
-    const dayNames = {
-      '2025-10-06': 'Lunes 6 de Octubre',
-      '2025-10-07': 'Martes 7 de Octubre',
-      '2025-10-08': 'Miércoles 8 de Octubre',
-      '2025-10-09': 'Jueves 9 de Octubre',
-      '2025-10-10': 'Viernes 10 de Octubre',
-      '2025-10-11': 'Sábado 11 de Octubre'
-    };
+    // tus GIDs confirmados:
+    const GID_HOJA_2 = '626775764'; // Semana 2 (13–18 oct 2025)
+    const GID_HOJA_1 = '0';         // Semana 1 (6–11 oct 2025)
+
+    const WEEKS = [
+      {
+        key: 'current',
+        label: 'Semana 13–18 de octubre 2025',
+        gid: GID_HOJA_2,
+        start: '2025-10-13',
+        end:   '2025-10-18',
+        dayNames: {
+          '2025-10-13': 'Lunes 13 de Octubre',
+          '2025-10-14': 'Martes 14 de Octubre',
+          '2025-10-15': 'Miércoles 15 de Octubre',
+          '2025-10-16': 'Jueves 16 de Octubre',
+          '2025-10-17': 'Viernes 17 de Octubre',
+          '2025-10-18': 'Sábado 18 de Octubre'
+        }
+      },
+      {
+        key: 'prev',
+        label: 'Semana 6–11 de octubre 2025',
+        gid: GID_HOJA_1,
+        start: '2025-10-06',
+        end:   '2025-10-11',
+        dayNames: {
+          '2025-10-06': 'Lunes 6 de Octubre',
+          '2025-10-07': 'Martes 7 de Octubre',
+          '2025-10-08': 'Miércoles 8 de Octubre',
+          '2025-10-09': 'Jueves 9 de Octubre',
+          '2025-10-10': 'Viernes 10 de Octubre',
+          '2025-10-11': 'Sábado 11 de Octubre'
+        }
+      }
+    ];
 
     // ==============================
     // STATE
     // ==============================
-    let events = [];
-    let allDates = new Set();
+    let events = [];           // semana actual
+    let allDates = new Set();  // semana actual
+    let archive = {};          // {weekKey: {total, byDay: {date: [ev,...]}, flat: [ev,...]}}
 
     // ==============================
-    // CSV PARSER ROBUSTO
+    // HELPERS
     // ==============================
+    const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
+
     function normalizeDate(x) {
       if (!x) return "";
       const s = String(x).trim();
-      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s; // ya OK
-      // dd/mm/yyyy o d/m/yy
+      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
       const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
       if (m) {
         let [, d, mo, y] = m;
         if (y.length === 2) y = (Number(y) > 50 ? "19" : "20") + y;
         return `${y.padStart(4,"0")}-${mo.padStart(2,"0")}-${d.padStart(2,"0")}`;
       }
-      return ""; // formato raro -> descartar
+      return "";
     }
-
     function normalizeTime(x) {
       if (x === null || x === undefined) return "";
       let s = String(x).trim().toLowerCase();
-      // quita am/pm sueltos si no estás usando 12h
       s = s.replace(/\s*[ap]\.?m\.?$/,"");
-      if (/^\d{1,2}:\d{2}$/.test(s)) {
-        const [h, m] = s.split(":");
-        return `${h.padStart(2,"0")}:${m}`;
-      }
+      if (/^\d{1,2}:\d{2}$/.test(s)) { const [h, m] = s.split(":"); return `${h.padStart(2,"0")}:${m}`; }
       if (/^\d{1,2}$/.test(s)) return `${s.padStart(2,"0")}:00`;
       const f = parseFloat(s.replace(",", "."));
-      if (!isNaN(f)) { // 6.5 -> 06:30
-        const h = Math.floor(f);
-        const m = Math.round((f - h) * 60);
-        return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`;
-      }
+      if (!isNaN(f)) { const h = Math.floor(f), m = Math.round((f - h) * 60); return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`; }
       return "";
     }
-
     function getField(row, keys) {
-      for (const k of keys) {
-        if (row[k] !== undefined && String(row[k]).trim() !== "") return String(row[k]).trim();
-      }
+      for (const k of keys) { if (row[k] !== undefined && String(row[k]).trim() !== "") return String(row[k]).trim(); }
       return "";
     }
-
     function parseCSV(csv) {
       const result = Papa.parse(csv, {
-        header: true,
-        skipEmptyLines: "greedy",
-        transformHeader: h => String(h).trim().toLowerCase()
+        header: true, skipEmptyLines: "greedy", transformHeader: h => String(h).trim().toLowerCase()
       });
-
-      if (result.errors?.length) console.warn("PapaParse errors:", result.errors.slice(0,3));
-
       const rows = [];
       for (const row of result.data) {
         const date = normalizeDate(getField(row, ["date","fecha","día","dia"]));
@@ -213,19 +200,16 @@
         const link = getField(row, ["link","enlace","url"]);
         const organizer = getField(row, ["organizer","organizador","host","org","institucion","institución"]);
         const category = getField(row, ["category","categoría","categoria","especialidad"]);
-
-        if (date && time && title) {
-          rows.push({ date, time, title, link, organizer, category });
-          allDates.add(date);
-        }
+        if (date && time && title) rows.push({ date, time, title, link, organizer, category });
       }
       return rows;
     }
+    function withinRange(dateStr, start, end) { return dateStr >= start && dateStr <= end; }
 
     // ==============================
-    // RENDER
+    // RENDER – Semana actual
     // ==============================
-    function updateDateFilter() {
+    function updateDateFilter(dayNames) {
       const select = document.getElementById('dayFilter');
       select.innerHTML = '';
       const optAll = document.createElement('option');
@@ -239,9 +223,11 @@
         option.textContent = dayNames[date] || date;
         select.appendChild(option);
       });
+      const sorted = Array.from(allDates).sort();
+      if (sorted.length) select.value = sorted[0];
     }
 
-    function renderEvents(filteredEvents) {
+    function renderEvents(filteredEvents, dayNames) {
       const container = document.getElementById('eventsContainer');
       container.innerHTML = '';
 
@@ -261,10 +247,11 @@
         const daySection = document.createElement('div');
         daySection.className = 'day-section';
 
+        const count = eventsByDay[date].length;
         const dayHeader = document.createElement('div');
         dayHeader.className = 'day-header';
         dayHeader.innerHTML = `
-          <div class="day-title">${dayNames[date] || date}</div>
+          <div class="day-title">${(dayNames[date] || date)} <span style="color:#999; font-weight:600;">(${count})</span></div>
           <button class="btn-secondary" data-day="${date}">📥 Exportar día (.ics)</button>
         `;
         daySection.appendChild(dayHeader);
@@ -281,7 +268,7 @@
             <div class="event-title">${event.title}</div>
             <div class="event-organizer">📍 ${event.organizer || '—'}</div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              ${event.link ? `<a href="${event.link}" target="_blank" class="event-link">Unirse al evento →</a>` : ''}
+              ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Unirse al evento →</a>` : ''}
               <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title||'').replace(/\s+/g,'_')}">.ics</button>
             </div>
           `;
@@ -292,10 +279,8 @@
         container.appendChild(daySection);
       });
 
-      // contar visibles
       document.getElementById('visibleEvents').textContent = String(filteredEvents.length);
 
-      // wire: export day
       document.querySelectorAll('[data-day]').forEach(btn => {
         btn.onclick = () => exportICS(
           filteredEvents.filter(e => e.date === btn.dataset.day),
@@ -303,10 +288,9 @@
         );
       });
 
-      // wire: per-event ics
       document.querySelectorAll('[data-ics]').forEach(btn => {
         btn.onclick = () => {
-          const [d,t,slug] = btn.dataset.ics.split('__');
+          const [d,t] = btn.dataset.ics.split('__');
           const ev = filteredEvents.find(e => e.date===d && e.time===t);
           if (ev) exportICS([ev], `evento-${d}-${t.replace(':','')}.ics`);
         };
@@ -314,9 +298,94 @@
     }
 
     // ==============================
-    // FILTROS
+    // ARCHIVO – Semanas anteriores
     // ==============================
-    function filterEvents() {
+    function renderArchive(weekKey) {
+      const acc = document.getElementById('archiveAccordion');
+      const data = archive[weekKey];
+      const week = WEEKS.find(w => w.key === weekKey);
+      if (!data || !week) return;
+
+      const total = data.flat.length;
+      if (weekKey === 'prev') {
+        document.getElementById('prevWeekEvents').textContent = String(total);
+      }
+
+      const header = document.createElement('button');
+      header.className = 'accordion-header';
+      header.textContent = `${week.label} · total ${total} eventos`;
+      header.onclick = () => header.classList.toggle('open');
+
+      const content = document.createElement('div');
+      content.className = 'accordion-content';
+
+      const exportBtn = document.createElement('button');
+      exportBtn.className = 'btn-secondary';
+      exportBtn.style.margin = '6px 0 12px 0';
+      exportBtn.textContent = '📥 Exportar semana (.ics)';
+      exportBtn.onclick = () => exportICS(data.flat, `eventos_${week.label.replace(/\s+/g,'_')}.ics`);
+      content.appendChild(exportBtn);
+
+      Object.keys(data.byDay).sort().forEach(date => {
+        const list = data.byDay[date];
+        const wrap = document.createElement('div');
+        wrap.className = 'day-section';
+
+        const dayHeader = document.createElement('div');
+        dayHeader.className = 'day-header';
+        dayHeader.innerHTML = `
+          <div class="day-title">${(week.dayNames[date] || date)} <span style="color:#999; font-weight:600;">(${list.length})</span></div>
+          <button class="btn-secondary" data-archived-day="${weekKey}__${date}">📥 Exportar día (.ics)</button>
+        `;
+        wrap.appendChild(dayHeader);
+
+        const grid = document.createElement('div');
+        grid.className = 'events-grid';
+        list.forEach(ev => {
+          const card = document.createElement('div');
+          card.className = 'event-card';
+          card.innerHTML = `
+            <div class="category-tag">${ev.category || 'General'}</div>
+            <div class="event-time">🕐 ${ev.time}</div>
+            <div class="event-title">${ev.title}</div>
+            <div class="event-organizer">📍 ${ev.organizer || '—'}</div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              ${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link">Unirse al evento →</a>` : ''}
+              <button class="ics-btn" data-archived-ics="${weekKey}__${ev.date}__${ev.time}">.ics</button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        wrap.appendChild(grid);
+        content.appendChild(wrap);
+      });
+
+      const block = document.createElement('div');
+      block.className = 'accordion-item';
+      block.appendChild(header);
+      block.appendChild(content);
+      acc.appendChild(block);
+
+      content.querySelectorAll('[data-archived-day]').forEach(btn => {
+        btn.onclick = () => {
+          const [, date] = btn.dataset.archivedDay.split('__');
+          exportICS(archive[weekKey].byDay[date], `eventos-${date}.ics`);
+        };
+      });
+      content.querySelectorAll('[data-archived-ics]').forEach(btn => {
+        btn.onclick = () => {
+          const [, d, t] = btn.dataset.archivedIcs.split('__');
+          const ev = archive[weekKey].flat.find(e => e.date===d && e.time===t);
+          if (ev) exportICS([ev], `evento-${d}-${t.replace(':','')}.ics`);
+        };
+      });
+    }
+
+    // ==============================
+    // FILTROS – Semana actual
+    // ==============================
+    function filterEvents(dayNames) {
       const dayFilter = document.getElementById('dayFilter').value;
       const search = (document.getElementById('searchFilter').value || '').toLowerCase();
 
@@ -327,29 +396,23 @@
         return okDay && okSearch;
       });
 
-      renderEvents(out);
+      renderEvents(out, dayNames);
     }
 
     // ==============================
     // ICS
     // ==============================
     function toICS(eventsList) {
-      const lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Critical Care Webinars//Jhan//ES"
-      ];
+      const lines = [ "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Critical Care Webinars//Jhan//ES" ];
       const now = new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z/,"Z");
 
       for (const ev of eventsList) {
-        // Evitar problemas: construir un Date usando fecha y hora locales y pasarlo a UTC
         const [h, m] = (ev.time || "00:00").split(':').map(n => parseInt(n || "0", 10));
         const [Y, Mo, D] = ev.date.split('-').map(n => parseInt(n, 10));
         const start = new Date(Y, (Mo-1), D, h, m, 0);
-        // Duración por defecto: 60 min si no hay fin específico
         const end = new Date(start.getTime() + 60*60*1000);
 
-        const fmt = d => new Date(d.getTime() - d.getTimezoneOffset()*60000) // to UTC ISO
+        const fmt = d => new Date(d.getTime() - d.getTimezoneOffset()*60000)
                           .toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z/,"Z");
 
         lines.push("BEGIN:VEVENT");
@@ -365,7 +428,6 @@
       lines.push("END:VCALENDAR");
       return lines.join("\r\n");
     }
-
     function exportICS(list, filename) {
       const blob = new Blob([toICS(list)], {type:"text/calendar"});
       const url = URL.createObjectURL(blob);
@@ -376,37 +438,51 @@
     // ==============================
     // LOAD
     // ==============================
-    async function loadEvents() {
+    async function loadWeek(week) {
+      const res = await fetch(buildSheetUrl(week.gid), { cache: "no-store" });
+      if (!res.ok) throw new Error(`No se pudo cargar el CSV de ${week.label}`);
+      const csv = await res.text();
+      const parsed = parseCSV(csv)
+        .filter(e => withinRange(e.date, week.start, week.end))
+        .sort((a,b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+      return parsed;
+    }
+
+    async function loadAll() {
       const $loading = document.getElementById('loadingSection');
       const $error = document.getElementById('errorSection');
       const $main = document.getElementById('mainContent');
 
-      $loading.style.display = 'block';
-      $error.style.display = 'none';
-      $main.style.display = 'none';
+      $loading.style.display = 'block'; $error.style.display = 'none'; $main.style.display = 'none';
 
       try {
-        const res = await fetch(GOOGLE_SHEET_URL, { cache: "no-store" });
-        if (!res.ok) throw new Error('No se pudo cargar el CSV publicado');
-        const csv = await res.text();
+        const [currentList, prevList] = await Promise.all([
+          loadWeek(WEEKS.find(w => w.key==='current')),
+          loadWeek(WEEKS.find(w => w.key==='prev'))
+        ]);
 
-        // limpiar estado
-        events.length = 0;
-        allDates.clear();
-
-        // parsear
-        const parsed = parseCSV(csv);
-        // ordenar por fecha y hora
-        parsed.sort((a,b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
-        parsed.forEach(e => events.push(e));
-
-        // UI
+        // Semana actual
+        events.length = 0; allDates.clear();
+        currentList.forEach(e => { events.push(e); allDates.add(e.date); });
         document.getElementById('totalEvents').textContent = String(events.length);
-        updateDateFilter();
-        filterEvents();
+        updateDateFilter(WEEKS.find(w=>w.key==='current').dayNames);
+        filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
 
-        $loading.style.display = 'none';
-        $main.style.display = 'block';
+        // Archivo semana previa
+        const prev = WEEKS.find(w => w.key==='prev');
+        archive['prev'] = {
+          flat: prevList.slice(),
+          byDay: prevList.reduce((acc, ev) => { (acc[ev.date] ||= []).push(ev); return acc; }, {})
+        };
+        const hasArchive = archive['prev'].flat.length > 0;
+        document.getElementById('archiveBlock').style.display = hasArchive ? 'block' : 'none';
+        if (hasArchive) {
+          const acc = document.getElementById('archiveAccordion');
+          acc.innerHTML = '';
+          renderArchive('prev');
+        }
+
+        $loading.style.display = 'none'; $main.style.display = 'block';
       } catch (err) {
         console.error(err);
         $loading.style.display = 'none';
@@ -415,36 +491,25 @@
           <strong>⚠️ Error al cargar eventos</strong><br>
           ${err.message}<br><br>
           Verifica que:<br>
-          • La hoja esté <em>Publicada en la web</em> como CSV<br>
-          • El enlace sea el correcto (mismo <code>gid</code>)<br><br>
+          • Ambas hojas estén <em>Publicadas en la web</em> como CSV<br>
+          • Estés usando el <code>gid</code> correcto de la <b>Hoja 1 (6–11)</b> y <b>Hoja 2 (13–18)</b><br><br>
           <button class="btn-secondary" id="retryBtn">Reintentar</button>
         `;
-        document.getElementById('retryBtn').onclick = loadEvents;
+        document.getElementById('retryBtn').onclick = loadAll;
       }
     }
 
     // ==============================
     // INIT + LISTENERS
     // ==============================
-    document.getElementById('reloadBtn').onclick = loadEvents;
-    document.getElementById('searchFilter').oninput = filterEvents;
-    document.getElementById('dayFilter').onchange = filterEvents;
-    document.getElementById('exportWeek').onclick = () => {
-      const now = new Date();
-      const end = new Date(now.getTime() + 7*24*60*60*1000);
-      const inWeek = events.filter(e => {
-        const [Y,Mo,D] = e.date.split('-').map(n=>parseInt(n,10));
-        const [h,m] = (e.time||"00:00").split(':').map(n=>parseInt(n||"0",10));
-        const dt = new Date(Y,Mo-1,D,h,m,0);
-        return dt >= now && dt <= end;
-      });
-      exportICS(inWeek, 'eventos-semana.ics');
-    };
+    document.getElementById('reloadBtn').onclick = loadAll;
+    document.getElementById('searchFilter').oninput = () => filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
+    document.getElementById('dayFilter').onchange = () => filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
+    document.getElementById('exportWeek').onclick = () => exportICS(events, 'eventos-semana-actual.ics');
 
-    // carga inicial
-    loadEvents();
-    // auto-refresh cada 5 min
-    setInterval(loadEvents, 300000);
+    loadAll();
+    setInterval(loadAll, 300000);
   </script>
 </body>
 </html>
+
