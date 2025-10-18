@@ -123,6 +123,45 @@
   width: 100%; height: auto; margin-top: 10px; border-radius: 8px;
   border: 1px solid rgba(102,126,234,.25);
 }
+    /* 💙 Featured ICU course (OPS / FEPIMCTI) */
+.featured-icu{
+  border: 3px solid #0099cc !important;
+  background: linear-gradient(135deg,#f0faff 0%, #e6f4ff 100%) !important;
+  position: relative;
+}
+.featured-icu .featured-badge{
+  background: #0099cc;
+  box-shadow: 0 2px 8px rgba(0,153,204,.25);
+}
+.featured-icu .resource-cta{
+  background: linear-gradient(135deg,#00aaff 0%, #007acc 100%);
+  box-shadow: 0 6px 16px rgba(0,153,204,.25);
+}
+.featured-icu .resource-cta:hover{
+  box-shadow: 0 10px 24px rgba(0,153,204,.35);
+  transform: translateY(-2px);
+}
+
+/* 🟡 Featured gold (Ferrero-style) */
+.featured-gold{
+  border: 3px solid #ffd700 !important;
+  background: linear-gradient(135deg,#fffbe6 0%, #fff9d9 100%) !important;
+  position: relative;
+}
+.featured-gold .featured-badge{
+  background: #d4af37;
+  color: #000;
+  box-shadow: 0 2px 8px rgba(212,175,55,.25);
+}
+.featured-gold .resource-cta{
+  background: linear-gradient(135deg,#ffe066 0%, #ffcc00 100%);
+  color: #000;
+  box-shadow: 0 6px 16px rgba(212,175,55,.25);
+}
+.featured-gold .resource-cta:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(212,175,55,.35);
+}
     @media (max-width: 768px) { h1 { font-size: 1.8em; } .events-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -197,77 +236,90 @@
 
         <!-- 🎓 RECOMMENDED COURSES -->
         <h3>🎓 Recommended Courses</h3>
-        <div class="resource-grid">
-          <div class="resource-card featured-sim"
-     onclick="window.open('https://lnkd.in/ePXZUYVr', '_blank')"
-     role="button" aria-label="Competencias Docentes para el entorno clínico de aprendizaje. Regístrate ahora">
-  <div class="featured-badge">FEATURED</div>
-  <h4>🩺 Competencias Docentes para el entorno clínico de aprendizaje</h4>
-  <ul style="margin:8px 0 10px 18px; color:#555; font-size:0.95em; line-height:1.4;">
-    <li><strong>Diseñado por:</strong> Dr. Ismael David Piedra</li>
-    <li><strong>Modalidad:</strong> Autogestiva</li>
-    <li><strong>Organiza:</strong> AMFEM (Asociación Mexicana de Facultades y Escuelas de Medicina, A.C.)</li>
-  </ul>
-  <button class="resource-cta">¡REGÍSTRATE AHORA!</button>
-  <!-- (Opcional) Si luego tienes una imagen del afiche, descomenta:
-  <img src="URL_DE_TU_IMAGEN.jpg" alt="Afiche del curso Competencias Docentes para el entorno clínico de aprendizaje" class="featured-thumb">
-  -->
-            <!-- ⭐ Featured course for intensivists -->
-<div class="resource-card featured-icu"
-     onclick="window.open('https://campus.paho.org/es/curso/manejo-sepsis', '_blank')"
-     role="button" aria-label="Curso de Sepsis OPS/FEPIMCTI gratuito">
-  <div class="featured-badge">FEATURED</div>
-  <h4>🧬 Curso de Sepsis OPS / FEPIMCTI</h4>
-  <ul style="margin:8px 0 10px 18px; color:#555; font-size:0.95em; line-height:1.4;">
-    <li><strong>Organiza:</strong> Organización Panamericana de la Salud (OPS) &amp; FEPIMCTI</li>
-    <li><strong>Dirigido a:</strong> Profesionales de cuidados críticos y urgencias</li>
-    <li><strong>Modalidad:</strong> En línea, autogestivo y <span style="color:#007b00;font-weight:600;">GRATUITO</span></li>
-  </ul>
-  <button class="resource-cta">🌐 Ir al curso gratuito</button>
-  <!-- (Opcional) Si tienes una imagen del curso:
-  <img src="URL_DE_LA_IMAGEN.jpg" alt="Afiche del curso de Sepsis OPS / FEPIMCTI" class="featured-thumb">
-  -->
-</div>
-          <div class="resource-card" onclick="window.open('https://getinge.training/lms/signin', '_blank')">
-            <h4>Getinge Training LMS</h4>
-            <p>E-learning platform with modules on ventilation, ECMO, perfusion, and critical care.
-              <strong>Registration required</strong> and <strong>certificate-awarding courses</strong>.</p>
-            <span class="resource-link">Go to Getinge Training →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://advancedrenaleducation.com/wparep/emea/elearning/critical-care/', '_blank')">
-            <h4>AREP – Critical Care (Advanced Renal Education Program)</h4>
-            <p>Modules on CRRT, ICU hemodialysis, ultrafiltration, and renal support in critically ill patients.
-              <strong>Certificate awarded</strong>.</p>
-            <span class="resource-link">Explore AREP →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://www.fluidacademy.org/', '_blank')">
-            <h4>Fluid Academy – Fluid Championship</h4>
-            <p>Program/challenges on fluid stewardship and optimization of fluid therapy in critical care.
-              <strong>Certificate awarded</strong>.</p>
-            <span class="resource-link">Fluid Academy →</span>
-          </div>
+<div class="resource-grid">
+  <!-- ⭐ Featured course for simulationists -->
+  <div class="resource-card featured-sim"
+       onclick="window.open('https://lnkd.in/ePXZUYVr', '_blank')"
+       role="button"
+       aria-label="Competencias Docentes para el entorno clínico de aprendizaje. Regístrate ahora">
+    <div class="featured-badge">FEATURED</div>
+    <h4>🩺 Competencias Docentes para el entorno clínico de aprendizaje</h4>
+    <ul style="margin:8px 0 10px 18px; color:#555; font-size:0.95em; line-height:1.4;">
+      <li><strong>Diseñado por:</strong> Dr. Ismael David Piedra</li>
+      <li><strong>Modalidad:</strong> Autogestiva</li>
+      <li><strong>Organiza:</strong> AMFEM (Asociación Mexicana de Facultades y Escuelas de Medicina, A.C.)</li>
+    </ul>
+    <button class="resource-cta">¡REGÍSTRATE AHORA!</button>
+  </div>
 
-          <div class="resource-card" onclick="window.open('https://www.fccs.org/', '_blank')">
-            <h4>FCCS (Fundamental Critical Care Support)</h4>
-            <p>Core SCCM course for the management of the critically ill patient.</p>
-            <span class="resource-link">Learn more →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://www.atls.org/', '_blank')">
-            <h4>ATLS (Advanced Trauma Life Support)</h4>
-            <p>Gold standard for initial trauma management (American College of Surgeons).</p>
-            <span class="resource-link">Learn more →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://acls.com/', '_blank')">
-            <h4>ACLS (Advanced Cardiovascular Life Support)</h4>
-            <p>Advanced cardiovascular life support (AHA).</p>
-            <span class="resource-link">Learn more →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://www.sccm.org/Education-Center', '_blank')">
-            <h4>SCCM Education Center</h4>
-            <p>Educational platform with SCCM courses and webinars.</p>
-            <span class="resource-link">Learn more →</span>
-          </div>
-        </div>
+  <!-- ⭐ Featured course for intensivists (OPS / FEPIMCTI) -->
+  <div class="resource-card featured-icu"
+       onclick="window.open('https://campus.paho.org/es/curso/manejo-sepsis', '_blank')"
+       role="button"
+       aria-label="Curso de Sepsis OPS/FEPIMCTI gratuito">
+    <div class="featured-badge">FEATURED</div>
+    <h4>🧬 Curso de Sepsis OPS / FEPIMCTI</h4>
+    <ul style="margin:8px 0 10px 18px; color:#555; font-size:0.95em; line-height:1.4;">
+      <li><strong>Organiza:</strong> Organización Panamericana de la Salud (OPS) &amp; FEPIMCTI</li>
+      <li><strong>Dirigido a:</strong> Profesionales de cuidados críticos y urgencias</li>
+      <li><strong>Modalidad:</strong> En línea, autogestivo y <span style="color:#007b00;font-weight:600;">GRATUITO</span></li>
+    </ul>
+    <button class="resource-cta">🌐 Ir al curso gratuito</button>
+  </div>
+
+  <!-- ⭐ Featured – estilo “gold” como el de Ferrero (ajusta título/enlace del Dr. Noriega) -->
+  <div class="resource-card featured-gold"
+       onclick="window.open('https://TU-ENLACE-DEL-CURSO-DR-NORIEGA', '_blank')"
+       role="button"
+       aria-label="Curso destacado del Dr. Noriega">
+    <div class="featured-badge">FEATURED</div>
+    <h4>🏅 Curso del Dr. Noriega</h4>
+    <p style="color:#555; font-size:0.95em; line-height:1.4;">
+      Curso clínico para intensivistas. (Describe en una línea el foco del curso).
+    </p>
+    <span class="resource-link">Abrir curso →</span>
+  </div>
+
+  <!-- resto de cursos (no featured) -->
+  <div class="resource-card" onclick="window.open('https://getinge.training/lms/signin', '_blank')">
+    <h4>Getinge Training LMS</h4>
+    <p>E-learning platform with modules on ventilation, ECMO, perfusion, and critical care.
+      <strong>Registration required</strong> and <strong>certificate-awarding courses</strong>.</p>
+    <span class="resource-link">Go to Getinge Training →</span>
+  </div>
+  <div class="resource-card" onclick="window.open('https://advancedrenaleducation.com/wparep/emea/elearning/critical-care/', '_blank')">
+    <h4>AREP – Critical Care (Advanced Renal Education Program)</h4>
+    <p>Modules on CRRT, ICU hemodialysis, ultrafiltration, and renal support in critically ill patients.
+      <strong>Certificate awarded</strong>.</p>
+    <span class="resource-link">Explore AREP →</span>
+  </div>
+  <div class="resource-card" onclick="window.open('https://www.fluidacademy.org/', '_blank')">
+    <h4>Fluid Academy – Fluid Championship</h4>
+    <p>Program/challenges on fluid stewardship and optimization of fluid therapy in critical care.
+      <strong>Certificate awarded</strong>.</p>
+    <span class="resource-link">Fluid Academy →</span>
+  </div>
+  <div class="resource-card" onclick="window.open('https://www.fccs.org/', '_blank')">
+    <h4>FCCS (Fundamental Critical Care Support)</h4>
+    <p>Core SCCM course for the management of the critically ill patient.</p>
+    <span class="resource-link">Learn more →</span>
+  </div>
+  <div class="resource-card" onclick="window.open('https://www.atls.org/', '_blank')">
+    <h4>ATLS (Advanced Trauma Life Support)</h4>
+    <p>Gold standard for initial trauma management (American College of Surgeons).</p>
+    <span class="resource-link">Learn more →</span>
+  </div>
+  <div class="resource-card" onclick="window.open('https://acls.com/', '_blank')">
+    <h4>ACLS (Advanced Cardiovascular Life Support)</h4>
+    <p>Advanced cardiovascular life support (AHA).</p>
+    <span class="resource-link">Learn more →</span>
+  </div>
+  <div class="resource-card" onclick="window.open('https://www.sccm.org/Education-Center', '_blank')">
+    <h4>SCCM Education Center</h4>
+    <p>Educational platform with SCCM courses and webinars.</p>
+    <span class="resource-link">Learn more →</span>
+  </div>
+</div>
 
         <!-- 📱 ESSENTIAL APPS -->
         <h3>📱 Essential Apps for Intensivists</h3>
