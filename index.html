@@ -95,7 +95,34 @@
     .resource-card p { color: #555; font-size: 0.9em; line-height: 1.4; }
     .resource-link { color: #764ba2; text-decoration: none; font-weight: bold; font-size: 0.9em; display: inline-block; margin-top: 8px; }
     .resource-link:hover { text-decoration: underline; }
-
+/* Featured card visual */
+.featured-sim{
+  border: 3px solid #8a7eff !important;
+  background: linear-gradient(135deg,#fff9fb 0%, #f2f4ff 100%) !important;
+  position: relative;
+}
+.featured-badge{
+  position: absolute; top: 10px; right: 10px;
+  background: #8a7eff; color: #fff; font-weight: 800;
+  font-size: 0.75rem; letter-spacing: .5px;
+  padding: 3px 8px; border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(138,126,255,.25);
+}
+.resource-cta{
+  display: inline-block;
+  margin-top: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff; border: none; border-radius: 8px;
+  padding: 10px 16px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 6px 16px rgba(118,75,162,.25);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.resource-cta:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(118,75,162,.35); }
+/* (Opcional) miniatura si agregas imagen */
+.featured-thumb{
+  width: 100%; height: auto; margin-top: 10px; border-radius: 8px;
+  border: 1px solid rgba(102,126,234,.25);
+}
     @media (max-width: 768px) { h1 { font-size: 1.8em; } .events-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -104,12 +131,12 @@
     <header>
       <h1>📅 Critical Care Webinars</h1>
       <p class="subtitle">
-        Week of <strong>October 13–18, 2025</strong> · <span class="small-note">Times shown in Lima (GMT-5)</span>
+        Week of <strong>October 20–25, 2025</strong> · <span class="small-note">Times shown in Lima (GMT-5)</span>
       </p>
       <div class="intro">
         <strong>What is Critical Care Webinars?</strong><br>
         Academic, living, and curated agenda of <em>webinars, courses, and events</em> in critical care, ECMO, clinical simulation, patient safety, and AI in healthcare. It consolidates learning opportunities in one place and presents them with time-zone conversion to Lima (GMT-5).
-        <br><strong>Last week we recorded 70 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
+        <br><strong>Last week we recorded more than 100 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
       </div>
     </header>
 
@@ -171,6 +198,36 @@
         <!-- 🎓 RECOMMENDED COURSES -->
         <h3>🎓 Recommended Courses</h3>
         <div class="resource-grid">
+          <div class="resource-card featured-sim"
+     onclick="window.open('https://lnkd.in/ePXZUYVr', '_blank')"
+     role="button" aria-label="Competencias Docentes para el entorno clínico de aprendizaje. Regístrate ahora">
+  <div class="featured-badge">FEATURED</div>
+  <h4>🩺 Competencias Docentes para el entorno clínico de aprendizaje</h4>
+  <ul style="margin:8px 0 10px 18px; color:#555; font-size:0.95em; line-height:1.4;">
+    <li><strong>Diseñado por:</strong> Dr. Ismael David Piedra</li>
+    <li><strong>Modalidad:</strong> Autogestiva</li>
+    <li><strong>Organiza:</strong> AMFEM (Asociación Mexicana de Facultades y Escuelas de Medicina, A.C.)</li>
+  </ul>
+  <button class="resource-cta">¡REGÍSTRATE AHORA!</button>
+  <!-- (Opcional) Si luego tienes una imagen del afiche, descomenta:
+  <img src="URL_DE_TU_IMAGEN.jpg" alt="Afiche del curso Competencias Docentes para el entorno clínico de aprendizaje" class="featured-thumb">
+  -->
+            <!-- ⭐ Featured course for intensivists -->
+<div class="resource-card featured-icu"
+     onclick="window.open('https://campus.paho.org/es/curso/manejo-sepsis', '_blank')"
+     role="button" aria-label="Curso de Sepsis OPS/FEPIMCTI gratuito">
+  <div class="featured-badge">FEATURED</div>
+  <h4>🧬 Curso de Sepsis OPS / FEPIMCTI</h4>
+  <ul style="margin:8px 0 10px 18px; color:#555; font-size:0.95em; line-height:1.4;">
+    <li><strong>Organiza:</strong> Organización Panamericana de la Salud (OPS) &amp; FEPIMCTI</li>
+    <li><strong>Dirigido a:</strong> Profesionales de cuidados críticos y urgencias</li>
+    <li><strong>Modalidad:</strong> En línea, autogestivo y <span style="color:#007b00;font-weight:600;">GRATUITO</span></li>
+  </ul>
+  <button class="resource-cta">🌐 Ir al curso gratuito</button>
+  <!-- (Opcional) Si tienes una imagen del curso:
+  <img src="URL_DE_LA_IMAGEN.jpg" alt="Afiche del curso de Sepsis OPS / FEPIMCTI" class="featured-thumb">
+  -->
+</div>
           <div class="resource-card" onclick="window.open('https://getinge.training/lms/signin', '_blank')">
             <h4>Getinge Training LMS</h4>
             <p>E-learning platform with modules on ventilation, ECMO, perfusion, and critical care.
@@ -444,44 +501,47 @@ Each podcast offers a unique perspective on innovation, leadership, and frontlin
     // ==============================
     // CONFIG
     // ==============================
-    const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
+   const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
 
-    // Confirmed GIDs
-    const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
-    const GID_SHEET_1 = '0';         // Week 1 (Oct 6–11, 2025)
+// Confirmed GIDs
+const GID_SHEET_3 = '248417399'; // Week 3 (Oct 20–25, 2025)  << hoja 3
+const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
+// (Si quieres mantener Week 1 como archivo histórico, puedes dejarla, pero ya no se usa aquí)
 
-    const WEEKS = [
-      {
-        key: 'current',
-        label: 'Week Oct 13–18, 2025',
-        gid: GID_SHEET_2,
-        start: '2025-10-13',
-        end:   '2025-10-18',
-        dayNames: {
-          '2025-10-13': 'Monday, Oct 13',
-          '2025-10-14': 'Tuesday, Oct 14',
-          '2025-10-15': 'Wednesday, Oct 15',
-          '2025-10-16': 'Thursday, Oct 16',
-          '2025-10-17': 'Friday, Oct 17',
-          '2025-10-18': 'Saturday, Oct 18'
-        }
-      },
-      {
-        key: 'prev',
-        label: 'Week Oct 6–11, 2025',
-        gid: GID_SHEET_1,
-        start: '2025-10-06',
-        end:   '2025-10-11',
-        dayNames: {
-          '2025-10-06': 'Monday, Oct 6',
-          '2025-10-07': 'Tuesday, Oct 7',
-          '2025-10-08': 'Wednesday, Oct 8',
-          '2025-10-09': 'Thursday, Oct 9',
-          '2025-10-10': 'Friday, Oct 10',
-          '2025-10-11': 'Saturday, Oct 11'
-        }
-      }
-    ];
+
+ const WEEKS = [
+  {
+    key: 'current',
+    label: 'Week Oct 20–25, 2025',
+    gid: GID_SHEET_3,
+    start: '2025-10-20',
+    end:   '2025-10-25',
+    dayNames: {
+      '2025-10-20': 'Monday, Oct 20',
+      '2025-10-21': 'Tuesday, Oct 21',
+      '2025-10-22': 'Wednesday, Oct 22',
+      '2025-10-23': 'Thursday, Oct 23',
+      '2025-10-24': 'Friday, Oct 24',
+      '2025-10-25': 'Saturday, Oct 25'
+    }
+  },
+  {
+    key: 'prev',
+    label: 'Week Oct 13–18, 2025',
+    gid: GID_SHEET_2,
+    start: '2025-10-13',
+    end:   '2025-10-18',
+    dayNames: {
+      '2025-10-13': 'Monday, Oct 13',
+      '2025-10-14': 'Tuesday, Oct 14',
+      '2025-10-15': 'Wednesday, Oct 15',
+      '2025-10-16': 'Thursday, Oct 16',
+      '2025-10-17': 'Friday, Oct 17',
+      '2025-10-18': 'Saturday, Oct 18'
+    }
+  }
+];
+
     const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
 
     // ==============================
