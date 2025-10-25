@@ -563,6 +563,8 @@ Each podcast offers a unique perspective on innovation, leadership, and frontlin
 // Confirmed GIDs
 const GID_SHEET_3 = '248417399'; // Week 3 (Oct 20–25, 2025)  << hoja 3
 const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
+const GID_SHEET_4 = '1475156769'; // Week 4 (Oct 26 – Nov 1, 2025)
+
 // (Si quieres mantener Week 1 como archivo histórico, puedes dejarla, pero ya no se usa aquí)
 
 const WEEKS = [
@@ -585,7 +587,7 @@ const WEEKS = [
   {
     key: 'prev',
     label: 'Week Oct 20–25, 2025',
-    gid: GID_SHEET_3, // tu hoja actual semana 20–25
+    gid: GID_SHEET_3,
     start: '2025-10-20',
     end:   '2025-10-25',
     dayNames: {
@@ -598,7 +600,6 @@ const WEEKS = [
     }
   }
 ];
-
 
     const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
 
