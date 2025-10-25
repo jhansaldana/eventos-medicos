@@ -7,7 +7,7 @@
 
   <!-- PapaParse for robust CSV parsing -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  
+
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1WKDR4C816"></script>
   <script>
@@ -218,7 +218,7 @@
           <div class="stat-label">Upcoming events (current week)</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number" id="prevWeekEvents">70</div>
+          <div class="stat-number" id="prevWeekEvents">120</div>
           <div class="stat-label">Events last week</div>
         </div>
         <div class="stat-item">
@@ -599,12 +599,11 @@
 
     async function loadWeek(week) {
       const url = buildSheetUrl(week.gid);
-      console.log(`Loading ${week.label} from:`, url);
+      console.log(`Loading ${week.label}...`);
       
       try {
         const res = await fetch(url, { 
           cache: "no-store",
-          mode: 'cors',
           headers: {
             'Accept': 'text/csv,text/plain,*/*'
           }
@@ -620,7 +619,7 @@
           throw new Error('Empty response received');
         }
         
-        console.log(`✓ Loaded ${week.label}: ${csv.substring(0, 100)}...`);
+        console.log(`✓ Loaded ${week.label}: ${csv.substring(0, 50)}...`);
         
         const parsed = parseCSV(csv);
         const filtered = parsed.filter(e => withinRange(e.date, week.start, week.end));
@@ -631,7 +630,7 @@
         
       } catch (err) {
         console.error(`✗ Failed to load ${week.label}:`, err);
-        throw new Error(`Cannot access ${week.label}.\n\nPossible causes:\n• Sheet not published as CSV\n• Incorrect GID\n• Network/CORS issue\n\nURL: ${url}\n\nError: ${err.message}`);
+        throw new Error(`Cannot load ${week.label}: ${err.message}`);
       }
     }
 
