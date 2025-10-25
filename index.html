@@ -132,6 +132,32 @@
   transform: translateY(-2px);
   box-shadow: 0 10px 24px rgba(212,175,55,.35);
 }
+/* Subtle highlight for certified webinars */
+.event-card.certified {
+  background: #f3fbf6;              /* very light green */
+  border-left-color: #84d8a7;       /* soft green accent */
+}
+
+/* Small badges */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.06);
+  margin-left: 8px;
+}
+.badge-cert {
+  background: #e9f8ef;
+  border-color: #bfead0;
+  color: #146c43;
+}
+.badge-lang {
+  background: #eef1ff;
+  border-color: #cfd7ff;
+  color: #4b5bdc;
+  margin-left: 0;
+}
 
     @media (max-width: 768px) { h1 { font-size: 1.8em; } .events-grid { grid-template-columns: 1fr; } }
   </style>
@@ -140,10 +166,20 @@
   <div class="container">
     <header>
       <h1>📅 Critical Care Webinars</h1>
-      <p class="subtitle">
-        Week of <strong>October 20–25, 2025</strong> · <span class="small-note">Times shown in Lima (GMT-5)</span>
-      </p>
+       <p class="subtitle">
+        Week of <strong>October 26 – November 1, 2025</strong> · <span class="small-note">Times shown in Lima (GMT-5)</span>
+    </p>
+
       <div class="intro">
+        <!-- <<< NEW: Weekly milestone banner (EN) -->
+<div class="weekly-update featured-gold p-4 rounded-2xl shadow-lg text-center" style="margin-top:14px;">
+  <h3>🌎 Week of Oct 26 – Nov 1</h3>
+  <p>
+    <strong>Critical Care Webinars</strong> has reached professionals in <strong>80+ countries</strong> and has featured
+    <strong>300+ webinars</strong> over the weeks. We remain committed to a reliable, high-quality academic option for everyone.
+  </p>
+</div>
+
         <strong>What is Critical Care Webinars?</strong><br>
         Academic, living, and curated agenda of <em>webinars, courses, and events</em> in critical care, ECMO, clinical simulation, patient safety, and AI in healthcare. It consolidates learning opportunities in one place and presents them with time-zone conversion to Lima (GMT-5).
         <br><strong>Last week we recorded more than 100 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
@@ -187,13 +223,24 @@
       </div>
 
       <div class="filters">
-        <span class="filter-label">Filter:</span>
-        <select id="dayFilter"></select>
-        <input type="text" id="searchFilter" placeholder="Search by topic, organizer, or specialty…">
-        <button id="reloadBtn" class="btn-secondary">🔄 Refresh</button>
-      </div>
+  <span class="filter-label">Filter:</span>
+  
+  <!-- Filtro por día -->
+  <select id="dayFilter"></select>
 
-      <div id="eventsContainer"></div>
+  <!-- 🆕 NUEVO filtro por idioma -->
+  <select id="langFilter" title="Language">
+    <option value="__ALL__">All languages</option>
+  </select>
+
+  <!-- Búsqueda libre -->
+  <input type="text" id="searchFilter" placeholder="Search by topic, organizer, or specialty…">
+
+  <!-- Botón de recarga -->
+  <button id="reloadBtn" class="btn-secondary">🔄 Refresh</button>
+</div>
+
+<div id="eventsContainer"></div>
 
       <!-- Weeks archive -->
       <div class="archive" id="archiveBlock" style="display:none;">
@@ -518,12 +565,27 @@ const GID_SHEET_3 = '248417399'; // Week 3 (Oct 20–25, 2025)  << hoja 3
 const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
 // (Si quieres mantener Week 1 como archivo histórico, puedes dejarla, pero ya no se usa aquí)
 
-
- const WEEKS = [
+const WEEKS = [
   {
     key: 'current',
+    label: 'Week Oct 26 – Nov 1, 2025',
+    gid: GID_SHEET_4, // nueva hoja
+    start: '2025-10-26',
+    end:   '2025-11-01',
+    dayNames: {
+      '2025-10-26': 'Sunday, Oct 26',
+      '2025-10-27': 'Monday, Oct 27',
+      '2025-10-28': 'Tuesday, Oct 28',
+      '2025-10-29': 'Wednesday, Oct 29',
+      '2025-10-30': 'Thursday, Oct 30',
+      '2025-10-31': 'Friday, Oct 31',
+      '2025-11-01': 'Saturday, Nov 1'
+    }
+  },
+  {
+    key: 'prev',
     label: 'Week Oct 20–25, 2025',
-    gid: GID_SHEET_3,
+    gid: GID_SHEET_3, // tu hoja actual semana 20–25
     start: '2025-10-20',
     end:   '2025-10-25',
     dayNames: {
@@ -534,23 +596,9 @@ const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
       '2025-10-24': 'Friday, Oct 24',
       '2025-10-25': 'Saturday, Oct 25'
     }
-  },
-  {
-    key: 'prev',
-    label: 'Week Oct 13–18, 2025',
-    gid: GID_SHEET_2,
-    start: '2025-10-13',
-    end:   '2025-10-18',
-    dayNames: {
-      '2025-10-13': 'Monday, Oct 13',
-      '2025-10-14': 'Tuesday, Oct 14',
-      '2025-10-15': 'Wednesday, Oct 15',
-      '2025-10-16': 'Thursday, Oct 16',
-      '2025-10-17': 'Friday, Oct 17',
-      '2025-10-18': 'Saturday, Oct 18'
-    }
   }
 ];
+
 
     const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
 
@@ -572,17 +620,33 @@ const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
       const f=parseFloat(s.replace(",", ".")); if(!isNaN(f)){const h=Math.floor(f), m=Math.round((f-h)*60); return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`;} return ""; }
     function getField(row, keys){ for(const k of keys){ if(row[k]!==undefined && String(row[k]).trim()!=="") return String(row[k]).trim(); } return ""; }
     function parseCSV(csv){
-      const result = Papa.parse(csv,{header:true,skipEmptyLines:"greedy",transformHeader:h=>String(h).trim().toLowerCase()});
-      const rows=[]; for(const row of result.data){
-        const date=normalizeDate(getField(row,["date","fecha","día","dia"]));
-        const time=normalizeTime(getField(row,["time","hora","start","inicio"]));
-        const title=getField(row,["title","título","titulo","tema","subject"]);
-        const link=getField(row,["link","enlace","url"]);
-        const organizer=getField(row,["organizer","organizador","host","org","institucion","institución"]);
-        const category=getField(row,["category","categoría","categoria","especialidad"]);
-        if(date&&time&&title){ rows.push({ date, time, title, link, organizer, category }); }
-      } return rows;
+  const result = Papa.parse(csv, {
+    header: true,
+    skipEmptyLines: "greedy",
+    transformHeader: h => String(h).trim().toLowerCase()
+  });
+
+  const rows = [];
+  for (const row of result.data) {
+    const date = normalizeDate(getField(row, ["date","fecha","día","dia"]));
+    const time = normalizeTime(getField(row, ["time","hora","start","inicio"]));
+    const title = getField(row, ["title","título","titulo","tema","subject"]);
+    const link = getField(row, ["link","enlace","url"]);
+    const organizer = getField(row, ["organizer","organizador","host","org","institucion","institución"]);
+    const category = getField(row, ["category","categoría","categoria","especialidad"]);
+    
+    // 🆕 Nuevos campos: language y certificate
+    const language = getField(row, ["language","idioma","lang"]);
+    const certificate = getField(row, ["certificate","certificado","cert"]);
+
+    // Agregar solo si tiene fecha, hora y título
+    if (date && time && title) {
+      rows.push({ date, time, title, link, organizer, category, language, certificate });
     }
+  }
+
+  return rows;
+}
     function withinRange(d,s,e){ return d>=s && d<=e; }
     function nowInLimaDate(){ return new Date(new Date().toLocaleString('en-US',{timeZone:'America/Lima'})); }
    function todayStrLima() {
@@ -605,6 +669,19 @@ const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
         const option=document.createElement('option'); option.value=date; option.textContent=dayNames[date]||date; select.appendChild(option);
       });
     }
+    function initLanguageFilter(rows){
+  const sel = document.getElementById('langFilter');
+  sel.innerHTML = '<option value="__ALL__">All languages</option>';
+  const langs = Array.from(new Set(
+    rows.map(r => (r.language||'').trim()).filter(Boolean)
+  )).sort((a,b)=>a.localeCompare(b));
+  langs.forEach(l=>{
+    const opt=document.createElement('option');
+    opt.value=l; opt.textContent=l;
+    sel.appendChild(opt);
+  });
+  sel.onchange = () => filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
+}
 
     function renderEvents(filteredEvents, dayNames){
       const container=document.getElementById('eventsContainer'); container.innerHTML='';
@@ -645,20 +722,41 @@ const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
         });
 
         const eventsGrid=document.createElement('div'); eventsGrid.className='events-grid';
-        eventsByDay[date].forEach(event=>{
-          const card=document.createElement('div'); card.className='event-card';
-          card.innerHTML=`
-            <div class="category-tag">${event.category||'General'}</div>
-            <div class="event-time">🕐 ${event.time}</div>
-            <div class="event-title">${event.title}</div>
-            <div class="event-organizer">📍 ${event.organizer||'—'}</div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
-              <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title||'').replace(/\s+/g,'_')}">.ics</button>
-            </div>
-          `;
-          eventsGrid.appendChild(card);
-        });
+       eventsByDay[date].forEach(event=>{
+  const card = document.createElement('div');
+  card.className = 'event-card';
+
+  // 🆕 Detecta si el webinar tiene certificado
+  const isCertified = (() => {
+    const raw = (event.certificate || '').toString().trim().toLowerCase();
+    if (!raw) return false;
+    return ['yes','y','true','1','certified','sí','si'].includes(raw) || (raw !== 'no' && raw !== 'false' && raw !== '0');
+  })();
+
+  // Si está certificado, añade la clase CSS especial
+  if (isCertified) card.classList.add('certified');
+
+  // 🆕 Nuevo contenido de la tarjeta
+  card.innerHTML = `
+    <div class="category-tag">${event.category || 'General'}</div>
+    <div class="event-time">🕐 ${event.time}</div>
+    <div class="event-title">
+      ${event.title}
+      ${isCertified ? '<span class="badge badge-cert">Certified</span>' : ''}
+    </div>
+    <div class="event-organizer">📍 ${event.organizer || '—'}</div>
+    <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
+      ${event.language ? `<span class="badge badge-lang">${event.language}</span>` : ''}
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
+      <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title||'').replace(/\s+/g,'_')}">.ics</button>
+    </div>
+  `;
+
+  eventsGrid.appendChild(card);
+});
+
 
         dayContent.appendChild(eventsGrid);
         daySection.appendChild(dayHeader);
@@ -756,26 +854,36 @@ const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
     // ==============================
     // FILTERS – Current week
     // ==============================
-    function filterEvents(dayNames){
-      const select=document.getElementById('dayFilter');
-      const search=(document.getElementById('searchFilter').value||'').toLowerCase();
-      let selectedDay=select.value;
+  function filterEvents(dayNames){
+  const select = document.getElementById('dayFilter');
+  const search = (document.getElementById('searchFilter').value || '').toLowerCase();
+  const langSel = document.getElementById('langFilter');               // ← 🆕 toma el select de idioma
+  const langVal = (langSel && langSel.value) ? langSel.value : '__ALL__'; // ← 🆕 valor del idioma seleccionado
 
-      if(showTodayOnly){
-        const t=todayStrLima();
-        if(allDates.has(t)){ selectedDay=t; select.value=t; }
-        else{ selectedDay='all'; select.value='all'; }
-      }
+  let selectedDay = select.value;
 
-      const out=events.filter(ev=>{
-        const okDay=(selectedDay==='all') || ev.date===selectedDay;
-        const hay=[ev.title, ev.organizer, ev.category].filter(Boolean).join(' ').toLowerCase();
-        const okSearch=!search || hay.includes(search);
-        return okDay && okSearch;
-      });
+  if (showTodayOnly){
+    const t = todayStrLima();
+    if (allDates.has(t)){ selectedDay = t; select.value = t; }
+    else { selectedDay = 'all'; select.value = 'all'; }
+  }
 
-      renderEvents(out, dayNames);
-    }
+  const out = events.filter(ev => {
+    const okDay = (selectedDay === 'all') || ev.date === selectedDay;
+
+    // texto libre (título, organizador y categoría)
+    const hay = [ev.title, ev.organizer, ev.category].filter(Boolean).join(' ').toLowerCase();
+    const okSearch = !search || hay.includes(search);
+
+    // 🆕 condición de idioma
+    const evLang = (ev.language || '').trim();
+    const okLang = (langVal === '__ALL__') || evLang === langVal;
+
+    return okDay && okSearch && okLang; // ← 🆕 incluye idioma
+  });
+
+  renderEvents(out, dayNames);
+}
 
     // ==============================
     // ICS
@@ -849,6 +957,7 @@ const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
         events.length=0; allDates.clear();
         currentList.forEach(e=>{ events.push(e); allDates.add(e.date); });
         document.getElementById('totalEvents').textContent=String(events.length);
+        initLanguageFilter(events);
         updateDateFilter(WEEKS.find(w=>w.key==='current').dayNames);
 
         // Auto-activate "Today only" if today is in-range
