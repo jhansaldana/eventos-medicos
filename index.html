@@ -95,69 +95,80 @@
     .resource-card p { color: #555; font-size: 0.9em; line-height: 1.4; }
     .resource-link { color: #764ba2; text-decoration: none; font-weight: bold; font-size: 0.9em; display: inline-block; margin-top: 8px; }
     .resource-link:hover { text-decoration: underline; }
-/* 🟡 Featured gold (unified style for all 3 featured items) */
-.featured-gold{
-  border: 3px solid #ffd700 !important;
-  background: linear-gradient(135deg,#fffbe6 0%, #fff9d9 100%) !important;
-  position: relative;
-}
 
-.featured-gold .featured-badge{
-  background: #d4af37;
-  color: #000;
-  font-weight: 800;
-  font-size: 0.75rem;
-  letter-spacing: .5px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(212,175,55,.25);
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
+    .featured-gold{
+      border: 3px solid #ffd700 !important;
+      background: linear-gradient(135deg,#fffbe6 0%, #fff9d9 100%) !important;
+      position: relative;
+    }
+    .featured-gold .featured-badge{
+      background: #d4af37;
+      color: #000;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: .5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(212,175,55,.25);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .featured-gold .resource-cta{
+      background: linear-gradient(135deg,#ffe066 0%, #ffcc00 100%);
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(212,175,55,.25);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .featured-gold .resource-cta:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(212,175,55,.35);
+    }
 
-.featured-gold .resource-cta{
-  background: linear-gradient(135deg,#ffe066 0%, #ffcc00 100%);
-  color: #000;
-  font-weight: 700;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  cursor: pointer;
-  box-shadow: 0 6px 16px rgba(212,175,55,.25);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
+    .event-card.certified {
+      background: #f3fbf6;
+      border-left-color: #84d8a7;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.06);
+      margin-left: 8px;
+    }
+    .badge-cert {
+      background: #e9f8ef;
+      border-color: #bfead0;
+      color: #146c43;
+    }
+    .badge-lang {
+      background: #eef1ff;
+      border-color: #cfd7ff;
+      color: #4b5bdc;
+      margin-left: 0;
+    }
 
-.featured-gold .resource-cta:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(212,175,55,.35);
-}
-/* Subtle highlight for certified webinars */
-.event-card.certified {
-  background: #f3fbf6;              /* very light green */
-  border-left-color: #84d8a7;       /* soft green accent */
-}
-
-/* Small badges */
-.badge {
-  display: inline-block;
-  padding: 2px 8px;
-  font-size: 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.06);
-  margin-left: 8px;
-}
-.badge-cert {
-  background: #e9f8ef;
-  border-color: #bfead0;
-  color: #146c43;
-}
-.badge-lang {
-  background: #eef1ff;
-  border-color: #cfd7ff;
-  color: #4b5bdc;
-  margin-left: 0;
-}
+    .weekly-update {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .weekly-update h3 {
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    .weekly-update p {
+      color: #333;
+      line-height: 1.6;
+    }
 
     @media (max-width: 768px) { h1 { font-size: 1.8em; } .events-grid { grid-template-columns: 1fr; } }
   </style>
@@ -166,19 +177,18 @@
   <div class="container">
     <header>
       <h1>📅 Critical Care Webinars</h1>
-       <p class="subtitle">
+      <p class="subtitle">
         Week of <strong>October 26 – November 1, 2025</strong> · <span class="small-note">Times shown in Lima (GMT-5)</span>
-    </p>
+      </p>
 
       <div class="intro">
-        <!-- <<< NEW: Weekly milestone banner (EN) -->
-<div class="weekly-update featured-gold p-4 rounded-2xl shadow-lg text-center" style="margin-top:14px;">
-  <h3>🌎 Week of Oct 26 – Nov 1</h3>
-  <p>
-    <strong>Critical Care Webinars</strong> has reached professionals in <strong>80+ countries</strong> and has featured
-    <strong>300+ webinars</strong> over the weeks. We remain committed to a reliable, high-quality academic option for everyone.
-  </p>
-</div>
+        <div class="weekly-update featured-gold">
+          <h3>🌎 Week of Oct 26 – Nov 1</h3>
+          <p>
+            <strong>Critical Care Webinars</strong> has reached professionals in <strong>80+ countries</strong> and has featured
+            <strong>300+ webinars</strong> over the weeks. We remain committed to a reliable, high-quality academic option for everyone.
+          </p>
+        </div>
 
         <strong>What is Critical Care Webinars?</strong><br>
         Academic, living, and curated agenda of <em>webinars, courses, and events</em> in critical care, ECMO, clinical simulation, patient safety, and AI in healthcare. It consolidates learning opportunities in one place and presents them with time-zone conversion to Lima (GMT-5).
@@ -217,492 +227,231 @@
         </div>
       </div>
 
-      <!-- Quick actions -->
       <div class="filter-actions">
         <button id="toggleTodayBtn" class="toggle-today">🟣 Today only</button>
       </div>
 
       <div class="filters">
-  <span class="filter-label">Filter:</span>
-  
-  <!-- Filtro por día -->
-  <select id="dayFilter"></select>
+        <span class="filter-label">Filter:</span>
+        <select id="dayFilter"></select>
+        <select id="langFilter" title="Language">
+          <option value="__ALL__">All languages</option>
+        </select>
+        <input type="text" id="searchFilter" placeholder="Search by topic, organizer, or specialty…">
+        <button id="reloadBtn" class="btn-secondary">🔄 Refresh</button>
+      </div>
 
-  <!-- 🆕 NUEVO filtro por idioma -->
-  <select id="langFilter" title="Language">
-    <option value="__ALL__">All languages</option>
-  </select>
+      <div id="eventsContainer"></div>
 
-  <!-- Búsqueda libre -->
-  <input type="text" id="searchFilter" placeholder="Search by topic, organizer, or specialty…">
-
-  <!-- Botón de recarga -->
-  <button id="reloadBtn" class="btn-secondary">🔄 Refresh</button>
-</div>
-
-<div id="eventsContainer"></div>
-
-      <!-- Weeks archive -->
       <div class="archive" id="archiveBlock" style="display:none;">
         <h2 style="color:#667eea; margin-bottom:8px;">🗂️ Weeks archive</h2>
         <div class="accordion" id="archiveAccordion"></div>
       </div>
 
-      <!-- Resources -->
       <div class="resources-section">
         <h2>📚 Resources for Intensivists & Simulationists</h2>
-
-        <!-- 🎓 RECOMMENDED COURSES -->
-<h3>🎓 Recommended Courses</h3>
-<div class="resource-grid">
-  <!-- 🟡 Featured 1 -->
-  <div class="resource-card featured-gold"
-       onclick="window.open('https://lnkd.in/ePXZUYVr', '_blank')"
-       role="button"
-       aria-label="Competencias Docentes para el entorno clínico de aprendizaje">
-    <div class="featured-badge">FEATURED</div>
-    <h4>🩺 Competencias Docentes para el entorno clínico de aprendizaje</h4>
-    <ul style="margin:8px 0 10px 18px; color:#333; font-size:0.95em; line-height:1.4;">
-      <li><strong>Diseñado por:</strong> Dr. Ismael David Piedra</li>
-      <li><strong>Modalidad:</strong> Autogestiva</li>
-      <li><strong>Organiza:</strong> AMFEM (Asociación Mexicana de Facultades y Escuelas de Medicina, A.C.)</li>
-    </ul>
-    <button class="resource-cta">¡REGÍSTRATE AHORA!</button>
-  </div>
-
-  <!-- 🟡 Featured 2 -->
-  <div class="resource-card featured-gold"
-       onclick="window.open('https://campus.paho.org/es/curso/manejo-sepsis', '_blank')"
-       role="button"
-       aria-label="Curso de Sepsis OPS/FEPIMCTI gratuito">
-    <div class="featured-badge">FEATURED</div>
-    <h4>🧬 Curso de Sepsis OPS / FEPIMCTI</h4>
-    <ul style="margin:8px 0 10px 18px; color:#333; font-size:0.95em; line-height:1.4;">
-      <li><strong>Organiza:</strong> Organización Panamericana de la Salud (OPS) &amp; FEPIMCTI</li>
-      <li><strong>Dirigido a:</strong> Profesionales de cuidados críticos y urgencias</li>
-      <li><strong>Modalidad:</strong> En línea, autogestivo y <span style="color:#007b00;font-weight:600;">GRATUITO</span></li>
-    </ul>
-    <button class="resource-cta">🌐 Ir al curso gratuito</button>
-  </div>
-
-
-  <!-- Otros cursos normales -->
-  <div class="resource-card" onclick="window.open('https://getinge.training/lms/signin', '_blank')">
-    <h4>Getinge Training LMS</h4>
-    <p>E-learning platform with modules on ventilation, ECMO, perfusion, and critical care.
-      <strong>Registration required</strong> and <strong>certificate-awarding courses</strong>.</p>
-    <span class="resource-link">Go to Getinge Training →</span>
-  </div>
-  <div class="resource-card" onclick="window.open('https://advancedrenaleducation.com/wparep/emea/elearning/critical-care/', '_blank')">
-    <h4>AREP – Critical Care (Advanced Renal Education Program)</h4>
-    <p>Modules on CRRT, ICU hemodialysis, ultrafiltration, and renal support in critically ill patients.
-      <strong>Certificate awarded</strong>.</p>
-    <span class="resource-link">Explore AREP →</span>
-  </div>
-  <div class="resource-card" onclick="window.open('https://www.fluidacademy.org/', '_blank')">
-    <h4>Fluid Academy – Fluid Championship</h4>
-    <p>Program/challenges on fluid stewardship and optimization of fluid therapy in critical care.
-      <strong>Certificate awarded</strong>.</p>
-    <span class="resource-link">Fluid Academy →</span>
-  </div>
-  <div class="resource-card" onclick="window.open('https://www.fccs.org/', '_blank')">
-    <h4>FCCS (Fundamental Critical Care Support)</h4>
-    <p>Core SCCM course for the management of the critically ill patient.</p>
-    <span class="resource-link">Learn more →</span>
-  </div>
-  <div class="resource-card" onclick="window.open('https://www.atls.org/', '_blank')">
-    <h4>ATLS (Advanced Trauma Life Support)</h4>
-    <p>Gold standard for initial trauma management (American College of Surgeons).</p>
-    <span class="resource-link">Learn more →</span>
-  </div>
-  <div class="resource-card" onclick="window.open('https://acls.com/', '_blank')">
-    <h4>ACLS (Advanced Cardiovascular Life Support)</h4>
-    <p>Advanced cardiovascular life support (AHA).</p>
-    <span class="resource-link">Learn more →</span>
-  </div>
-  <div class="resource-card" onclick="window.open('https://www.sccm.org/Education-Center', '_blank')">
-    <h4>SCCM Education Center</h4>
-    <p>Educational platform with SCCM courses and webinars.</p>
-    <span class="resource-link">Learn more →</span>
-  </div>
-</div>
-        <!-- 📱 ESSENTIAL APPS -->
-        <h3>📱 Essential Apps for Intensivists</h3>
+        <h3>🎓 Recommended Courses</h3>
         <div class="resource-grid">
-          <div class="resource-card" onclick="window.open('https://apps.apple.com/app/epocrates/id281935788', '_blank')">
-            <h4>Epocrates</h4>
-            <p>Drug reference, interactions, and guidelines. iOS/Android.</p>
-            <span class="resource-link">Download →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://www.mdcalc.com/', '_blank')">
-            <h4>MDCalc</h4>
-            <p>Validated calculators: APACHE II, SOFA, GCS, vasopressor dosing, etc.</p>
-            <span class="resource-link">Visit site →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://reference.medscape.com/', '_blank')">
-            <h4>Medscape</h4>
-            <p>Comprehensive reference, news, and decision support.</p>
-            <span class="resource-link">Learn more →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://apps.apple.com/app/uptodate/id334265345', '_blank')">
-            <h4>UpToDate</h4>
-            <p>Evidence-based clinical decision support (subscription required).</p>
-            <span class="resource-link">Learn more →</span>
-          </div>
-
-          <div class="resource-card">
-            <h4>CSWG App</h4>
-            <p>Quick guides and bedside decision support for critical care.</p>
-            <p>
-              <a class="resource-link" href="https://apps.apple.com/us/search?term=CSWG" target="_blank" rel="noopener">iOS (search) →</a>
-              &nbsp;|&nbsp;
-              <a class="resource-link" href="https://play.google.com/store/search?q=CSWG&c=apps" target="_blank" rel="noopener">Android (search) →</a>
-            </p>
-          </div>
-          <div class="resource-card">
-            <h4>ALMAS LATAM App</h4>
-            <p>Resources, events, and community for medical simulation in LATAM.</p>
-            <p>
-              <a class="resource-link" href="https://apps.apple.com/us/search?term=ALMAS%20LATAM" target="_blank" rel="noopener">iOS (search) →</a>
-              &nbsp;|&nbsp;
-              <a class="resource-link" href="https://play.google.com/store/search?q=ALMAS%20LATAM&c=apps" target="_blank" rel="noopener">Android (search) →</a>
-            </p>
-          </div>
-          <div class="resource-card">
-            <h4>ELSO Bedside Guide</h4>
-            <p>ECMO bedside guidance by ELSO.</p>
-            <p>
-              <a class="resource-link" href="https://apps.apple.com/us/search?term=ELSO%20Bedside%20Guide" target="_blank" rel="noopener">iOS (search) →</a>
-              &nbsp;|&nbsp;
-              <a class="resource-link" href="https://play.google.com/store/search?q=ELSO%20Bedside%20Guide&c=apps" target="_blank" rel="noopener">Android (search) →</a>
-            </p>
+          <div class="resource-card featured-gold"
+               onclick="window.open('https://lnkd.in/ePXZUYVr', '_blank')">
+            <div class="featured-badge">FEATURED</div>
+            <h4>🩺 Competencias Docentes para el entorno clínico de aprendizaje</h4>
+            <ul style="margin:8px 0 10px 18px; color:#333; font-size:0.95em; line-height:1.4;">
+              <li><strong>Diseñado por:</strong> Dr. Ismael David Piedra</li>
+              <li><strong>Modalidad:</strong> Autogestiva</li>
+              <li><strong>Organiza:</strong> AMFEM</li>
+            </ul>
+            <button class="resource-cta">¡REGÍSTRATE AHORA!</button>
           </div>
         </div>
-
-        <!-- 🎮 SIMULATION APPS -->
-        <h3>🎮 Apps for Simulation</h3>
-        <div class="resource-grid">
-          <div class="resource-card" onclick="window.open('https://www.laerdal.com/simpad/', '_blank')">
-            <h4>SimPad PLUS</h4>
-            <p>Wireless control for Laerdal simulators to run high-fidelity scenarios.</p>
-            <span class="resource-link">Learn more →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://www.resusroom.com/', '_blank')">
-            <h4>Resus Room</h4>
-            <p>Interactive resuscitation simulator for emergency practice.</p>
-            <span class="resource-link">Try it →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://apps.apple.com/app/full-code-pro/id456863476', '_blank')">
-            <h4>Full Code Pro</h4>
-            <p>Code blue scenarios (ACLS/PALS) with realistic cases.</p>
-            <span class="resource-link">Download →</span>
-          </div>
-          <div class="resource-card" onclick="window.open('https://www.heartsim.com/', '_blank')">
-            <h4>HeartSim</h4>
-            <p>Interactive ECG simulator for rhythm training.</p>
-            <span class="resource-link">Visit →</span>
-          </div>
-
-          <div class="resource-card">
-            <h4>AED Sim</h4>
-            <p>Training in defibrillation and AED use with guided scenarios.</p>
-            <p>
-              <a class="resource-link" href="https://apps.apple.com/us/search?term=AED%20Sim" target="_blank" rel="noopener">iOS (search) →</a>
-              &nbsp;|&nbsp;
-              <a class="resource-link" href="https://play.google.com/store/search?q=AED%20Sim&c=apps" target="_blank" rel="noopener">Android (search) →</a>
-            </p>
-          </div>
-          <div class="resource-card">
-            <h4>DARTSim Remote</h4>
-            <p>Remote control of scenarios and monitor for team training.</p>
-            <p>
-              <a class="resource-link" href="https://apps.apple.com/us/search?term=DARTSim%20Remote" target="_blank" rel="noopener">iOS (search) →</a>
-              &nbsp;|&nbsp;
-              <a class="resource-link" href="https://play.google.com/store/search?q=DARTSim%20Remote&c=apps" target="_blank" rel="noopener">Android (search) →</a>
-            </p>
-          </div>
-          <div class="resource-card">
-            <h4>AirwayEx</h4>
-            <p>Airway management simulation with progressive cases and feedback.</p>
-            <p>
-              <a class="resource-link" href="https://apps.apple.com/us/search?term=AirwayEx" target="_blank" rel="noopener">iOS (search) →</a>
-              &nbsp;|&nbsp;
-              <a class="resource-link" href="https://play.google.com/store/search?q=AirwayEx&c=apps" target="_blank" rel="noopener">Android (search) →</a>
-            </p>
-          </div>
-        </div>
-        <!-- 🌟 FEATURED ACADEMIC RESOURCE -->
-<div class="resource-card" style="border:3px solid #ffd700; background:linear-gradient(135deg,#fffbe6 0%,#fff9d9 100%);" onclick="window.open('https://drive.google.com/file/d/1i1EGQC0WAzzSvxYgb22zsd7u7EPLDVDB/view?usp=sharing', '_blank')">
-  <h4 style="color:#b8860b;">📘 Ferrero, J.C. – El Universo Educativo es una Simulación (Book)</h4>
-  <p style="color:#333; font-weight:500;">A reference work by Dr. José Carlos Ferrero — essential reading on simulation pedagogy, debriefing, and patient safety frameworks.</p>
-  <span class="resource-link">Open book (Google Drive) →</span>
-</div>
-
       </div>
-      <!-- 🎧 RECOMMENDED PODCASTS -->
-<h3>🎧 Recommended Podcasts</h3>
-<p style="color:#555; margin-bottom:14px;">
-Explore global voices in critical care, ECMO, cardiology, simulation, and patient safety.
-Each podcast offers a unique perspective on innovation, leadership, and frontline experience.
-</p>
-
-<div class="resource-grid">
-
-  <div class="resource-card" onclick="window.open('https://www.sccm.org/communications/sccm-podcast', '_blank')">
-    <h4>SCCM Podcast</h4>
-    <p>Official Society of Critical Care Medicine podcast. Interviews with leaders in critical care and research highlights.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://store.nejm.org/signup/ai/podcasts', '_blank')">
-    <h4>NEJM AI Podcast</h4>
-    <p>Insights into artificial intelligence in medicine and clinical applications by the New England Journal of Medicine.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://www.theresusroom.co.uk/category/podcasts/', '_blank')">
-    <h4>The Resus Room</h4>
-    <p>Emergency medicine and resuscitation discussions by UK clinicians. Evidence-based, engaging, and practical.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://scc.org.co/category/podcast/', '_blank')">
-    <h4>Sociedad Colombiana de Cuidados Intensivos Podcast</h4>
-    <p>Episodes in Spanish featuring critical care updates, regional perspectives, and Latin American experts.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://open.spotify.com/show/10v0DqwnuAZH19Auvhri45', '_blank')">
-    <h4>Simucast LATAM</h4>
-    <p>Podcast on simulation, patient safety, and debriefing in Spanish. Hosted by leaders in simulation education.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://hfsa.org/research/heart-failure-beat-podcast', '_blank')">
-    <h4>HFSA – Heart Failure Beat</h4>
-    <p>Heart Failure Society of America’s podcast with leading cardiologists on latest therapies and research.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://www.nejm.org/browse/nejm-media-type/audio-summary?date=past5Years', '_blank')">
-    <h4>NEJM Audio Summaries</h4>
-    <p>Weekly evidence-based audio summaries of the latest NEJM articles, ideal for clinicians on the move.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://journalfeed.captivate.fm/', '_blank')">
-    <h4>JournalFeed Podcast</h4>
-    <p>Daily critical care and emergency medicine literature review — concise, evidence-driven, and current.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://podcasts.apple.com/gb/podcast/critical-care-practitioner/id830803893', '_blank')">
-    <h4>Critical Care Practitioner Podcast</h4>
-    <p>Clinical interviews and practical discussions for nurses, physicians, and allied professionals in critical care.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://open.spotify.com/show/5FwCoz9ydI9KM4ttHfkwxa', '_blank')">
-    <h4>ICU Ed & Toddcast</h4>
-    <p>Australian critical care podcast mixing humor and high-level discussions of ICU and retrieval medicine.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://www.feinberg.northwestern.edu/sites/simulation/educational-opportunities/podcast.html', '_blank')">
-    <h4>Northwestern Simulation Podcast</h4>
-    <p>Exploring educational innovation, simulation, and patient safety from Northwestern University.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://harvardmedsim.org/resources/podcasts/', '_blank')">
-    <h4>Harvard Center for Medical Simulation Podcast</h4>
-    <p>Conversations on leadership, teamwork, and simulation with faculty from Harvard Medical School.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-
-  <div class="resource-card" onclick="window.open('https://podcasts.apple.com/us/podcast/edecmo-podcast/id675769252', '_blank')">
-    <h4>ED ECMO Podcast</h4>
-    <p>The original podcast on ECMO, resuscitation, and ECPR — bridging emergency medicine and cardiac care.</p>
-    <span class="resource-link">Listen →</span>
-  </div>
-</div>
-
-      <!-- /Resources -->
     </div>
-<!-- 💜 SUPPORT THE PROJECT -->
-<div class="resources-section" style="border-top: 4px solid #764ba2; background:linear-gradient(135deg,#f9f9ff 0%,#fff8ff 100%); margin-top:40px;">
-  <h2>💜 Support the Project</h2>
-  <p style="font-size:1em; color:#444; line-height:1.6;">
-    <strong>Critical Care Webinars</strong> is a collaborative, non-profit educational initiative that curates global webinars, courses, and podcasts in intensive care, simulation, and medical innovation.  
-    We are committed to keeping this resource open, free, and continuously updated for the entire healthcare community.  
-  </p>
-
-  <p style="margin-top:16px; color:#555;">
-    If you wish to support our work and help maintain the platform, you can make a contribution through:
-  </p>
-
-  <div style="margin-top:20px; background:#fff; border:2px dashed #667eea; border-radius:10px; padding:18px;">
-    <h4 style="color:#667eea; margin-bottom:10px;">💰 Donation Links:</h4>
-    <ul style="list-style:none; padding-left:0; line-height:1.8;">
-      <li><strong>BTC:</strong> <em>[1Cy8uxDTQ6CWbxFxAQX88NTHh7EWZc2Z5A]</em></li>
-      <li><strong>BNB:</strong> <em>[3Lrosc3SFc5N9buFD4SHoHw98Tc11iYidQ]</em></li>
-    </ul>
-    <p style="color:#666; font-size:0.9em; margin-top:10px;">
-      Your support helps sustain and expand open access education for clinicians worldwide 🌍
-    </p>
-  </div>
-</div>
   </div>
 
   <script>
-    // ==============================
-    // CONFIG
-    // ==============================
-   const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
+    const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
+    const GID_SHEET_3 = '248417399';
+    const GID_SHEET_4 = '1475156769';
 
-// Confirmed GIDs
-const GID_SHEET_3 = '248417399'; // Week 3 (Oct 20–25, 2025)  << hoja 3
-const GID_SHEET_2 = '626775764'; // Week 2 (Oct 13–18, 2025)
-const GID_SHEET_4 = '1475156769'; // Week 4 (Oct 26 – Nov 1, 2025)
-
-// (Si quieres mantener Week 1 como archivo histórico, puedes dejarla, pero ya no se usa aquí)
-
-const WEEKS = [
-  {
-    key: 'current',
-    label: 'Week Oct 26 – Nov 1, 2025',
-    gid: GID_SHEET_4, // nueva hoja
-    start: '2025-10-26',
-    end:   '2025-11-01',
-    dayNames: {
-      '2025-10-26': 'Sunday, Oct 26',
-      '2025-10-27': 'Monday, Oct 27',
-      '2025-10-28': 'Tuesday, Oct 28',
-      '2025-10-29': 'Wednesday, Oct 29',
-      '2025-10-30': 'Thursday, Oct 30',
-      '2025-10-31': 'Friday, Oct 31',
-      '2025-11-01': 'Saturday, Nov 1'
-    }
-  },
-  {
-    key: 'prev',
-    label: 'Week Oct 20–25, 2025',
-    gid: GID_SHEET_3,
-    start: '2025-10-20',
-    end:   '2025-10-25',
-    dayNames: {
-      '2025-10-20': 'Monday, Oct 20',
-      '2025-10-21': 'Tuesday, Oct 21',
-      '2025-10-22': 'Wednesday, Oct 22',
-      '2025-10-23': 'Thursday, Oct 23',
-      '2025-10-24': 'Friday, Oct 24',
-      '2025-10-25': 'Saturday, Oct 25'
-    }
-  }
-];
+    const WEEKS = [
+      {
+        key: 'current',
+        label: 'Week Oct 26 – Nov 1, 2025',
+        gid: GID_SHEET_4,
+        start: '2025-10-26',
+        end: '2025-11-01',
+        dayNames: {
+          '2025-10-26': 'Sunday, Oct 26',
+          '2025-10-27': 'Monday, Oct 27',
+          '2025-10-28': 'Tuesday, Oct 28',
+          '2025-10-29': 'Wednesday, Oct 29',
+          '2025-10-30': 'Thursday, Oct 30',
+          '2025-10-31': 'Friday, Oct 31',
+          '2025-11-01': 'Saturday, Nov 1'
+        }
+      },
+      {
+        key: 'prev',
+        label: 'Week Oct 20–25, 2025',
+        gid: GID_SHEET_3,
+        start: '2025-10-20',
+        end: '2025-10-25',
+        dayNames: {
+          '2025-10-20': 'Monday, Oct 20',
+          '2025-10-21': 'Tuesday, Oct 21',
+          '2025-10-22': 'Wednesday, Oct 22',
+          '2025-10-23': 'Thursday, Oct 23',
+          '2025-10-24': 'Friday, Oct 24',
+          '2025-10-25': 'Saturday, Oct 25'
+        }
+      }
+    ];
 
     const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
 
-    // ==============================
-    // STATE
-    // ==============================
-    let events = [];           // current week
-    let allDates = new Set();  // current week
-    let archive = {};          // {weekKey: {flat:[], byDay:{}}}
-    let showTodayOnly = true;  // default: show TODAY
+    let events = [];
+    let allDates = new Set();
+    let archive = {};
+    let showTodayOnly = true;
 
-    // ==============================
-    // CSV + TIME HELPERS
-    // ==============================
-    function normalizeDate(x){ if(!x) return ""; const s=String(x).trim(); if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
-      const m=s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/); if(m){let[,d,mo,y]=m; if(y.length===2) y=(Number(y)>50?"19":"20")+y; return `${y.padStart(4,"0")}-${mo.padStart(2,"0")}-${d.padStart(2,"0")}`;} return ""; }
-    function normalizeTime(x){ if(x===null||x===undefined) return ""; let s=String(x).trim().toLowerCase(); s=s.replace(/\s*[ap]\.?m\.?$/,"");
-      if(/^\d{1,2}:\d{2}$/.test(s)){const[h,m]=s.split(":"); return `${h.padStart(2,"0")}:${m}`;} if(/^\d{1,2}$/.test(s)) return `${s.padStart(2,"0")}:00`;
-      const f=parseFloat(s.replace(",", ".")); if(!isNaN(f)){const h=Math.floor(f), m=Math.round((f-h)*60); return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`;} return ""; }
-    function getField(row, keys){ for(const k of keys){ if(row[k]!==undefined && String(row[k]).trim()!=="") return String(row[k]).trim(); } return ""; }
-    function parseCSV(csv){
-  const result = Papa.parse(csv, {
-    header: true,
-    skipEmptyLines: "greedy",
-    transformHeader: h => String(h).trim().toLowerCase()
-  });
-
-  const rows = [];
-  for (const row of result.data) {
-    const date = normalizeDate(getField(row, ["date","fecha","día","dia"]));
-    const time = normalizeTime(getField(row, ["time","hora","start","inicio"]));
-    const title = getField(row, ["title","título","titulo","tema","subject"]);
-    const link = getField(row, ["link","enlace","url"]);
-    const organizer = getField(row, ["organizer","organizador","host","org","institucion","institución"]);
-    const category = getField(row, ["category","categoría","categoria","especialidad"]);
-    
-    // 🆕 Nuevos campos: language y certificate
-    const language = getField(row, ["language","idioma","lang"]);
-    const certificate = getField(row, ["certificate","certificado","cert"]);
-
-    // Agregar solo si tiene fecha, hora y título
-    if (date && time && title) {
-      rows.push({ date, time, title, link, organizer, category, language, certificate });
+    function normalizeDate(x) {
+      if (!x) return "";
+      const s = String(x).trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+      const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+      if (m) {
+        let [, d, mo, y] = m;
+        if (y.length === 2) y = (Number(y) > 50 ? "19" : "20") + y;
+        return `${y.padStart(4, "0")}-${mo.padStart(2, "0")}-${d.padStart(2, "0")}`;
+      }
+      return "";
     }
-  }
 
-  return rows;
-}
-    function withinRange(d,s,e){ return d>=s && d<=e; }
-    function nowInLimaDate(){ return new Date(new Date().toLocaleString('en-US',{timeZone:'America/Lima'})); }
-   function todayStrLima() {
-  // Obtiene la fecha/hora actual en Lima SIN convertir a UTC
-  const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
-  const Y = d.getFullYear();
-  const M = String(d.getMonth() + 1).padStart(2, '0');
-  const D = String(d.getDate()).padStart(2, '0');
-  return `${Y}-${M}-${D}`;
-}
+    function normalizeTime(x) {
+      if (x === null || x === undefined) return "";
+      let s = String(x).trim().toLowerCase();
+      s = s.replace(/\s*[ap]\.?m\.?$/, "");
+      if (/^\d{1,2}:\d{2}$/.test(s)) {
+        const [h, m] = s.split(":");
+        return `${h.padStart(2, "0")}:${m}`;
+      }
+      if (/^\d{1,2}$/.test(s)) return `${s.padStart(2, "0")}:00`;
+      const f = parseFloat(s.replace(",", "."));
+      if (!isNaN(f)) {
+        const h = Math.floor(f), m = Math.round((f - h) * 60);
+        return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+      }
+      return "";
+    }
 
-    // ==============================
-    // RENDER – Current week
-    // ==============================
-    function updateDateFilter(dayNames){
-      const select=document.getElementById('dayFilter');
-      select.innerHTML='';
-      const optAll=document.createElement('option'); optAll.value='all'; optAll.textContent='All days'; select.appendChild(optAll);
-      Array.from(allDates).sort().forEach(date=>{
-        const option=document.createElement('option'); option.value=date; option.textContent=dayNames[date]||date; select.appendChild(option);
+    function getField(row, keys) {
+      for (const k of keys) {
+        if (row[k] !== undefined && String(row[k]).trim() !== "") return String(row[k]).trim();
+      }
+      return "";
+    }
+
+    function parseCSV(csv) {
+      if (typeof Papa === 'undefined') {
+        throw new Error('PapaParse library not loaded');
+      }
+      
+      const result = Papa.parse(csv, {
+        header: true,
+        skipEmptyLines: "greedy",
+        transformHeader: h => String(h).trim().toLowerCase()
+      });
+
+      const rows = [];
+      for (const row of result.data) {
+        const date = normalizeDate(getField(row, ["date", "fecha", "día", "dia"]));
+        const time = normalizeTime(getField(row, ["time", "hora", "start", "inicio"]));
+        const title = getField(row, ["title", "título", "titulo", "tema", "subject"]);
+        const link = getField(row, ["link", "enlace", "url"]);
+        const organizer = getField(row, ["organizer", "organizador", "host", "org", "institucion", "institución"]);
+        const category = getField(row, ["category", "categoría", "categoria", "especialidad"]);
+        const language = getField(row, ["language", "idioma", "lang"]);
+        const certificate = getField(row, ["certificate", "certificado", "cert"]);
+
+        if (date && time && title) {
+          rows.push({ date, time, title, link, organizer, category, language, certificate });
+        }
+      }
+      return rows;
+    }
+
+    function withinRange(d, s, e) { return d >= s && d <= e; }
+
+    function todayStrLima() {
+      const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+      const Y = d.getFullYear();
+      const M = String(d.getMonth() + 1).padStart(2, '0');
+      const D = String(d.getDate()).padStart(2, '0');
+      return `${Y}-${M}-${D}`;
+    }
+
+    function updateDateFilter(dayNames) {
+      const select = document.getElementById('dayFilter');
+      select.innerHTML = '';
+      const optAll = document.createElement('option');
+      optAll.value = 'all';
+      optAll.textContent = 'All days';
+      select.appendChild(optAll);
+      Array.from(allDates).sort().forEach(date => {
+        const option = document.createElement('option');
+        option.value = date;
+        option.textContent = dayNames[date] || date;
+        select.appendChild(option);
       });
     }
-    function initLanguageFilter(rows){
-  const sel = document.getElementById('langFilter');
-  sel.innerHTML = '<option value="__ALL__">All languages</option>';
-  const langs = Array.from(new Set(
-    rows.map(r => (r.language||'').trim()).filter(Boolean)
-  )).sort((a,b)=>a.localeCompare(b));
-  langs.forEach(l=>{
-    const opt=document.createElement('option');
-    opt.value=l; opt.textContent=l;
-    sel.appendChild(opt);
-  });
-  sel.onchange = () => filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
-}
 
-    function renderEvents(filteredEvents, dayNames){
-      const container=document.getElementById('eventsContainer'); container.innerHTML='';
-      if(filteredEvents.length===0){ container.innerHTML='<div class="loading"><p>No events found</p></div>'; document.getElementById('visibleEvents').textContent='0'; return; }
+    function initLanguageFilter(rows) {
+      const sel = document.getElementById('langFilter');
+      sel.innerHTML = '<option value="__ALL__">All languages</option>';
+      const langs = Array.from(new Set(
+        rows.map(r => (r.language || '').trim()).filter(Boolean)
+      )).sort((a, b) => a.localeCompare(b));
+      langs.forEach(l => {
+        const opt = document.createElement('option');
+        opt.value = l;
+        opt.textContent = l;
+        sel.appendChild(opt);
+      });
+      sel.onchange = () => filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+    }
 
-      const eventsByDay={}; filteredEvents.forEach(ev=>{ (eventsByDay[ev.date] ||= []).push(ev); });
-      const todayStr=todayStrLima();
+    function renderEvents(filteredEvents, dayNames) {
+      const container = document.getElementById('eventsContainer');
+      container.innerHTML = '';
+      
+      if (filteredEvents.length === 0) {
+        container.innerHTML = '<div class="loading"><p>No events found</p></div>';
+        document.getElementById('visibleEvents').textContent = '0';
+        return;
+      }
 
-      Object.keys(eventsByDay).sort().forEach(date=>{
+      const eventsByDay = {};
+      filteredEvents.forEach(ev => {
+        (eventsByDay[ev.date] ||= []).push(ev);
+      });
+
+      const todayStr = todayStrLima();
+
+      Object.keys(eventsByDay).sort().forEach(date => {
         const isPast = date < todayStr;
         const isToday = date === todayStr;
-        const daySection=document.createElement('div'); daySection.className='day-section';
-        const count=eventsByDay[date].length;
+        const daySection = document.createElement('div');
+        daySection.className = 'day-section';
+        const count = eventsByDay[date].length;
 
-        const dayHeader=document.createElement('div');
-        dayHeader.className=`day-header ${isPast?'past':''} ${isToday?'today':''}`;
-        const shouldCollapse=!isToday; if(shouldCollapse) dayHeader.classList.add('collapsed');
-        dayHeader.innerHTML=`
+        const dayHeader = document.createElement('div');
+        dayHeader.className = `day-header ${isPast ? 'past' : ''} ${isToday ? 'today' : ''}`;
+        const shouldCollapse = !isToday;
+        if (shouldCollapse) dayHeader.classList.add('collapsed');
+
+        dayHeader.innerHTML = `
           <div style="display:flex; align-items:center;">
-            <div class="day-title">${(dayNames[date]||date)} <span style="color:#999; font-weight:600;">(${count})</span></div>
+            <div class="day-title">${(dayNames[date] || date)} <span style="color:#999; font-weight:600;">(${count})</span></div>
             ${isToday ? '<span class="today-badge">📍 TODAY</span>' : ''}
           </div>
           <div style="display:flex; align-items:center; gap:15px;">
@@ -711,53 +460,55 @@ const WEEKS = [
           </div>
         `;
 
-        const dayContent=document.createElement('div');
-        dayContent.className=`day-content ${shouldCollapse?'collapsed':''}`;
-        if(shouldCollapse) dayContent.style.maxHeight='0';
+        const dayContent = document.createElement('div');
+        dayContent.className = `day-content ${shouldCollapse ? 'collapsed' : ''}`;
+        if (shouldCollapse) dayContent.style.maxHeight = '0';
 
-        dayHeader.addEventListener('click',(e)=>{
-          if(e.target.tagName==='BUTTON') return;
-          dayContent.classList.toggle('collapsed'); dayHeader.classList.toggle('collapsed');
-          if(dayContent.classList.contains('collapsed')){ dayContent.style.maxHeight='0'; }
-          else{ dayContent.style.maxHeight=dayContent.scrollHeight+'px'; }
+        dayHeader.addEventListener('click', (e) => {
+          if (e.target.tagName === 'BUTTON') return;
+          dayContent.classList.toggle('collapsed');
+          dayHeader.classList.toggle('collapsed');
+          if (dayContent.classList.contains('collapsed')) {
+            dayContent.style.maxHeight = '0';
+          } else {
+            dayContent.style.maxHeight = dayContent.scrollHeight + 'px';
+          }
         });
 
-        const eventsGrid=document.createElement('div'); eventsGrid.className='events-grid';
-       eventsByDay[date].forEach(event=>{
-  const card = document.createElement('div');
-  card.className = 'event-card';
+        const eventsGrid = document.createElement('div');
+        eventsGrid.className = 'events-grid';
 
-  // 🆕 Detecta si el webinar tiene certificado
-  const isCertified = (() => {
-    const raw = (event.certificate || '').toString().trim().toLowerCase();
-    if (!raw) return false;
-    return ['yes','y','true','1','certified','sí','si'].includes(raw) || (raw !== 'no' && raw !== 'false' && raw !== '0');
-  })();
+        eventsByDay[date].forEach(event => {
+          const card = document.createElement('div');
+          card.className = 'event-card';
 
-  // Si está certificado, añade la clase CSS especial
-  if (isCertified) card.classList.add('certified');
+          const isCertified = (() => {
+            const raw = (event.certificate || '').toString().trim().toLowerCase();
+            if (!raw) return false;
+            return ['yes', 'y', 'true', '1', 'certified', 'sí', 'si'].includes(raw) || (raw !== 'no' && raw !== 'false' && raw !== '0');
+          })();
 
-  // 🆕 Nuevo contenido de la tarjeta
-  card.innerHTML = `
-    <div class="category-tag">${event.category || 'General'}</div>
-    <div class="event-time">🕐 ${event.time}</div>
-    <div class="event-title">
-      ${event.title}
-      ${isCertified ? '<span class="badge badge-cert">Certified</span>' : ''}
-    </div>
-    <div class="event-organizer">📍 ${event.organizer || '—'}</div>
-    <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
-      ${event.language ? `<span class="badge badge-lang">${event.language}</span>` : ''}
-    </div>
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
-      <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title||'').replace(/\s+/g,'_')}">.ics</button>
-    </div>
-  `;
+          if (isCertified) card.classList.add('certified');
 
-  eventsGrid.appendChild(card);
-});
+          card.innerHTML = `
+            <div class="category-tag">${event.category || 'General'}</div>
+            <div class="event-time">🕐 ${event.time}</div>
+            <div class="event-title">
+              ${event.title}
+              ${isCertified ? '<span class="badge badge-cert">Certified</span>' : ''}
+            </div>
+            <div class="event-organizer">📍 ${event.organizer || '—'}</div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
+              ${event.language ? `<span class="badge badge-lang">${event.language}</span>` : ''}
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
+              <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">.ics</button>
+            </div>
+          `;
 
+          eventsGrid.appendChild(card);
+        });
 
         dayContent.appendChild(eventsGrid);
         daySection.appendChild(dayHeader);
@@ -765,261 +516,242 @@ const WEEKS = [
         container.appendChild(daySection);
       });
 
-      document.getElementById('visibleEvents').textContent=String(filteredEvents.length);
+      document.getElementById('visibleEvents').textContent = String(filteredEvents.length);
 
-      document.querySelectorAll('[data-day]').forEach(btn=>{
-        btn.onclick=()=>exportICS(filteredEvents.filter(e=>e.date===btn.dataset.day),`events-${btn.dataset.day}.ics`);
+      document.querySelectorAll('[data-day]').forEach(btn => {
+        btn.onclick = () => exportICS(filteredEvents.filter(e => e.date === btn.dataset.day), `events-${btn.dataset.day}.ics`);
       });
-      document.querySelectorAll('[data-ics]').forEach(btn=>{
-        btn.onclick=()=>{
-          const [d,t]=btn.dataset.ics.split('__');
-          const ev=filteredEvents.find(e=>e.date===d && e.time===t);
-          if(ev) exportICS([ev], `event-${d}-${t.replace(':','')}.ics`);
+      document.querySelectorAll('[data-ics]').forEach(btn => {
+        btn.onclick = () => {
+          const [d, t] = btn.dataset.ics.split('__');
+          const ev = filteredEvents.find(e => e.date === d && e.time === t);
+          if (ev) exportICS([ev], `event-${d}-${t.replace(':', '')}.ics`);
         };
       });
     }
 
-    // ==============================
-    // ARCHIVE – Previous week
-    // ==============================
-    function renderArchive(weekKey){
-      const acc=document.getElementById('archiveAccordion');
-      const data=archive[weekKey];
-      const week=WEEKS.find(w=>w.key===weekKey);
-      if(!data || !week) return;
+    function filterEvents(dayNames) {
+      const select = document.getElementById('dayFilter');
+      const search = (document.getElementById('searchFilter').value || '').toLowerCase();
+      const langSel = document.getElementById('langFilter');
+      const langVal = (langSel && langSel.value) ? langSel.value : '__ALL__';
 
-      const total=data.flat.length;
-      if(weekKey==='prev'){ document.getElementById('prevWeekEvents').textContent=String(total||70); }
+      let selectedDay = select.value;
 
-      const header=document.createElement('button');
-      header.className='accordion-header'; // start minimized
-      header.textContent=`${week.label} · total ${total} events`;
+      if (showTodayOnly) {
+        const t = todayStrLima();
+        if (allDates.has(t)) {
+          selectedDay = t;
+          select.value = t;
+        } else {
+          selectedDay = 'all';
+          select.value = 'all';
+        }
+      }
 
-      const content=document.createElement('div');
-      content.className='accordion-content';
-      content.style.display='none'; // hidden by default
-
-      const exportBtn=document.createElement('button'); exportBtn.className='btn-secondary'; exportBtn.style.margin='6px 0 12px 0';
-      exportBtn.textContent='📥 Export week (.ics)';
-      exportBtn.onclick=()=>exportICS(data.flat, `events_${week.label.replace(/\s+/g,'_')}.ics`);
-      content.appendChild(exportBtn);
-
-      Object.keys(data.byDay).sort().forEach(date=>{
-        const list=data.byDay[date];
-        const wrap=document.createElement('div'); wrap.className='day-section';
-
-        const dayHeader=document.createElement('div'); dayHeader.className='day-header';
-        dayHeader.innerHTML=`
-          <div class="day-title">${(week.dayNames[date]||date)} <span style="color:#999; font-weight:600;">(${list.length})</span></div>
-          <button class="btn-secondary" data-archived-day="${weekKey}__${date}">📥 Export day (.ics)</button>
-        `;
-        wrap.appendChild(dayHeader);
-
-        const grid=document.createElement('div'); grid.className='events-grid';
-        list.forEach(ev=>{
-          const card=document.createElement('div'); card.className='event-card';
-          card.innerHTML=`
-            <div class="category-tag">${ev.category||'General'}</div>
-            <div class="event-time">🕐 ${ev.time}</div>
-            <div class="event-title">${ev.title}</div>
-            <div class="event-organizer">📍 ${ev.organizer||'—'}</div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              ${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
-              <button class="ics-btn" data-archived-ics="${weekKey}__${ev.date}__${ev.time}">.ics</button>
-            </div>
-          `;
-          grid.appendChild(card);
-        });
-
-        wrap.appendChild(grid);
-        content.appendChild(wrap);
+      const out = events.filter(ev => {
+        const okDay = (selectedDay === 'all') || ev.date === selectedDay;
+        const hay = [ev.title, ev.organizer, ev.category].filter(Boolean).join(' ').toLowerCase();
+        const okSearch = !search || hay.includes(search);
+        const evLang = (ev.language || '').trim();
+        const okLang = (langVal === '__ALL__') || evLang === langVal;
+        return okDay && okSearch && okLang;
       });
 
-      const block=document.createElement('div'); block.className='accordion-item';
-      block.appendChild(header); block.appendChild(content); acc.appendChild(block);
-
-      header.onclick=()=>{ const isOpen=header.classList.toggle('open'); content.style.display=isOpen?'block':'none'; };
-
-      content.querySelectorAll('[data-archived-day]').forEach(btn=>{
-        btn.onclick=()=>{ const [,date]=btn.dataset.archivedDay.split('__'); exportICS(archive[weekKey].byDay[date], `events-${date}.ics`); };
-      });
-      content.querySelectorAll('[data-archived-ics]').forEach(btn=>{
-        btn.onclick=()=>{
-          const [,d,t]=btn.dataset.archivedIcs.split('__');
-          const ev=archive[weekKey].flat.find(e=>e.date===d && e.time===t);
-          if(ev) exportICS([ev], `event-${d}-${t.replace(':','')}.ics`);
-        };
-      });
+      renderEvents(out, dayNames);
     }
 
-    // ==============================
-    // FILTERS – Current week
-    // ==============================
-  function filterEvents(dayNames){
-  const select = document.getElementById('dayFilter');
-  const search = (document.getElementById('searchFilter').value || '').toLowerCase();
-  const langSel = document.getElementById('langFilter');               // ← 🆕 toma el select de idioma
-  const langVal = (langSel && langSel.value) ? langSel.value : '__ALL__'; // ← 🆕 valor del idioma seleccionado
-
-  let selectedDay = select.value;
-
-  if (showTodayOnly){
-    const t = todayStrLima();
-    if (allDates.has(t)){ selectedDay = t; select.value = t; }
-    else { selectedDay = 'all'; select.value = 'all'; }
-  }
-
-  const out = events.filter(ev => {
-    const okDay = (selectedDay === 'all') || ev.date === selectedDay;
-
-    // texto libre (título, organizador y categoría)
-    const hay = [ev.title, ev.organizer, ev.category].filter(Boolean).join(' ').toLowerCase();
-    const okSearch = !search || hay.includes(search);
-
-    // 🆕 condición de idioma
-    const evLang = (ev.language || '').trim();
-    const okLang = (langVal === '__ALL__') || evLang === langVal;
-
-    return okDay && okSearch && okLang; // ← 🆕 incluye idioma
-  });
-
-  renderEvents(out, dayNames);
-}
-
-    // ==============================
-    // ICS
-    // ==============================
-    function toICS(list){
-      const lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Critical Care Webinars//EN"];
-      const now=new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z/,"Z");
-      for(const ev of list){
-        const [h,m]=(ev.time||"00:00").split(':').map(n=>parseInt(n||"0",10));
-        const [Y,Mo,D]=ev.date.split('-').map(n=>parseInt(n,10));
-        const start=new Date(Y,(Mo-1),D,h,m,0);
-        const end=new Date(start.getTime()+60*60*1000);
-        const fmt=d=>new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().replace(/[-:]/g,"").replace(/\.\d{3}Z/,"Z");
+    function toICS(list) {
+      const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Critical Care Webinars//EN"];
+      const now = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z/, "Z");
+      
+      for (const ev of list) {
+        const [h, m] = (ev.time || "00:00").split(':').map(n => parseInt(n || "0", 10));
+        const [Y, Mo, D] = ev.date.split('-').map(n => parseInt(n, 10));
+        const start = new Date(Y, (Mo - 1), D, h, m, 0);
+        const end = new Date(start.getTime() + 60 * 60 * 1000);
+        const fmt = d => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z/, "Z");
+        
         lines.push("BEGIN:VEVENT");
-        lines.push(`UID:${Y}${String(Mo).padStart(2,'0')}${String(D).padStart(2,'0')}-${String(h).padStart(2,'0')}${String(m).padStart(2,'0')}@ccw`);
+        lines.push(`UID:${Y}${String(Mo).padStart(2, '0')}${String(D).padStart(2, '0')}-${String(h).padStart(2, '0')}${String(m).padStart(2, '0')}@ccw`);
         lines.push(`DTSTAMP:${now}`);
         lines.push(`DTSTART:${fmt(start)}`);
         lines.push(`DTEND:${fmt(end)}`);
-        lines.push(`SUMMARY:${(ev.title||'Event').replace(/[\r\n,]/g,' ')}`);
-        lines.push(`DESCRIPTION:${[(ev.organizer||''),(ev.category||'')].filter(Boolean).join(' | ').replace(/[\r\n,]/g,' ')}`);
-        if(ev.link) lines.push(`URL:${ev.link}`);
+        lines.push(`SUMMARY:${(ev.title || 'Event').replace(/[\r\n,]/g, ' ')}`);
+        lines.push(`DESCRIPTION:${[(ev.organizer || ''), (ev.category || '')].filter(Boolean).join(' | ').replace(/[\r\n,]/g, ' ')}`);
+        if (ev.link) lines.push(`URL:${ev.link}`);
         lines.push("END:VEVENT");
       }
+      
       lines.push("END:VCALENDAR");
       return lines.join("\r\n");
     }
-    function exportICS(list, filename){
-      const blob=new Blob([toICS(list)], {type:"text/calendar"});
-      const url=URL.createObjectURL(blob);
-      const a=Object.assign(document.createElement("a"),{href:url,download:filename});
-      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+
+    function exportICS(list, filename) {
+      const blob = new Blob([toICS(list)], { type: "text/calendar" });
+      const url = URL.createObjectURL(blob);
+      const a = Object.assign(document.createElement("a"), { href: url, download: filename });
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
     }
 
-    // ==============================
-    // LOAD
-    // ==============================
-    async function loadWeek(week){
-      const res=await fetch(buildSheetUrl(week.gid), {cache:"no-store"});
-      if(!res.ok) throw new Error(`Failed to load CSV for ${week.label}`);
-      const csv=await res.text();
-      return parseCSV(csv)
-        .filter(e=>withinRange(e.date, week.start, week.end))
-        .sort((a,b)=>a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+    async function loadWeek(week) {
+      const url = buildSheetUrl(week.gid);
+      console.log(`Loading ${week.label} from:`, url);
+      
+      try {
+        const res = await fetch(url, { 
+          cache: "no-store",
+          mode: 'cors',
+          headers: {
+            'Accept': 'text/csv,text/plain,*/*'
+          }
+        });
+        
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+        
+        const csv = await res.text();
+        
+        if (!csv || csv.trim().length === 0) {
+          throw new Error('Empty response received');
+        }
+        
+        console.log(`✓ Loaded ${week.label}: ${csv.substring(0, 100)}...`);
+        
+        const parsed = parseCSV(csv);
+        const filtered = parsed.filter(e => withinRange(e.date, week.start, week.end));
+        
+        console.log(`✓ Parsed ${filtered.length} events for ${week.label}`);
+        
+        return filtered.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
+        
+      } catch (err) {
+        console.error(`✗ Failed to load ${week.label}:`, err);
+        throw new Error(`Cannot access ${week.label}.\n\nPossible causes:\n• Sheet not published as CSV\n• Incorrect GID\n• Network/CORS issue\n\nURL: ${url}\n\nError: ${err.message}`);
+      }
     }
 
-    function updateFutureCounter(){
-      const nowLima=nowInLimaDate();
-      const count=events.reduce((acc,e)=>{
-        const [Y,Mo,D]=e.date.split('-').map(Number);
-        const [h,m]=(e.time||'00:00').split(':').map(n=>parseInt(n||"0",10));
-        const dt=new Date(Y,Mo-1,D,h,m,0);
+    function updateFutureCounter() {
+      const nowLima = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+      const count = events.reduce((acc, e) => {
+        const [Y, Mo, D] = e.date.split('-').map(Number);
+        const [h, m] = (e.time || '00:00').split(':').map(n => parseInt(n || "0", 10));
+        const dt = new Date(Y, Mo - 1, D, h, m, 0);
         return acc + (dt >= nowLima ? 1 : 0);
-      },0);
-      document.getElementById('futureEvents').textContent=String(count);
+      }, 0);
+      document.getElementById('futureEvents').textContent = String(count);
     }
 
-    async function loadAll(){
-      const $loading=document.getElementById('loadingSection');
-      const $error=document.getElementById('errorSection');
-      const $main=document.getElementById('mainContent');
+    async function loadAll() {
+      const $loading = document.getElementById('loadingSection');
+      const $error = document.getElementById('errorSection');
+      const $main = document.getElementById('mainContent');
 
-      $loading.style.display='block'; $error.style.display='none'; $main.style.display='none';
+      $loading.style.display = 'block';
+      $error.style.display = 'none';
+      $main.style.display = 'none';
 
-      try{
-        const [currentList, prevList]=await Promise.all([
-          loadWeek(WEEKS.find(w=>w.key==='current')),
-          loadWeek(WEEKS.find(w=>w.key==='prev'))
+      try {
+        if (typeof Papa === 'undefined') {
+          throw new Error('PapaParse library failed to load. Please refresh the page.');
+        }
+
+        const [currentList, prevList] = await Promise.all([
+          loadWeek(WEEKS.find(w => w.key === 'current')),
+          loadWeek(WEEKS.find(w => w.key === 'prev'))
         ]);
 
-        // Current week
-        events.length=0; allDates.clear();
-        currentList.forEach(e=>{ events.push(e); allDates.add(e.date); });
-        document.getElementById('totalEvents').textContent=String(events.length);
-        initLanguageFilter(events);
-        updateDateFilter(WEEKS.find(w=>w.key==='current').dayNames);
+        events.length = 0;
+        allDates.clear();
+        currentList.forEach(e => {
+          events.push(e);
+          allDates.add(e.date);
+        });
 
-        // Auto-activate "Today only" if today is in-range
-        const t=todayStrLima();
-        const toggleBtn=document.getElementById('toggleTodayBtn');
-        if(allDates.has(t)){ showTodayOnly=true; toggleBtn.classList.add('active'); toggleBtn.textContent='↩️ Show all'; }
-        else{ showTodayOnly=false; toggleBtn.classList.remove('active'); toggleBtn.textContent='🟣 Today only'; }
+        document.getElementById('totalEvents').textContent = String(events.length);
+        initLanguageFilter(events);
+        updateDateFilter(WEEKS.find(w => w.key === 'current').dayNames);
+
+        const t = todayStrLima();
+        const toggleBtn = document.getElementById('toggleTodayBtn');
+        if (allDates.has(t)) {
+          showTodayOnly = true;
+          toggleBtn.classList.add('active');
+          toggleBtn.textContent = '↩️ Show all';
+        } else {
+          showTodayOnly = false;
+          toggleBtn.classList.remove('active');
+          toggleBtn.textContent = '🟣 Today only';
+        }
 
         updateFutureCounter();
-        filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
+        filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
 
-        // Previous week archive
-        const prev=WEEKS.find(w=>w.key==='prev');
-        archive['prev']={ flat: prevList.slice(), byDay: prevList.reduce((acc,ev)=>{ (acc[ev.date] ||= []).push(ev); return acc; },{}) };
-        const hasArchive=archive['prev'].flat.length>0;
-        document.getElementById('archiveBlock').style.display=hasArchive?'block':'none';
-        if(hasArchive){ const acc=document.getElementById('archiveAccordion'); acc.innerHTML=''; renderArchive('prev'); }
+        const prev = WEEKS.find(w => w.key === 'prev');
+        archive['prev'] = {
+          flat: prevList.slice(),
+          byDay: prevList.reduce((acc, ev) => {
+            (acc[ev.date] ||= []).push(ev);
+            return acc;
+          }, {})
+        };
 
-        $loading.style.display='none'; $main.style.display='block';
-      }catch(err){
+        const hasArchive = archive['prev'].flat.length > 0;
+        document.getElementById('archiveBlock').style.display = hasArchive ? 'block' : 'none';
+
+        $loading.style.display = 'none';
+        $main.style.display = 'block';
+
+      } catch (err) {
         console.error(err);
-        $loading.style.display='none'; $error.style.display='block';
-        $error.innerHTML=`
+        $loading.style.display = 'none';
+        $error.style.display = 'block';
+        $error.innerHTML = `
           <strong>⚠️ Error loading events</strong><br>
           ${err.message}<br><br>
           Please verify that:<br>
           • Both sheets are <em>Published to the web</em> as CSV<br>
-          • You are using the correct <code>gid</code> for <b>Week 1 (6–11)</b> and <b>Week 2 (13–18)</b><br><br>
+          • PapaParse library loaded correctly<br>
+          • Your internet connection is stable<br><br>
           <button class="btn-secondary" id="retryBtn">Retry</button>
         `;
-        document.getElementById('retryBtn').onclick=loadAll;
+        document.getElementById('retryBtn').onclick = loadAll;
       }
     }
 
-    // ==============================
-    // INIT + LISTENERS
-    // ==============================
-    document.getElementById('reloadBtn').onclick=()=>{ loadAll(); };
-    document.getElementById('searchFilter').oninput=()=>filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
-    document.getElementById('dayFilter').onchange=()=>{
-      // if user changes the selector, disable "Today only"
-      showTodayOnly=false;
-      const btn=document.getElementById('toggleTodayBtn');
-      btn.classList.remove('active'); btn.textContent='🟣 Today only';
-      filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
-    };
-    document.getElementById('exportWeek').onclick=()=>exportICS(events, 'events-current-week.ics');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('reloadBtn').onclick = () => { loadAll(); };
+      document.getElementById('searchFilter').oninput = () => filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+      document.getElementById('dayFilter').onchange = () => {
+        showTodayOnly = false;
+        const btn = document.getElementById('toggleTodayBtn');
+        btn.classList.remove('active');
+        btn.textContent = '🟣 Today only';
+        filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+      };
+      document.getElementById('exportWeek').onclick = () => exportICS(events, 'events-current-week.ics');
+      document.getElementById('toggleTodayBtn').onclick = () => {
+        showTodayOnly = !showTodayOnly;
+        const btn = document.getElementById('toggleTodayBtn');
+        if (showTodayOnly) {
+          btn.classList.add('active');
+          btn.textContent = '↩️ Show all';
+        } else {
+          btn.classList.remove('active');
+          btn.textContent = '🟣 Today only';
+          document.getElementById('dayFilter').value = 'all';
+        }
+        filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+      };
 
-    // Toggle "Today only"
-    document.getElementById('toggleTodayBtn').onclick=()=>{
-      showTodayOnly=!showTodayOnly;
-      const btn=document.getElementById('toggleTodayBtn');
-      if(showTodayOnly){ btn.classList.add('active'); btn.textContent='↩️ Show all'; }
-      else{ btn.classList.remove('active'); btn.textContent='🟣 Today only'; document.getElementById('dayFilter').value='all'; }
-      filterEvents(WEEKS.find(w=>w.key==='current').dayNames);
-    };
-
-    // Initial load + auto-refresh
-    loadAll();
-    setInterval(()=>{ loadAll(); }, 300000);
-    setInterval(()=>{ updateFutureCounter(); }, 60000);
+      loadAll();
+      setInterval(() => { loadAll(); }, 300000);
+      setInterval(() => { updateFutureCounter(); }, 60000);
+    });
   </script>
 </body>
 </html>
