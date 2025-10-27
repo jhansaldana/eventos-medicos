@@ -95,6 +95,10 @@
     .resource-card p { color: #555; font-size: 0.9em; line-height: 1.4; }
     .resource-link { color: #764ba2; text-decoration: none; font-weight: bold; font-size: 0.9em; display: inline-block; margin-top: 8px; }
     .resource-link:hover { text-decoration: underline; }
+/* Más espacio entre el cuadro destacado inicial y "What is CCW" */
+.intro .weekly-update { 
+  margin-bottom: 28px; /* súbelo a 36px o 48px si quieres aún más aire */
+}
 
     .featured-gold{
       border: 3px solid #ffd700 !important;
@@ -180,20 +184,27 @@
       <p class="subtitle">
         Week of <strong>October 26 – November 1, 2025</strong> · <span class="small-note">Times shown in Lima (GMT-5)</span>
       </p>
+     <div class="intro">
+  <div class="weekly-update featured-gold">
+    <h3>🌎 Week of Oct 26 – Nov 1</h3>
+    <p>
+      <strong>Critical Care Webinars</strong> has reached professionals in <strong>80+ countries</strong> and has featured
+      <strong>300+ webinars</strong> over the weeks. We remain committed to a reliable, high-quality academic option for everyone.
+    </p>
+  </div>
 
-      <div class="intro">
-        <div class="weekly-update featured-gold">
-          <h3>🌎 Week of Oct 26 – Nov 1</h3>
-          <p>
-            <strong>Critical Care Webinars</strong> has reached professionals in <strong>80+ countries</strong> and has featured
-            <strong>300+ webinars</strong> over the weeks. We remain committed to a reliable, high-quality academic option for everyone.
-          </p>
-        </div>
+  <strong>What is Critical Care Webinars?</strong><br>
+  Academic, living, and curated agenda of <em>webinars, courses, and events</em> in critical care, ECMO, clinical simulation, patient safety, and AI in healthcare. It consolidates learning opportunities in one place and presents them with time-zone conversion to Lima (GMT-5).
+  <br><strong>Last week we recorded more than 100 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
 
-        <strong>What is Critical Care Webinars?</strong><br>
-        Academic, living, and curated agenda of <em>webinars, courses, and events</em> in critical care, ECMO, clinical simulation, patient safety, and AI in healthcare. It consolidates learning opportunities in one place and presents them with time-zone conversion to Lima (GMT-5).
-        <br><strong>Last week we recorded more than 100 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
-      </div>
+  <!-- 👇 NUEVO: Instagram en el speech -->
+  <div class="social" style="margin-top:12px; font-weight:600;">
+    📸 Síguenos en Instagram:
+    <a href="https://www.instagram.com/ccw_critalcarewebinars" target="_blank" rel="noopener">
+      @ccw_critalcarewebinars
+    </a>
+  </div>
+</div>
     </header>
 
     <div id="loadingSection" class="loading">
@@ -282,6 +293,20 @@
             </ul>
             <button class="resource-cta">🌐 Ir al curso gratuito</button>
           </div>
+          <!-- Featured Course 3 – Dr. Federico Ferrero -->
+<div class="resource-card featured-gold"
+     onclick="window.open('https://simulamos.tiendup.com/?fbclid=PAdGRleANjaudleHRuA2FlbQIxMQABp_FxpnFv-t5J-_uPt8soetBE8Homb2PB_Qe5iwQt6w4phX50jF9l6ozCAWSZ_aem_CFRSflcVricKKErnQmrTYw', '_blank')"
+     role="button"
+     aria-label="Curso del Dr. Federico Ferrero – Simulación Clínica">
+  <div class="featured-badge">FEATURED</div>
+  <h4>🎓 Curso del Dr. Federico Ferrero – Simulación Clínica</h4>
+  <ul style="margin:8px 0 10px 18px; color:#333; font-size:0.95em; line-height:1.4;">
+    <li><strong>Enfocado en:</strong> docencia y aprendizaje basado en simulación</li>
+    <li><strong>Dirigido a:</strong> profesionales de salud y educadores</li>
+    <li><strong>Modalidad:</strong> online</li>
+  </ul>
+  <button class="resource-cta">Ver curso →</button>
+</div>
 
           <!-- Regular Courses -->
           <div class="resource-card" onclick="window.open('https://getinge.training/lms/signin', '_blank')">
