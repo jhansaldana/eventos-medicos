@@ -181,12 +181,12 @@
   <div class="container">
     <header>
       <h1>📅 Critical Care Webinars</h1>
-      <p class="subtitle">
-        Week of <strong>October 26 – November 1, 2025</strong> · <span class="small-note">Times shown in Lima (GMT-5)</span>
-      </p>
+    <p class="subtitle">
+  Week of <strong>November 3 – 8, 2025</strong> · <span class="small-note">Times shown in Lima (GMT-5)</span>
+</p>
      <div class="intro">
   <div class="weekly-update featured-gold">
-    <h3>🌎 Week of Oct 26 – Nov 1</h3>
+   <h3>🌎 Week of Nov 3 – 8</h3>
     <p>
       <strong>Critical Care Webinars</strong> has reached professionals in <strong>80+ countries</strong> and has featured
       <strong>300+ webinars</strong> over the weeks. We remain committed to a reliable, high-quality academic option for everyone.
@@ -595,27 +595,28 @@
       </div>
 
   <script>
-    const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
-    const GID_SHEET_3 = '248417399';
-    const GID_SHEET_4 = '1475156769';
+const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
+const GID_SHEET_3 = '248417399';   // Week Oct 20–25, 2025
+const GID_SHEET_4 = '1475156769';  // Week Oct 26–Nov 1, 2025
+const GID_SHEET_5 = '945629698';   // ✅ Week Nov 3–8, 2025  ← NUEVA HOJA
 
     const WEEKS = [
-      {
-        key: 'current',
-        label: 'Week Oct 26 – Nov 1, 2025',
-        gid: GID_SHEET_4,
-        start: '2025-10-26',
-        end: '2025-11-01',
-        dayNames: {
-          '2025-10-26': 'Sunday, Oct 26',
-          '2025-10-27': 'Monday, Oct 27',
-          '2025-10-28': 'Tuesday, Oct 28',
-          '2025-10-29': 'Wednesday, Oct 29',
-          '2025-10-30': 'Thursday, Oct 30',
-          '2025-10-31': 'Friday, Oct 31',
-          '2025-11-01': 'Saturday, Nov 1'
-        }
-      },
+     {
+  key: 'current',
+  label: 'Week Nov 3 – 8, 2025',
+  gid: GID_SHEET_5, // puedes mantener el mismo o poner el nuevo ID si usarás otra hoja
+  start: '2025-11-03',
+  end: '2025-11-08',
+  dayNames: {
+    '2025-11-03': 'Monday, Nov 3',
+    '2025-11-04': 'Tuesday, Nov 4',
+    '2025-11-05': 'Wednesday, Nov 5',
+    '2025-11-06': 'Thursday, Nov 6',
+    '2025-11-07': 'Friday, Nov 7',
+    '2025-11-08': 'Saturday, Nov 8'
+  }
+},
+
       {
         key: 'prev',
         label: 'Week Oct 20–25, 2025',
