@@ -617,22 +617,23 @@ const GID_SHEET_5 = '945629698';   // ✅ Week Nov 3–8, 2025  ← NUEVA HOJA
   }
 },
 
-      {
-        key: 'prev',
-        label: 'Week Oct 20–25, 2025',
-        gid: GID_SHEET_3,
-        start: '2025-10-20',
-        end: '2025-10-25',
-        dayNames: {
-          '2025-10-20': 'Monday, Oct 20',
-          '2025-10-21': 'Tuesday, Oct 21',
-          '2025-10-22': 'Wednesday, Oct 22',
-          '2025-10-23': 'Thursday, Oct 23',
-          '2025-10-24': 'Friday, Oct 24',
-          '2025-10-25': 'Saturday, Oct 25'
-        }
-      }
-    ];
+     {
+    key: 'prev',
+    label: 'Week Oct 26 – Nov 2, 2025',  // 👈 cambiamos aquí
+    gid: GID_SHEET_4,                    // mantiene la hoja anterior
+    start: '2025-10-26',
+    end: '2025-11-02',
+    dayNames: {
+      '2025-10-26': 'Sunday, Oct 26',
+      '2025-10-27': 'Monday, Oct 27',
+      '2025-10-28': 'Tuesday, Oct 28',
+      '2025-10-29': 'Wednesday, Oct 29',
+      '2025-10-30': 'Thursday, Oct 30',
+      '2025-10-31': 'Friday, Oct 31',
+      '2025-11-01': 'Saturday, Nov 1',
+    }
+  }
+];
 
     const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
 
