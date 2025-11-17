@@ -47,7 +47,7 @@
     .toggle-today { background: #fff; color: #764ba2; border: 2px solid #764ba2; padding: 8px 14px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all .2s; }
     .toggle-today.active { background: #764ba2; color:#fff; }
 
-    .day-section { margin-bottom: 30px; }
+    .day-section { margin-bottom: 30px; scroll-margin-top: 100px; }
     .day-header { background: white; border-radius: 10px; padding: 15px 20px; margin-bottom: 0;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;
       cursor: pointer; transition: all 0.3s; }
@@ -61,7 +61,7 @@
     .day-content.collapsed { max-height: 0 !important; }
     .day-title { color: #667eea; font-size: 1.5em; font-weight: bold; }
     .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-    .event-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; border-left: 5px solid #667eea; }
+    .event-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; border-left: 5px solid #667eea; scroll-margin-top: 120px; }
     .event-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
     .event-time { color: #764ba2; font-weight: bold; font-size: 1.1em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .event-title { color: #333; font-size: 1.2em; font-weight: bold; margin-bottom: 10px; line-height: 1.4; }
@@ -95,10 +95,9 @@
     .resource-card p { color: #555; font-size: 0.9em; line-height: 1.4; }
     .resource-link { color: #764ba2; text-decoration: none; font-weight: bold; font-size: 0.9em; display: inline-block; margin-top: 8px; }
     .resource-link:hover { text-decoration: underline; }
-/* Más espacio entre el cuadro destacado inicial y "What is CCW" */
-.intro .weekly-update { 
-  margin-bottom: 28px; /* súbelo a 36px o 48px si quieres aún más aire */
-}
+    .intro .weekly-update { 
+      margin-bottom: 28px;
+    }
 
     .featured-gold{
       border: 3px solid #ffd700 !important;
@@ -185,7 +184,6 @@
     alt="CCW Banner"
     style="width:100%; max-height:200px; object-fit:cover; margin-bottom:20px; border-radius:12px;">
 
-  <!-- resto de tu contenido -->
    
     <header>
 <div style="display:flex; align-items:center; gap:15px;">
@@ -196,11 +194,11 @@
   <h1>📅 Critical Care Webinars</h1>
 </div>
       <p class="subtitle">
-  Week of <strong>November 17 – 22, 2025</strong> · <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
+  Week of <strong>November 17 – 23, 2025</strong> · <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
      <div class="intro">
  <div class="weekly-update featured-gold">
-  <h3>🌎 Week of Nov 17 – 22</h3>
+  <h3>🌎 Week of Nov 17 – 23</h3>
   <p>
     <strong>Critical Care Webinars</strong> has reached professionals in <strong>95+ countries</strong>,
     benefiting more than <strong>2,500 clinicians and educators</strong> worldwide, and has featured
@@ -213,7 +211,6 @@
   Academic, living, and curated agenda of <em>webinars, courses, and events</em> in critical care, ECMO, clinical simulation, patient safety, and AI in healthcare. It consolidates learning opportunities in one place and presents them with time-zone conversion to Lima (GMT-5).
   <br><strong>Last week we recorded more than 100 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
 
-  <!-- 👇 NUEVO: Instagram en el speech -->
  <div class="social" style="margin-top:12px; font-weight:600;">
   📸 Follow us on Instagram:
   <a href="https://www.instagram.com/ccw_criticalcarewebinars" target="_blank" rel="noopener">
@@ -280,7 +277,6 @@
         
         <h3>🎓 Recommended Courses</h3>
         <div class="resource-grid">
-          <!-- Featured Course 1 -->
           <div class="resource-card featured-gold"
                onclick="window.open('https://lnkd.in/ePXZUYVr', '_blank')"
                role="button"
@@ -295,7 +291,6 @@
             <button class="resource-cta">¡REGÍSTRATE AHORA!</button>
           </div>
 
-          <!-- Featured Course 2 -->
           <div class="resource-card featured-gold"
                onclick="window.open('https://campus.paho.org/es/curso/manejo-sepsis', '_blank')"
                role="button"
@@ -309,7 +304,7 @@
             </ul>
             <button class="resource-cta">🌐 Ir al curso gratuito</button>
           </div>
-          <!-- Featured Course 3 – Dr. Federico Ferrero -->
+
 <div class="resource-card featured-gold"
      onclick="window.open('https://simulamos.tiendup.com/?fbclid=PAdGRleANjaudleHRuA2FlbQIxMQABp_FxpnFv-t5J-_uPt8soetBE8Homb2PB_Qe5iwQt6w4phX50jF9l6ozCAWSZ_aem_CFRSflcVricKKErnQmrTYw', '_blank')"
      role="button"
@@ -325,7 +320,6 @@
   <button class="resource-cta">Ver curso →</button>
 </div>
 
-          <!-- Regular Courses -->
           <div class="resource-card" onclick="window.open('https://getinge.training/lms/signin', '_blank')">
             <h4>Getinge Training LMS</h4>
             <p>E-learning platform with modules on ventilation, ECMO, perfusion, and critical care.
@@ -372,7 +366,6 @@
           </div>
         </div>
 
-        <!-- Essential Apps -->
         <h3>📱 Essential Apps for Intensivists</h3>
         <div class="resource-grid">
           <div class="resource-card" onclick="window.open('https://apps.apple.com/app/epocrates/id281935788', '_blank')">
@@ -428,9 +421,18 @@
               <a class="resource-link" href="https://play.google.com/store/search?q=ELSO%20Bedside%20Guide&c=apps" target="_blank" rel="noopener">Android (search) →</a>
             </p>
           </div>
+
+          <div class="resource-card">
+            <h4>iElastance</h4>
+            <p>Calculate ventricular-arterial coupling and hemodynamic parameters for critical care applications.</p>
+            <p>
+              <a class="resource-link" href="https://apps.apple.com/us/search?term=iElastance" target="_blank" rel="noopener">iOS (search) →</a>
+              &nbsp;|&nbsp;
+              <a class="resource-link" href="https://play.google.com/store/search?q=iElastance&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+            </p>
+          </div>
         </div>
 
-        <!-- Simulation Apps -->
         <h3>🎮 Apps for Simulation</h3>
         <div class="resource-grid">
           <div class="resource-card" onclick="window.open('https://www.laerdal.com/simpad/', '_blank')">
@@ -455,6 +457,16 @@
             <h4>HeartSim</h4>
             <p>Interactive ECG simulator for rhythm training.</p>
             <span class="resource-link">Visit →</span>
+          </div>
+
+          <div class="resource-card">
+            <h4>Vent Trainer (Hamilton)</h4>
+            <p>Hamilton Medical's mechanical ventilation training app for learning ventilator management and modes.</p>
+            <p>
+              <a class="resource-link" href="https://apps.apple.com/us/search?term=Hamilton%20Vent%20Trainer" target="_blank" rel="noopener">iOS (search) →</a>
+              &nbsp;|&nbsp;
+              <a class="resource-link" href="https://play.google.com/store/search?q=Hamilton%20Vent%20Trainer&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+            </p>
           </div>
 
           <div class="resource-card">
@@ -488,7 +500,6 @@
           </div>
         </div>
 
-        <!-- Featured Book -->
         <div class="resource-card featured-gold" 
              style="margin-top: 20px;"
              onclick="window.open('https://drive.google.com/file/d/1i1EGQC0WAzzSvxYgb22zsd7u7EPLDVDB/view?usp=sharing', '_blank')">
@@ -498,7 +509,6 @@
           <button class="resource-cta">Open book (Google Drive) →</button>
         </div>
 
-        <!-- Podcasts -->
         <h3>🎧 Recommended Podcasts</h3>
         <p style="color:#555; margin-bottom:14px;">
           Explore global voices in critical care, ECMO, cardiology, simulation, and patient safety.
@@ -584,9 +594,17 @@
             <span class="resource-link">Listen →</span>
           </div>
         </div>
+
+        <h3>📺 YouTube Channels for Intensivists</h3>
+        <div class="resource-grid">
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/channel/UCESYe22nC1uSmxqj4lQmRvA', '_blank')">
+            <h4>Dr. Faten Farid - ICU Advantage</h4>
+            <p>Comprehensive critical care education covering mechanical ventilation, hemodynamics, and ICU protocols. Excellent resource for intensivists and residents.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Support Section -->
       <div class="resources-section" style="border-top: 4px solid #764ba2; background:linear-gradient(135deg,#f9f9ff 0%,#fff8ff 100%); margin-top:40px;">
         <h2>💜 Support the Project</h2>
         <p style="font-size:1em; color:#444; line-height:1.6;">
@@ -612,41 +630,43 @@
 
   <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
-const GID_SHEET_3 = '248417399';   // Week Oct 20–25, 2025 (hist)
-const GID_SHEET_4 = '1475156769';  // Week Oct 26–Nov 1, 2025 (hist)
-const GID_SHEET_5 = '945629698';   // Week Nov 3–8, 2025 (prev)
-const GID_SHEET_6 = '736093974';   // ✅ Week Nov 10–15, 2025 (current)
+const GID_SHEET_3 = '248417399';
+const GID_SHEET_4 = '1475156769';
+const GID_SHEET_5 = '945629698';
+const GID_SHEET_6 = '736093974';
 const GID_SHEET_7 = '592880085';
 
     const WEEKS = [
   {
     key: 'current',
-    label: 'Week Nov 17 – 22, 2025',
-    gid: GID_SHEET_7,   // 👈 aquí usamos el 592880085
+    label: 'Week Nov 17 – 23, 2025',
+    gid: GID_SHEET_7,
     start: '2025-11-17',
-    end: '2025-11-22',
+    end: '2025-11-23',
     dayNames: {
       '2025-11-17': 'Monday, Nov 17',
       '2025-11-18': 'Tuesday, Nov 18',
       '2025-11-19': 'Wednesday, Nov 19',
       '2025-11-20': 'Thursday, Nov 20',
       '2025-11-21': 'Friday, Nov 21',
-      '2025-11-22': 'Saturday, Nov 22'
+      '2025-11-22': 'Saturday, Nov 22',
+      '2025-11-23': 'Sunday, Nov 23'
     }
   },
   {
     key: 'prev',
-    label: 'Week Nov 10 – 15, 2025',
+    label: 'Week Nov 10 – 16, 2025',
     gid: GID_SHEET_6,
     start: '2025-11-10',
-    end:   '2025-11-15',
+    end:   '2025-11-16',
     dayNames: {
       '2025-11-10': 'Monday, Nov 10',
       '2025-11-11': 'Tuesday, Nov 11',
       '2025-11-12': 'Wednesday, Nov 12',
       '2025-11-13': 'Thursday, Nov 13',
       '2025-11-14': 'Friday, Nov 14',
-      '2025-11-15': 'Saturday, Nov 15'
+      '2025-11-15': 'Saturday, Nov 15',
+      '2025-11-16': 'Sunday, Nov 16'
     }
   }
 ];
@@ -734,6 +754,14 @@ const GID_SHEET_7 = '592880085';
       return `${Y}-${M}-${D}`;
     }
 
+    function currentTimeLima() {
+      const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+      return {
+        hours: d.getHours(),
+        minutes: d.getMinutes()
+      };
+    }
+
     function updateDateFilter(dayNames) {
       const select = document.getElementById('dayFilter');
       select.innerHTML = '';
@@ -762,6 +790,59 @@ const GID_SHEET_7 = '592880085';
         sel.appendChild(opt);
       });
       sel.onchange = () => filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+    }
+
+    function scrollToNearestEvent() {
+      const todayStr = todayStrLima();
+      const currentTime = currentTimeLima();
+      
+      const todaySections = document.querySelectorAll('.day-section');
+      let targetSection = null;
+      
+      for (const section of todaySections) {
+        const header = section.querySelector('.day-header');
+        if (header && header.classList.contains('today')) {
+          targetSection = section;
+          break;
+        }
+      }
+      
+      if (!targetSection) return;
+
+      const todayEvents = events.filter(e => e.date === todayStr);
+      if (todayEvents.length === 0) return;
+
+      let nearestEvent = null;
+      let minDiff = Infinity;
+
+      todayEvents.forEach(ev => {
+        const [h, m] = ev.time.split(':').map(Number);
+        const eventMinutes = h * 60 + m;
+        const currentMinutes = currentTime.hours * 60 + currentTime.minutes;
+        const diff = Math.abs(eventMinutes - currentMinutes);
+        
+        if (diff < minDiff) {
+          minDiff = diff;
+          nearestEvent = ev;
+        }
+      });
+
+      if (nearestEvent) {
+        setTimeout(() => {
+          const cards = targetSection.querySelectorAll('.event-card');
+          for (const card of cards) {
+            const timeEl = card.querySelector('.event-time');
+            if (timeEl && timeEl.textContent.includes(nearestEvent.time)) {
+              card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              break;
+            }
+          }
+        }, 500);
+      } else {
+        setTimeout(() => {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      }
     }
 
     function renderEvents(filteredEvents, dayNames) {
@@ -806,16 +887,27 @@ const GID_SHEET_7 = '592880085';
 
         const dayContent = document.createElement('div');
         dayContent.className = `day-content ${shouldCollapse ? 'collapsed' : ''}`;
-        if (shouldCollapse) dayContent.style.maxHeight = '0';
+        if (shouldCollapse) {
+          dayContent.style.maxHeight = '0';
+        } else {
+          dayContent.style.maxHeight = 'none';
+        }
 
         dayHeader.addEventListener('click', (e) => {
           if (e.target.tagName === 'BUTTON') return;
+          const isCurrentlyCollapsed = dayContent.classList.contains('collapsed');
           dayContent.classList.toggle('collapsed');
           dayHeader.classList.toggle('collapsed');
-          if (dayContent.classList.contains('collapsed')) {
-            dayContent.style.maxHeight = '0';
+          if (isCurrentlyCollapsed) {
+            dayContent.style.maxHeight = dayContent.scrollHeight + 'px';
+            setTimeout(() => {
+              dayContent.style.maxHeight = 'none';
+            }, 300);
           } else {
             dayContent.style.maxHeight = dayContent.scrollHeight + 'px';
+            setTimeout(() => {
+              dayContent.style.maxHeight = '0';
+            }, 10);
           }
         });
 
@@ -872,6 +964,8 @@ const GID_SHEET_7 = '592880085';
           if (ev) exportICS([ev], `event-${d}-${t.replace(':', '')}.ics`);
         };
       });
+
+      scrollToNearestEvent();
     }
 
     function renderArchive(weekKey) {
