@@ -88,6 +88,39 @@
     .resources-section { background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
     .resources-section h2 { color: #667eea; font-size: 1.8em; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
     .resources-section h3 { color: #764ba2; font-size: 1.3em; margin: 25px 0 15px 0; }
+    .resource-collapse-header {
+      color: #764ba2;
+      font-size: 1.3em;
+      margin: 25px 0 15px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: #f9f9ff;
+      border: 1px solid rgba(118,75,162,.2);
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+    .resource-collapse-header:hover {
+      background: #f0f0ff;
+      border-color: rgba(118,75,162,.4);
+    }
+    .resource-collapse-header .collapse-icon {
+      font-size: 1em;
+      transition: transform 0.3s;
+      color: #667eea;
+    }
+    .resource-collapse-header.collapsed .collapse-icon {
+      transform: rotate(-90deg);
+    }
+    .resource-collapsible-content {
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .resource-collapsible-content.collapsed {
+      max-height: 0 !important;
+    }
     .resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-bottom: 20px; }
     .resource-card { background: linear-gradient(135deg, #f5f7ff 0%, #fff5f8 100%); border: 2px solid #e0e5ff; border-radius: 10px; padding: 15px; transition: all 0.3s; cursor: pointer; }
     .resource-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(102,126,234,0.3); border-color: #667eea; }
@@ -275,7 +308,11 @@
       <div class="resources-section">
         <h2>📚 Resources for Intensivists & Simulationists</h2>
         
-        <h3>🎓 Recommended Courses</h3>
+        <h3 class="resource-collapse-header" data-section="courses">
+          🎓 Recommended Courses 
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="courses-content">
         <div class="resource-grid">
           <div class="resource-card featured-gold"
                onclick="window.open('https://lnkd.in/ePXZUYVr', '_blank')"
@@ -366,7 +403,11 @@
           </div>
         </div>
 
-        <h3>📱 Essential Apps for Intensivists</h3>
+        <h3 class="resource-collapse-header" data-section="apps">
+          📱 Essential Apps for Intensivists 
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="apps-content" style="display:none; max-height:0;">
         <div class="resource-grid">
           <div class="resource-card" onclick="window.open('https://apps.apple.com/app/epocrates/id281935788', '_blank')">
             <h4>Epocrates</h4>
@@ -433,7 +474,11 @@
           </div>
         </div>
 
-        <h3>🎮 Apps for Simulation</h3>
+        <h3 class="resource-collapse-header" data-section="simulation">
+          🎮 Apps for Simulation 
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="simulation-content" style="display:none; max-height:0;">
         <div class="resource-grid">
           <div class="resource-card" onclick="window.open('https://www.laerdal.com/simpad/', '_blank')">
             <h4>SimPad PLUS</h4>
@@ -509,7 +554,11 @@
           <button class="resource-cta">Open book (Google Drive) →</button>
         </div>
 
-        <h3>🎧 Recommended Podcasts</h3>
+        <h3 class="resource-collapse-header" data-section="podcasts">
+          🎧 Recommended Podcasts 
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="podcasts-content" style="display:none; max-height:0;">
         <p style="color:#555; margin-bottom:14px;">
           Explore global voices in critical care, ECMO, cardiology, simulation, and patient safety.
           Each podcast offers a unique perspective on innovation, leadership, and frontline experience.
@@ -595,13 +644,126 @@
           </div>
         </div>
 
-        <h3>📺 YouTube Channels for Intensivists</h3>
+        <h3 class="resource-collapse-header" data-section="youtube">
+          📺 Recommended YouTube Channels 
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="youtube-content" style="display:none; max-height:0;">
         <div class="resource-grid">
           <div class="resource-card" onclick="window.open('https://www.youtube.com/channel/UCESYe22nC1uSmxqj4lQmRvA', '_blank')">
             <h4>Dr. Faten Farid - ICU Advantage</h4>
             <p>Comprehensive critical care education covering mechanical ventilation, hemodynamics, and ICU protocols. Excellent resource for intensivists and residents.</p>
             <span class="resource-link">Visit Channel →</span>
           </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@HealthcareTrainingExperience', '_blank')">
+            <h4>Healthcare Training Experience</h4>
+            <p>Medical simulation and healthcare education resources for professionals and educators.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@WorldSepsisDay', '_blank')">
+            <h4>World Sepsis Day</h4>
+            <p>Global initiative focused on sepsis awareness, prevention, and management education.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@sociedadargentinadeterapia7430', '_blank')">
+            <h4>Sociedad Argentina de Terapia Intensiva (SATI)</h4>
+            <p>Leading Argentine society for critical care medicine with educational content in Spanish.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@icbacardiovascular', '_blank')">
+            <h4>ICBA Cardiovascular</h4>
+            <p>Cardiovascular care and cardiac critical care from Instituto Cardiovascular de Buenos Aires.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@Canal_INER', '_blank')">
+            <h4>Canal INER (Instituto Nacional de Enfermedades Respiratorias)</h4>
+            <p>Mexico's national respiratory diseases institute - pulmonary critical care and respiratory medicine.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@incnet5698', '_blank')">
+            <h4>INCNet</h4>
+            <p>Critical care network sharing knowledge and best practices across institutions.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@renasicvirtual', '_blank')">
+            <h4>RENASIC Virtual</h4>
+            <p>Latin American network for pediatric and neonatal intensive care education.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@euroelso544', '_blank')">
+            <h4>EuroELSO</h4>
+            <p>European chapter of ELSO - ECMO education, research, and clinical guidelines.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@YashodaHospitalsHyderabad', '_blank')">
+            <h4>Yashoda Hospitals</h4>
+            <p>Multi-specialty hospital group sharing medical education and patient care insights.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@ICCNNetwork', '_blank')">
+            <h4>ICCN Network</h4>
+            <p>International Critical Care Nursing Network - global nursing education and collaboration.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@SBCECOFICIAL', '_blank')">
+            <h4>SBCEC - Sociedade Brasileira de Circulação Extracorpórea</h4>
+            <p>Brazilian society for extracorporeal circulation - perfusion and ECMO education.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@RafaelHerreraACVP', '_blank')">
+            <h4>Rafael Herrera - ACVP</h4>
+            <p>Cardiovascular perfusion education and extracorporeal life support resources.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@sociedadperuanadecardiolog4004', '_blank')">
+            <h4>Sociedad Peruana de Cardiología</h4>
+            <p>Peruvian cardiology society with lectures, conferences, and cardiovascular medicine updates.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@youngindiaintensivist7709', '_blank')">
+            <h4>Young India Intensivist</h4>
+            <p>Indian critical care perspective with practical ICU management and education for young intensivists.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@TexasHeartInstitute', '_blank')">
+            <h4>Texas Heart Institute</h4>
+            <p>World-renowned cardiovascular center sharing cutting-edge research and cardiac care education.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@CTSNetVideo', '_blank')">
+            <h4>CTSNet - Cardiothoracic Surgery Network</h4>
+            <p>Surgical videos, techniques, and education for cardiothoracic surgery professionals.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@amrelhusseini5321', '_blank')">
+            <h4>Amr El Husseini</h4>
+            <p>Critical care and emergency medicine education with clinical pearls and case discussions.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+
+          <div class="resource-card" onclick="window.open('https://www.youtube.com/@WorldInstituteofCCEM', '_blank')">
+            <h4>World Institute of Critical Care & Emergency Medicine (WICCM)</h4>
+            <p>Global critical care education platform with conferences, webinars, and expert lectures.</p>
+            <span class="resource-link">Visit Channel →</span>
+          </div>
+        </div>
         </div>
       </div>
 
@@ -1295,6 +1457,46 @@ const GID_SHEET_7 = '592880085';
       loadAll();
       setInterval(() => { loadAll(); }, 300000);
       setInterval(() => { updateFutureCounter(); }, 60000);
+
+      // Initialize resource section collapse functionality
+      document.querySelectorAll('.resource-collapse-header').forEach(header => {
+        header.addEventListener('click', () => {
+          const section = header.dataset.section;
+          const content = document.getElementById(`${section}-content`);
+          const isCurrentlyCollapsed = content.style.display === 'none';
+          
+          header.classList.toggle('collapsed');
+          
+          if (isCurrentlyCollapsed) {
+            content.style.display = 'block';
+            content.style.maxHeight = 'none';
+            const height = content.scrollHeight;
+            content.style.maxHeight = '0';
+            setTimeout(() => {
+              content.style.maxHeight = height + 'px';
+            }, 10);
+            setTimeout(() => {
+              content.style.maxHeight = 'none';
+            }, 300);
+          } else {
+            content.style.maxHeight = content.scrollHeight + 'px';
+            setTimeout(() => {
+              content.style.maxHeight = '0';
+            }, 10);
+            setTimeout(() => {
+              content.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+
+      // Open first section by default (Recommended Courses)
+      const firstHeader = document.querySelector('[data-section="courses"]');
+      if (firstHeader) {
+        const content = document.getElementById('courses-content');
+        content.style.display = 'block';
+        content.style.maxHeight = 'none';
+      }
     });
   </script>
 </body>
