@@ -892,12 +892,12 @@ const GID_SHEET_6 = '736093974';
       for (const row of result.data) {
         const date = normalizeDate(getField(row, ["date", "fecha", "día", "dia"]));
         const time = normalizeTime(getField(row, ["time", "hora", "start", "inicio"]));
-        const title = getField(row, ["title", "título", "titulo", "tema", "subject"]));
-        const link = getField(row, ["link", "enlace", "url"]));
-        const organizer = getField(row, ["organizer", "organizador", "host", "org", "institucion", "institución"]));
-        const category = getField(row, ["category", "categoría", "categoria", "especialidad"]));
-        const language = getField(row, ["language", "idioma", "lang"]));
-        const certificate = getField(row, ["certificate", "certificado", "cert"]));
+        const title = getField(row, ["title", "título", "titulo", "tema", "subject"]);
+        const link = getField(row, ["link", "enlace", "url"]);
+        const organizer = getField(row, ["organizer", "organizador", "host", "org", "institucion", "institución"]);
+        const category = getField(row, ["category", "categoría", "categoria", "especialidad"]);
+        const language = getField(row, ["language", "idioma", "lang"]);
+        const certificate = getField(row, ["certificate", "certificado", "cert"]);
 
         if (date && time && title) {
           rows.push({ date, time, title, link, organizer, category, language, certificate });
