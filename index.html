@@ -87,7 +87,7 @@
 
     .resources-section { background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
     .resources-section h2 { color: #667eea; font-size: 1.8em; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
-    .resources-section h3 { color: #764ba2; font-size: 1.3em; margin: 25px 0 15px 0; }
+    
     .resource-collapse-header {
       color: #764ba2;
       font-size: 1.3em;
@@ -118,9 +118,7 @@
       overflow: hidden;
       transition: max-height 0.3s ease-out;
     }
-    .resource-collapsible-content.collapsed {
-      max-height: 0 !important;
-    }
+
     .resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-bottom: 20px; }
     .resource-card { background: linear-gradient(135deg, #f5f7ff 0%, #fff5f8 100%); border: 2px solid #e0e5ff; border-radius: 10px; padding: 15px; transition: all 0.3s; cursor: pointer; }
     .resource-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(102,126,234,0.3); border-color: #667eea; }
@@ -309,7 +307,7 @@
         <h2>📚 Resources for Intensivists & Simulationists</h2>
         
         <h3 class="resource-collapse-header" data-section="courses">
-          🎓 Recommended Courses 
+          <span>🎓 Recommended Courses</span>
           <span class="collapse-icon">▼</span>
         </h3>
         <div class="resource-collapsible-content" id="courses-content">
@@ -402,12 +400,13 @@
             <span class="resource-link">Learn more →</span>
           </div>
         </div>
+        </div>
 
-        <h3 class="resource-collapse-header" data-section="apps">
-          📱 Essential Apps for Intensivists 
+        <h3 class="resource-collapse-header collapsed" data-section="apps">
+          <span>📱 Essential Apps for Intensivists</span>
           <span class="collapse-icon">▼</span>
         </h3>
-        <div class="resource-collapsible-content" id="apps-content" style="display:none; max-height:0;">
+        <div class="resource-collapsible-content" id="apps-content" style="max-height:0;">
         <div class="resource-grid">
           <div class="resource-card" onclick="window.open('https://apps.apple.com/app/epocrates/id281935788', '_blank')">
             <h4>Epocrates</h4>
@@ -473,12 +472,13 @@
             </p>
           </div>
         </div>
+        </div>
 
-        <h3 class="resource-collapse-header" data-section="simulation">
-          🎮 Apps for Simulation 
+        <h3 class="resource-collapse-header collapsed" data-section="simulation">
+          <span>🎮 Apps for Simulation</span>
           <span class="collapse-icon">▼</span>
         </h3>
-        <div class="resource-collapsible-content" id="simulation-content" style="display:none; max-height:0;">
+        <div class="resource-collapsible-content" id="simulation-content" style="max-height:0;">
         <div class="resource-grid">
           <div class="resource-card" onclick="window.open('https://www.laerdal.com/simpad/', '_blank')">
             <h4>SimPad PLUS</h4>
@@ -553,12 +553,13 @@
           <p style="color:#333; font-weight:500;">A reference work by Dr. Federico Ferrero — essential reading on simulation pedagogy, debriefing, and patient safety frameworks.</p>
           <button class="resource-cta">Open book (Google Drive) →</button>
         </div>
+        </div>
 
-        <h3 class="resource-collapse-header" data-section="podcasts">
-          🎧 Recommended Podcasts 
+        <h3 class="resource-collapse-header collapsed" data-section="podcasts">
+          <span>🎧 Recommended Podcasts</span>
           <span class="collapse-icon">▼</span>
         </h3>
-        <div class="resource-collapsible-content" id="podcasts-content" style="display:none; max-height:0;">
+        <div class="resource-collapsible-content" id="podcasts-content" style="max-height:0;">
         <p style="color:#555; margin-bottom:14px;">
           Explore global voices in critical care, ECMO, cardiology, simulation, and patient safety.
           Each podcast offers a unique perspective on innovation, leadership, and frontline experience.
@@ -643,12 +644,13 @@
             <span class="resource-link">Listen →</span>
           </div>
         </div>
+        </div>
 
-        <h3 class="resource-collapse-header" data-section="youtube">
-          📺 Recommended YouTube Channels 
+        <h3 class="resource-collapse-header collapsed" data-section="youtube">
+          <span>📺 Recommended YouTube Channels</span>
           <span class="collapse-icon">▼</span>
         </h3>
-        <div class="resource-collapsible-content" id="youtube-content" style="display:none; max-height:0;">
+        <div class="resource-collapsible-content" id="youtube-content" style="max-height:0;">
         <div class="resource-grid">
           <div class="resource-card" onclick="window.open('https://www.youtube.com/channel/UCESYe22nC1uSmxqj4lQmRvA', '_blank')">
             <h4>Dr. Faten Farid - ICU Advantage</h4>
@@ -789,14 +791,12 @@
           </p>
         </div>
       </div>
+    </div>
 
   <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
-const GID_SHEET_3 = '248417399';
-const GID_SHEET_4 = '1475156769';
-const GID_SHEET_5 = '945629698';
-const GID_SHEET_6 = '736093974';
 const GID_SHEET_7 = '592880085';
+const GID_SHEET_6 = '736093974';
 
     const WEEKS = [
   {
@@ -892,12 +892,12 @@ const GID_SHEET_7 = '592880085';
       for (const row of result.data) {
         const date = normalizeDate(getField(row, ["date", "fecha", "día", "dia"]));
         const time = normalizeTime(getField(row, ["time", "hora", "start", "inicio"]));
-        const title = getField(row, ["title", "título", "titulo", "tema", "subject"]);
-        const link = getField(row, ["link", "enlace", "url"]);
-        const organizer = getField(row, ["organizer", "organizador", "host", "org", "institucion", "institución"]);
-        const category = getField(row, ["category", "categoría", "categoria", "especialidad"]);
-        const language = getField(row, ["language", "idioma", "lang"]);
-        const certificate = getField(row, ["certificate", "certificado", "cert"]);
+        const title = getField(row, ["title", "título", "titulo", "tema", "subject"]));
+        const link = getField(row, ["link", "enlace", "url"]));
+        const organizer = getField(row, ["organizer", "organizador", "host", "org", "institucion", "institución"]));
+        const category = getField(row, ["category", "categoría", "categoria", "especialidad"]));
+        const language = getField(row, ["language", "idioma", "lang"]));
+        const certificate = getField(row, ["certificate", "certificado", "cert"]));
 
         if (date && time && title) {
           rows.push({ date, time, title, link, organizer, category, language, certificate });
@@ -1454,21 +1454,16 @@ const GID_SHEET_7 = '592880085';
         filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
       };
 
-      loadAll();
-      setInterval(() => { loadAll(); }, 300000);
-      setInterval(() => { updateFutureCounter(); }, 60000);
-
       // Initialize resource section collapse functionality
       document.querySelectorAll('.resource-collapse-header').forEach(header => {
         header.addEventListener('click', () => {
           const section = header.dataset.section;
           const content = document.getElementById(`${section}-content`);
-          const isCurrentlyCollapsed = content.style.display === 'none';
+          const isCurrentlyCollapsed = header.classList.contains('collapsed');
           
           header.classList.toggle('collapsed');
           
           if (isCurrentlyCollapsed) {
-            content.style.display = 'block';
             content.style.maxHeight = 'none';
             const height = content.scrollHeight;
             content.style.maxHeight = '0';
@@ -1483,20 +1478,13 @@ const GID_SHEET_7 = '592880085';
             setTimeout(() => {
               content.style.maxHeight = '0';
             }, 10);
-            setTimeout(() => {
-              content.style.display = 'none';
-            }, 300);
           }
         });
       });
 
-      // Open first section by default (Recommended Courses)
-      const firstHeader = document.querySelector('[data-section="courses"]');
-      if (firstHeader) {
-        const content = document.getElementById('courses-content');
-        content.style.display = 'block';
-        content.style.maxHeight = 'none';
-      }
+      loadAll();
+      setInterval(() => { loadAll(); }, 300000);
+      setInterval(() => { updateFutureCounter(); }, 60000);
     });
   </script>
 </body>
