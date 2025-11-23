@@ -224,20 +224,24 @@
   style="height:55px; border-radius:8px; object-fit:cover;">
   <h1>📅 Critical Care Webinars</h1>
 </div>
-      <p class="subtitle">
-  Week of <strong>November 17 – 23, 2025</strong> · <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
+
+<p class="subtitle">
+  Week of <strong>November 24 – 30, 2025</strong> · <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
+
      <div class="intro">
- <div class="weekly-update featured-gold">
-  <h3>🌎 Week of Nov 17 – 23</h3>
+<div class="weekly-update featured-gold">
+  <h3>🌎 Week of Nov 24 – 30</h3>
   <p>
-    <strong>Critical Care Webinars</strong> has reached professionals in <strong>95+ countries</strong>,
-    benefiting more than <strong>2,500 clinicians and educators</strong> worldwide, and has featured
-    <strong>600+ webinars</strong> across critical care, ECMO, and simulation.  
-    We remain committed to providing a reliable, high-quality academic option for everyone.
+    <strong>Critical Care Webinars</strong> has now reached professionals in 
+    <strong>almost 100 countries</strong> and has benefited more than 
+    <strong>2,500 physicians and educators</strong> worldwide.  
+    <br>
+    <strong>Only this week, we received over 3,000 visits</strong> to the platform.
+    We are proud to be the <strong>only global platform dedicated to critical care events</strong>,
+    and we remain fully committed to growing and improving this project.
   </p>
 </div>
-
   <strong>What is Critical Care Webinars?</strong><br>
   Academic, living, and curated agenda of <em>webinars, courses, and events</em> in critical care, ECMO, clinical simulation, patient safety, and AI in healthcare. It consolidates learning opportunities in one place and presents them with time-zone conversion to Lima (GMT-5).
   <br><strong>Last week we recorded more than 100 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
@@ -795,40 +799,45 @@
 
   <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
-const GID_SHEET_7 = '592880085';
-const GID_SHEET_6 = '736093974';
 
-    const WEEKS = [
+const GID_SHEET_3 = '248417399';    // Week Oct 20–25, 2025 (hist)
+const GID_SHEET_4 = '1475156769';   // Week Oct 26–Nov 1, 2025 (hist)
+const GID_SHEET_5 = '945629698';    // Week Nov 3–8, 2025 (hist)
+const GID_SHEET_6 = '736093974';    // Week Nov 10–15, 2025 (hist)
+const GID_SHEET_7 = '592880085';    // Week Nov 17–22, 2025 (prev)
+const GID_SHEET_8 = '1245803309';   // ✅ Week Nov 24–30, 2025 (current)
+
+const WEEKS = [
   {
     key: 'current',
-    label: 'Week Nov 17 – 23, 2025',
+    label: 'Week Nov 24 – 30, 2025',
+    gid: GID_SHEET_8,
+    start: '2025-11-24',
+    end: '2025-11-30',
+    dayNames: {
+      '2025-11-24': 'Monday, Nov 24',
+      '2025-11-25': 'Tuesday, Nov 25',
+      '2025-11-26': 'Wednesday, Nov 26',
+      '2025-11-27': 'Thursday, Nov 27',
+      '2025-11-28': 'Friday, Nov 28',
+      '2025-11-29': 'Saturday, Nov 29',
+      '2025-11-30': 'Sunday, Nov 30'
+    }
+  },
+  {
+    key: 'prev',
+    label: 'Week Nov 17 – 22, 2025',
     gid: GID_SHEET_7,
     start: '2025-11-17',
-    end: '2025-11-23',
+    end:   '2025-11-22',
     dayNames: {
       '2025-11-17': 'Monday, Nov 17',
       '2025-11-18': 'Tuesday, Nov 18',
       '2025-11-19': 'Wednesday, Nov 19',
       '2025-11-20': 'Thursday, Nov 20',
       '2025-11-21': 'Friday, Nov 21',
-      '2025-11-22': 'Saturday, Nov 22',
+      '2025-11-22': 'Saturday, Nov 22'
       '2025-11-23': 'Sunday, Nov 23'
-    }
-  },
-  {
-    key: 'prev',
-    label: 'Week Nov 10 – 16, 2025',
-    gid: GID_SHEET_6,
-    start: '2025-11-10',
-    end:   '2025-11-16',
-    dayNames: {
-      '2025-11-10': 'Monday, Nov 10',
-      '2025-11-11': 'Tuesday, Nov 11',
-      '2025-11-12': 'Wednesday, Nov 12',
-      '2025-11-13': 'Thursday, Nov 13',
-      '2025-11-14': 'Friday, Nov 14',
-      '2025-11-15': 'Saturday, Nov 15',
-      '2025-11-16': 'Sunday, Nov 16'
     }
   }
 ];
