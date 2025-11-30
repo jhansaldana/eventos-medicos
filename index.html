@@ -597,6 +597,33 @@
     }
 
     .patient-card li { margin-bottom: 4px; }
+    .insta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #3182ce;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.9em;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 6px rgba(49,130,206,0.35);
+}
+
+.insta-btn:hover {
+  background: #2b6cb0;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(49,130,206,0.45);
+}
+
+.insta-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 
     @media (max-width: 768px) {
       h1 { font-size: 1.8em; }
@@ -651,21 +678,23 @@
         <br><strong>Last week we recorded more than 100 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
 
         <div class="social" style="margin-top:12px; font-weight:600;">
-          📸 Follow us on Instagram:
-        <a href="https://www.instagram.com/ccw_criticalcarewebinars" 
-   target="_blank" 
-   class="insta-btn">
-  <svg class="insta-icon" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 
-    0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 
-    3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 
-    1.346-3 3-3h10zm-5 3c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 
-    5-5-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3s-1.346 3-3 
-    3-3-1.346-3-3 1.346-3 3-3zm4.5-2a1.5 1.5 0 110 3 
-    1.5 1.5 0 010-3z"/>
-  </svg>
-  Follow on Instagram
-</a>
+  📸 Follow us on Instagram:
+  <a href="https://www.instagram.com/ccw_criticalcarewebinars"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="insta-btn">
+    <svg class="insta-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 
+      0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 
+      3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 
+      1.346-3 3-3h10zm-5 3c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 
+      5-5-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3s-1.346 3-3 
+      3-3-1.346-3-3 1.346-3 3-3zm4.5-2a1.5 1.5 0 110 3 
+      1.5 1.5 0 010-3z"/>
+    </svg>
+    Follow on Instagram
+  </a>
+</div>
 
         </div>
       </div>
