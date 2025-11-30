@@ -1274,49 +1274,51 @@
     </div>
 
     <script>
-      const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=0&single=true&output=csv';
+const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=746785163&single=true&output=csv';
 
-      const GID_SHEET_3 = '248417399';    // Week Oct 20–25, 2025 (hist)
-      const GID_SHEET_4 = '1475156769';   // Week Oct 26–Nov 1, 2025 (hist)
-      const GID_SHEET_5 = '945629698';    // Week Nov 3–8, 2025 (hist)
-      const GID_SHEET_6 = '736093974';    // Week Nov 10–15, 2025 (hist)
-      const GID_SHEET_7 = '592880085';    // Week Nov 17–22, 2025 (prev)
-      const GID_SHEET_8 = '1245803309';   // ✅ Week Nov 24–30, 2025 (current)
+const GID_SHEET_3 = '248417399';    
+const GID_SHEET_4 = '1475156769';   
+const GID_SHEET_5 = '945629698';    
+const GID_SHEET_6 = '736093974';    
+const GID_SHEET_7 = '1245803309';   // Week Nov 24–30 (previous)
+const GID_SHEET_8 = '746785163';    // Week Dec 1–7 (current) ← Hoja 9
 
-      const WEEKS = [
-        {
-          key: 'current',
-          label: 'Week Nov 24 – 30, 2025',
-          gid: GID_SHEET_8,
-          start: '2025-11-24',
-          end: '2025-11-30',
-          dayNames: {
-            '2025-11-24': 'Monday, Nov 24',
-            '2025-11-25': 'Tuesday, Nov 25',
-            '2025-11-26': 'Wednesday, Nov 26',
-            '2025-11-27': 'Thursday, Nov 27',
-            '2025-11-28': 'Friday, Nov 28',
-            '2025-11-29': 'Saturday, Nov 29',
-            '2025-11-30': 'Sunday, Nov 30'
-          }
-        },
-        {
-          key: 'prev',
-          label: 'Week Nov 17 – 22, 2025',
-          gid: GID_SHEET_7,
-          start: '2025-11-17',
-          end:   '2025-11-22',
-          dayNames: {
-            '2025-11-17': 'Monday, Nov 17',
-            '2025-11-18': 'Tuesday, Nov 18',
-            '2025-11-19': 'Wednesday, Nov 19',
-            '2025-11-20': 'Thursday, Nov 20',
-            '2025-11-21': 'Friday, Nov 21',
-            '2025-11-22': 'Saturday, Nov 22',
-            '2025-11-23': 'Sunday, Nov 23'
-          }
-        }
-      ];
+
+const WEEKS = [
+  {
+    key: 'current',
+    label: 'Week Dec 1 – 7, 2025',
+    gid: GID_SHEET_8,
+    start: '2025-12-01',
+    end: '2025-12-07',
+    dayNames: {
+      '2025-12-01': 'Monday, Dec 1',
+      '2025-12-02': 'Tuesday, Dec 2',
+      '2025-12-03': 'Wednesday, Dec 3',
+      '2025-12-04': 'Thursday, Dec 4',
+      '2025-12-05': 'Friday, Dec 5',
+      '2025-12-06': 'Saturday, Dec 6',
+      '2025-12-07': 'Sunday, Dec 7'
+    }
+  },
+  {
+    key: 'prev',
+    label: 'Week Nov 24 – 30, 2025',
+    gid: GID_SHEET_7,
+    start: '2025-11-24',
+    end:   '2025-11-30',
+    dayNames: {
+      '2025-11-24': 'Monday, Nov 24',
+      '2025-11-25': 'Tuesday, Nov 25',
+      '2025-11-26': 'Wednesday, Nov 26',
+      '2025-11-27': 'Thursday, Nov 27',
+      '2025-11-28': 'Friday, Nov 28',
+      '2025-11-29': 'Saturday, Nov 29',
+      '2025-11-30': 'Sunday, Nov 30'
+    }
+  }
+];
+
 
       const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
 
