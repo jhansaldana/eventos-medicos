@@ -48,6 +48,40 @@
       color: #4a5568;
       font-size: 1.05em;
     }
+    .header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  font-size: 0.95em;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #2b6cb0;
+}
+
+/* En móvil que no se rompa */
+@media (max-width: 768px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 
     .intro {
       margin-top: 14px;
@@ -551,6 +585,36 @@
     }
 
     /* Sección pacientes */
+   
+.patient-section {
+  border-top: 3px solid #2b6cb0;
+  background: linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%);
+  padding: 20px; /* un poco menos que 30px */
+}
+
+/* Título más pequeño para que no compita con el resto */
+.patient-section h2 {
+  color: #2b6cb0;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+/* Texto un poco más compacto */
+.patient-section p {
+  font-size: 0.9em;
+}
+
+.patient-card {
+  font-size: 0.9em;
+}
+.patient-card h4 {
+  font-size: 1em;
+}
+.patient-card p,
+.patient-card li {
+  font-size: 0.9em;
+}
+
     .patient-section {
       border-top: 4px solid #2b6cb0;
       background: linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%);
@@ -634,19 +698,36 @@
 <body>
   <div class="container">
 
-    <img 
-      src="https://raw.githubusercontent.com/jhansaldana/eventos-medicos/main/CCW%20PORTADA.png"
-      alt="CCW Banner"
-      style="width:100%; max-height:200px; object-fit:cover; margin-bottom:20px; border-radius:12px;">
+     <img 
+  src="https://raw.githubusercontent.com/jhansaldana/eventos-medicos/main/CCW%20PORTADA.png"
+  alt="CCW Banner"
+  style="width:100%; max-height:260px; object-fit:contain; margin-bottom:20px; border-radius:12px; background:#000;">
 
-    <header>
-      <div style="display:flex; align-items:center; gap:15px;">
-        <img 
-          src="https://raw.githubusercontent.com/jhansaldana/eventos-medicos/main/IMG_5085.jpg"
-          alt="CCW Logo"
-          style="height:55px; border-radius:8px; object-fit:cover;">
-        <h1>📅 Critical Care Webinars</h1>
-      </div>
+<header>
+  <div class="header-top">
+    <div style="display:flex; align-items:center; gap:15px;">
+      <img 
+        src="https://raw.githubusercontent.com/jhansaldana/eventos-medicos/main/IMG_5085.jpg"
+        alt="CCW Logo"
+        style="height:55px; border-radius:8px; object-fit:contain;">
+      <h1>📅 Critical Care Webinars</h1>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#eventsContainer">Webinars</a></li>
+        <li><a href="#resources-section-main">Resources</a></li>
+        <li><a href="#patients-families">4Patients&Families</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <p class="subtitle">
+    Week of <strong>Dicember 01 – 06, 2025</strong> · <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
+  </p>
+  ...
+</header>
+
 
       <p class="subtitle">
         Week of <strong>Dicember 01 – 06, 2025</strong> · <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
@@ -665,7 +746,7 @@
     <br>• <strong>3.6K events/interactions</strong>
     <br>• <strong>137 returning users</strong> (+38.4%)
     <br><br>
-    CCW is already reaching professionals from <strong>90+ countries</strong>, with most visits from 
+    CCW is already reaching professionals from <strong>110+ countries</strong>, with most visits from 
     Peru, Mexico, Saudi Arabia, Colombia, Spain, Brazil and Chile.
     <br><br>
     <strong>Thank you</strong> for visiting, sharing and helping this project grow every week. 🌍
@@ -675,7 +756,7 @@
         </div>
         <strong>What is Critical Care Webinars?</strong><br>
         Academic, living, and curated agenda of <em>webinars, courses, and events</em> in critical care, ECMO, clinical simulation, patient safety, and AI in healthcare. It consolidates learning opportunities in one place and presents them with time-zone conversion to Lima (GMT-5).
-        <br><strong>Last week we recorded more than 100 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
+        <br><strong>Last week we recorded more than 130 events</strong> and we continuously update the agenda by incorporating new, verified sessions with standardized information (title, organizing institution, thematic area, and access link).
 
         <div class="social" style="margin-top:12px; font-weight:600;">
   📸 Follow us on Instagram:
@@ -752,7 +833,7 @@
         <div class="accordion" id="archiveAccordion"></div>
       </div>
 
-      <div class="resources-section">
+<div class="resources-section" id="resources-section-main">
         <h2>📚 Resources for Intensivists & Simulationists</h2>
         
         <h3 class="resource-collapse-header" data-section="courses">
@@ -1219,7 +1300,7 @@
       </div>
 
       <!-- NUEVA SECCIÓN EN ESPAÑOL PARA PACIENTES -->
-      <div class="resources-section patient-section">
+<div class="resources-section patient-section" id="patients-families">
         <h2>🧩 Entender la UCI: Información para pacientes y familias</h2>
         <p style="font-size:0.95em; color:#2d3748; line-height:1.6; margin-bottom:10px;">
           Esta sección está pensada para pacientes y familiares que se enfrentan, muchas veces por primera vez,
