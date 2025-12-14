@@ -1556,6 +1556,10 @@ const WEEKS = [
         }
         return "";
       }
+      function toISODate(d) {
+  const x = new Date(d + 'T00:00:00');
+  return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;
+}
 
       function normalizeTime(x) {
         if (x === null || x === undefined) return "";
@@ -2102,14 +2106,14 @@ const WEEKS = [
           filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
 
           const prev = WEEKS.find(w => w.key === 'prev');
-          archive['prev'] = {
-            flat: prevList.slice(),
-            byDay: prevList.reduce((acc, ev) => {
-              (acc[ev.date] ||= []).push(ev);
-              return acc;
-            }, {})
-          };
-
+      archive['prev'] = {
+  flat: prevList.slice(),
+  byDay: prevList.reduce((acc, ev) => {
+    const d = toISODate(ev.date);   // ← ESTA ES LA CLAVE
+    (acc[d] ||= []).push(ev);
+    return acc;
+  }, {})
+};
           const hasArchive = archive['prev'].flat.length > 0;
           document.getElementById('archiveBlock').style.display = hasArchive ? 'block' : 'none';
           if (hasArchive) {
