@@ -2074,17 +2074,19 @@ const WEEKS = [
             throw new Error('PapaParse library failed to load. Please refresh the page.');
           }
 
-          const [currentList, prevList] = await Promise.all([
-            loadWeek(WEEKS.find(w => w.key === 'current')),
-            loadWeek(WEEKS.find(w => w.key === 'prev'))
-          ]);
+        const [currentList, prevList] = await Promise.all([
+  loadWeek(WEEKS.find(w => w.key === 'current')),
+  loadWeek(WEEKS.find(w => w.key === 'prev'))
+]);
 
-          events.length = 0;
-          allDates.clear();
-          currentList.forEach(e => {
-            events.push(e);
-            allDates.add(e.date);
-          });
+// 🔧 NORMALIZAR FECHAS (CLAVE PARA ARCHIVE)
+currentList.forEach(e => {
+  e.date = toISODate(e.date);
+});
+
+prevList.forEach(e => {
+  e.date = toISODate(e.date);
+});
 
           document.getElementById('totalEvents').textContent = String(events.length);
           initLanguageFilter(events);
