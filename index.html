@@ -705,6 +705,89 @@ header .intro p {
       h1 { font-size: 1.8em; }
       .events-grid { grid-template-columns: 1fr; }
     }
+
+    .about-section {
+  margin: 60px 0;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #f7f9fc, #eef2ff);
+  border-radius: 16px;
+}
+
+.about-container {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 30px;
+}
+
+.about-text h2 {
+  color: #2d3e8b;
+  margin-bottom: 12px;
+}
+
+.about-text p {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.about-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-linkedin {
+  background: #0a66c2;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn-linkedin:hover {
+  background: #084d96;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+}
+
+.about-mv {
+  display: grid;
+  gap: 20px;
+}
+
+.mv-card {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.mv-card h3 {
+  color: #667eea;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1390,6 +1473,62 @@ header .intro p {
           es la más importante.
         </p>
       </div>
+
+      <section class="about-section">
+  <div class="about-container">
+
+    <div class="about-text">
+      <h2>Who are we?</h2>
+      <p>
+        Critical Care Webinars (CCW) is an independent initiative created to
+        organize, centralize, and share high-quality educational webinars and events
+        in critical care and related fields.
+      </p>
+
+      <p>
+        Behind CCW is me, <strong>Jhan Saldaña</strong>, an intensivist physician,
+        educator, and advocate of open medical education.
+        This project was born from a simple need: not to miss valuable content
+        that was scattered across multiple platforms.
+      </p>
+
+      <div class="about-buttons">
+        <a href="https://www.linkedin.com/in/jhan-carlos-salda%C3%B1a-073248178?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+           target="_blank"
+           class="btn-linkedin">
+          🔗 Connect on LinkedIn
+        </a>
+
+        <a href="https://chat.whatsapp.com/EoX5VRcvvAVIYwllDUgN9p"
+           target="_blank"
+           class="btn-whatsapp">
+          💬 Join the WhatsApp Community
+        </a>
+      </div>
+    </div>
+
+    <div class="about-mv">
+      <div class="mv-card">
+        <h3>🎯 Mission</h3>
+        <p>
+          To facilitate global access to free, high-quality medical education by
+          connecting healthcare professionals with relevant events in critical care,
+          emergency medicine, cardiology, anesthesiology, nursing, and clinical simulation.
+        </p>
+      </div>
+
+      <div class="mv-card">
+        <h3>🌍 Vision</h3>
+        <p>
+          To build a global community of continuous learning where critical knowledge
+          is accessible, well-organized, and openly shared without geographic or
+          economic barriers.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
 
       <div class="resources-section" style="border-top: 4px solid #3182ce; background:linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%); margin-top:40px;">
         <h2>💜 Support the Project</h2>
