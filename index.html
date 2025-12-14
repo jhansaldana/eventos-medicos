@@ -1497,14 +1497,10 @@ header .intro p {
     <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=46389417&single=true&output=csv';
 
-const GID_SHEET_7 = '746785163';     // Week Dec 8–14 (previous)
-const GID_SHEET_8 = '46389417';      // Week Dec 15–21 (current)
-
 const WEEKS = [
 {
   key: 'current',
   label: 'Week Dec 15 – 21, 2025',
-  gid: GID_SHEET_8,
   start: '2025-12-15',
   end: '2025-12-21',
   dayNames: {
@@ -1521,7 +1517,7 @@ const WEEKS = [
  {
   key: 'prev',
   label: 'Week Dec 8 – 14, 2025',
-  gid: GID_SHEET_7,
+  
   start: '2025-12-08',
   end:   '2025-12-14',
   dayNames: {
@@ -2011,10 +2007,6 @@ const WEEKS = [
         a.remove();
         URL.revokeObjectURL(url);
       }
-
-      async function loadWeek(week) {
-        const url = buildSheetUrl(week.gid);
-        console.log(`Loading ${week.label}...`);
         
         try {
           const res = await fetch(url, { 
@@ -2074,10 +2066,7 @@ const WEEKS = [
             throw new Error('PapaParse library failed to load. Please refresh the page.');
           }
 
-        const [currentList, prevList] = await Promise.all([
-  loadWeek(WEEKS.find(w => w.key === 'current')),
-  loadWeek(WEEKS.find(w => w.key === 'prev'))
-]);
+   
 
 // 🔧 NORMALIZAR FECHAS (CLAVE PARA ARCHIVE)
 currentList.forEach(e => {
@@ -2088,7 +2077,9 @@ prevList.forEach(e => {
   e.date = toISODate(e.date);
 });
 
-          document.getElementById('totalEvents').textContent = String(events.length);
+         document.getElementById('totalEvents').textContent = events.length;
+document.getElementById('visibleEvents').textContent = events.length;
+document.getElementById('prevWeekEvents').textContent = prevList.length;
           initLanguageFilter(events);
           updateDateFilter(WEEKS.find(w => w.key === 'current').dayNames);
 
@@ -2108,16 +2099,16 @@ prevList.forEach(e => {
           filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
 
           const prev = WEEKS.find(w => w.key === 'prev');
-      archive['prev'] = {
-  flat: prevList.slice(),
+     archive['prev'] = {
+  flat: prevList,
   byDay: prevList.reduce((acc, ev) => {
-    const d = toISODate(ev.date);   // ← ESTA ES LA CLAVE
-    (acc[d] ||= []).push(ev);
+    (acc[ev.date] ||= []).push(ev);
     return acc;
   }, {})
 };
           const hasArchive = archive['prev'].flat.length > 0;
-          document.getElementById('archiveBlock').style.display = hasArchive ? 'block' : 'none';
+         
+          
           if (hasArchive) {
             const acc = document.getElementById('archiveAccordion');
             acc.innerHTML = '';
