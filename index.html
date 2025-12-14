@@ -1610,8 +1610,13 @@ const WEEKS = [
         return rows;
       }
 
-      function withinRange(d, s, e) { return d >= s && d <= e; }
-
+      function withinRange(d, s, e) {
+  if (!d || !s || !e) return false;
+  const D = new Date(d + 'T00:00:00');
+  const S = new Date(s + 'T00:00:00');
+  const E = new Date(e + 'T23:59:59');
+  return D >= S && D <= E;
+}
       function todayStrLima() {
         const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
         const Y = d.getFullYear();
