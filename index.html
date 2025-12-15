@@ -2086,58 +2086,6 @@ async function loadAll() {
     document.getElementById('retryBtn').onclick = loadAll;
   }
 }
-   
-
-// 🔧 NORMALIZAR FECHAS (CLAVE PARA ARCHIVE)
-currentList.forEach(e => {
-  e.date = toISODate(e.date);
-});
-
-prevList.forEach(e => {
-  e.date = toISODate(e.date);
-});
-
-         document.getElementById('totalEvents').textContent = events.length;
-document.getElementById('visibleEvents').textContent = events.length;
-document.getElementById('prevWeekEvents').textContent = prevList.length;
-          initLanguageFilter(events);
-          updateDateFilter(WEEKS.find(w => w.key === 'current').dayNames);
-
-          const t = todayStrLima();
-          const toggleBtn = document.getElementById('toggleTodayBtn');
-          if (allDates.has(t)) {
-            showTodayOnly = true;
-            toggleBtn.classList.add('active');
-            toggleBtn.textContent = '↩️ Show all';
-          } else {
-            showTodayOnly = false;
-            toggleBtn.classList.remove('active');
-            toggleBtn.textContent = '🟣 Today only';
-          }
-
-          updateFutureCounter();
-          filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
-
-          const prev = WEEKS.find(w => w.key === 'prev');
-     archive['prev'] = {
-  flat: prevList,
-  byDay: prevList.reduce((acc, ev) => {
-    (acc[ev.date] ||= []).push(ev);
-    return acc;
-  }, {})
-};
-          const hasArchive = archive['prev'].flat.length > 0;
-         
-          
-          if (hasArchive) {
-            const acc = document.getElementById('archiveAccordion');
-            acc.innerHTML = '';
-            renderArchive('prev');
-          }
-
-          $loading.style.display = 'none';
-          $main.style.display = 'block';
-
         } catch (err) {
           console.error(err);
           $loading.style.display = 'none';
