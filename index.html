@@ -2007,39 +2007,6 @@ const WEEKS = [
         a.remove();
         URL.revokeObjectURL(url);
       }
-        
-        try {
-          const res = await fetch(url, { 
-            cache: "no-store",
-            headers: {
-              'Accept': 'text/csv,text/plain,*/*'
-            }
-          });
-          
-          if (!res.ok) {
-            throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-          }
-          
-          const csv = await res.text();
-          
-          if (!csv || csv.trim().length === 0) {
-            throw new Error('Empty response received');
-          }
-          
-          console.log(`✓ Loaded ${week.label}: ${csv.substring(0, 50)}...`);
-          
-          const parsed = parseCSV(csv);
-          const filtered = parsed.filter(e => withinRange(e.date, week.start, week.end));
-          
-          console.log(`✓ Parsed ${filtered.length} events for ${week.label}`);
-          
-          return filtered.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time));
-          
-        } catch (err) {
-          console.error(`✗ Failed to load ${week.label}:`, err);
-          throw new Error(`Cannot load ${week.label}: ${err.message}`);
-        }
-      }
 
       function updateFutureCounter() {
         const nowLima = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
@@ -2051,21 +2018,74 @@ const WEEKS = [
         }, 0);
         document.getElementById('futureEvents').textContent = String(count);
       }
+async function loadAll() {
+  const $loading = document.getElementById('loadingSection');
+  const $error = document.getElementById('errorSection');
+  const $main = document.getElementById('mainContent');
 
-      async function loadAll() {
-        const $loading = document.getElementById('loadingSection');
-        const $error = document.getElementById('errorSection');
-        const $main = document.getElementById('mainContent');
+  $loading.style.display = 'block';
+  $error.style.display = 'none';
+  $main.style.display = 'none';
 
-        $loading.style.display = 'block';
-        $error.style.display = 'none';
-        $main.style.display = 'none';
+  try {
+    const res = await fetch(BASE_SHEET_CSV, { cache: "no-store" });
+    if (!res.ok) throw new Error("Cannot load Google Sheet");
 
-        try {
-          if (typeof Papa === 'undefined') {
-            throw new Error('PapaParse library failed to load. Please refresh the page.');
-          }
+    const csv = await res.text();
+    const parsed = parseCSV(csv);
 
+    parsed.forEach(e => {
+      e.date = toISODate(e.date);
+    });
+
+    const currentWeek = WEEKS.find(w => w.key === 'current');
+    const prevWeek = WEEKS.find(w => w.key === 'prev');
+
+    events = parsed.filter(e =>
+      withinRange(e.date, currentWeek.start, currentWeek.end)
+    );
+
+    const prevList = parsed.filter(e =>
+      withinRange(e.date, prevWeek.start, prevWeek.end)
+    );
+
+    document.getElementById('totalEvents').textContent = events.length;
+    document.getElementById('visibleEvents').textContent = events.length;
+    document.getElementById('prevWeekEvents').textContent = prevList.length;
+
+    allDates = new Set(events.map(e => e.date));
+    initLanguageFilter(events);
+    updateDateFilter(currentWeek.dayNames);
+
+    archive['prev'] = {
+      flat: prevList,
+      byDay: prevList.reduce((acc, ev) => {
+        (acc[ev.date] ||= []).push(ev);
+        return acc;
+      }, {})
+    };
+
+    document.getElementById('archiveAccordion').innerHTML = '';
+    if (prevList.length > 0) renderArchive('prev');
+
+    updateFutureCounter();
+    filterEvents(currentWeek.dayNames);
+
+    $loading.style.display = 'none';
+    $main.style.display = 'block';
+
+  } catch (err) {
+    console.error(err);
+    $loading.style.display = 'none';
+    $error.style.display = 'block';
+    $error.innerHTML = `
+      <strong>⚠️ Error loading events</strong><br>
+      ${err.message}<br><br>
+      <button class="btn-secondary" id="retryBtn">Retry</button>
+    `;
+    document.getElementById('retryBtn').onclick = loadAll;
+  }
+}
    
 
 // 🔧 NORMALIZAR FECHAS (CLAVE PARA ARCHIVE)
