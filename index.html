@@ -2034,17 +2034,20 @@ async function loadAll() {
     const csv = await res.text();
     const parsed = parseCSV(csv);
 
+    // Normalizar todas las fechas
     parsed.forEach(e => {
-      e.date = toISODate(e.date);
+      e.date = normalizeDate(e.date);
     });
 
     const currentWeek = WEEKS.find(w => w.key === 'current');
     const prevWeek = WEEKS.find(w => w.key === 'prev');
 
+    // Filtrar eventos de la semana actual
     events = parsed.filter(e =>
       withinRange(e.date, currentWeek.start, currentWeek.end)
     );
 
+    // Filtrar eventos de la semana anterior
     const prevList = parsed.filter(e =>
       withinRange(e.date, prevWeek.start, prevWeek.end)
     );
@@ -2057,6 +2060,7 @@ async function loadAll() {
     initLanguageFilter(events);
     updateDateFilter(currentWeek.dayNames);
 
+    // Preparar archivo
     archive['prev'] = {
       flat: prevList,
       byDay: prevList.reduce((acc, ev) => {
@@ -2066,7 +2070,10 @@ async function loadAll() {
     };
 
     document.getElementById('archiveAccordion').innerHTML = '';
-    if (prevList.length > 0) renderArchive('prev');
+    if (prevList.length > 0) {
+      renderArchive('prev');
+      document.getElementById('archiveBlock').style.display = 'block';
+    }
 
     updateFutureCounter();
     filterEvents(currentWeek.dayNames);
@@ -2081,27 +2088,15 @@ async function loadAll() {
     $error.innerHTML = `
       <strong>⚠️ Error loading events</strong><br>
       ${err.message}<br><br>
+      Please verify that:<br>
+      • The sheet is <em>Published to the web</em> as CSV<br>
+      • PapaParse library loaded correctly<br>
+      • Your internet connection is stable<br><br>
       <button class="btn-secondary" id="retryBtn">Retry</button>
     `;
     document.getElementById('retryBtn').onclick = loadAll;
   }
 }
-        } catch (err) {
-          console.error(err);
-          $loading.style.display = 'none';
-          $error.style.display = 'block';
-          $error.innerHTML = `
-            <strong>⚠️ Error loading events</strong><br>
-            ${err.message}<br><br>
-            Please verify that:<br>
-            • Both sheets are <em>Published to the web</em> as CSV<br>
-            • PapaParse library loaded correctly<br>
-            • Your internet connection is stable<br><br>
-            <button class="btn-secondary" id="retryBtn">Retry</button>
-          `;
-          document.getElementById('retryBtn').onclick = loadAll;
-        }
-      }
 
       document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('reloadBtn').onclick = () => { loadAll(); };
