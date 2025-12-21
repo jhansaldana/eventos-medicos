@@ -760,28 +760,35 @@ header .intro p {
   </div>
 
   <!-- Subtítulo de la semana (solo una vez) -->
-  <p class="subtitle">
-  Week of <strong>December 15 – 21, 2025</strong> · 
+<p class="subtitle">
+  <strong>Holiday period: December 22, 2025 – January 5, 2026</strong> · 
   <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
+
 
 
   <!-- Intro completa: bloque amarillo + explicación + Instagram -->
   <div class="intro">
 <div class="weekly-update featured-gold">
-  <h3>📊 Weekly Update (Dec 15 – 21)</h3>
+  <h3>🌍 CCW Milestone & Holiday Update</h3>
   <p>
-    During the last 7 days the platform registered:
-    <br>• <strong>810 active users</strong>
-    <br>• <strong>5.4K events/interactions</strong>
-    <br>• <strong>254 returning users</strong>
+    Since its creation, <strong>Critical Care Webinars</strong> has reached professionals in
+    <strong>115+ countries</strong>, accumulated nearly <strong>5,000 visits</strong>,
+    and shared more than <strong>1,200 high-quality webinars</strong> worldwide.
     <br><br>
-    CCW continues expanding globally and now reaches professionals in 
-    <strong>110+ countries</strong>.
+    This project remains committed to <strong>decentralized, open, and barrier-free medical education</strong>,
+    helping clinicians discover valuable learning opportunities that might otherwise go unnoticed.
     <br><br>
-    <strong>Thank you</strong> for visiting, sharing and helping this project grow.
+    🎄 During the holiday period (Dec 22 – Jan 5), events will continue to be added as they are found,
+    but the platform will not undergo structural updates.
+    <br><br>
+    ✨ We wish you a peaceful Christmas and a healthy, fulfilling New Year.
+    CCW will resume regular updates during the <strong>second week of January</strong>.
+    <br><br>
+    Thank you for being part of this growing global community.
   </p>
 </div>
+
 <p style="margin-top:18px;">
   <strong>Who we are & What is Critical Care Webinars</strong><br>
   <strong>Critical Care Webinars (CCW)</strong> is an independent, open educational initiative
@@ -1500,9 +1507,33 @@ const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3C
 const WEEKS = [
 {
   key: 'current',
+  label: 'Holiday period · Dec 22, 2025 – Jan 5, 2026',
+  start: '2025-12-22',
+  end: '2026-01-05',
+  dayNames: {
+    '2025-12-22': 'Monday, Dec 22',
+    '2025-12-23': 'Tuesday, Dec 23',
+    '2025-12-24': 'Wednesday, Dec 24',
+    '2025-12-25': 'Thursday, Dec 25',
+    '2025-12-26': 'Friday, Dec 26',
+    '2025-12-27': 'Saturday, Dec 27',
+    '2025-12-28': 'Sunday, Dec 28',
+    '2025-12-29': 'Monday, Dec 29',
+    '2025-12-30': 'Tuesday, Dec 30',
+    '2025-12-31': 'Wednesday, Dec 31',
+    '2026-01-01': 'Thursday, Jan 1',
+    '2026-01-02': 'Friday, Jan 2',
+    '2026-01-03': 'Saturday, Jan 3',
+    '2026-01-04': 'Sunday, Jan 4',
+    '2026-01-05': 'Monday, Jan 5'
+  }
+},
+
+{
+  key: 'prev',
   label: 'Week Dec 15 – 21, 2025',
   start: '2025-12-15',
-  end: '2025-12-21',
+  end:   '2025-12-21',
   dayNames: {
     '2025-12-15': 'Monday, Dec 15',
     '2025-12-16': 'Tuesday, Dec 16',
@@ -1512,24 +1543,7 @@ const WEEKS = [
     '2025-12-20': 'Saturday, Dec 20',
     '2025-12-21': 'Sunday, Dec 21'
   }
-},
-
- {
-  key: 'prev',
-  label: 'Week Dec 8 – 14, 2025',
-  
-  start: '2025-12-08',
-  end:   '2025-12-14',
-  dayNames: {
-    '2025-12-08': 'Monday, Dec 8',
-    '2025-12-09': 'Tuesday, Dec 9',
-    '2025-12-10': 'Wednesday, Dec 10',
-    '2025-12-11': 'Thursday, Dec 11',
-    '2025-12-12': 'Friday, Dec 12',
-    '2025-12-13': 'Saturday, Dec 13',
-    '2025-12-14': 'Sunday, Dec 14'
-  }
-},
+}
 ];
 
 
