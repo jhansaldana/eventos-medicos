@@ -1536,7 +1536,7 @@ const WEEKS = [
   }
 }
 ];
-
+      const IS_FIRST_WEEK_OF_YEAR = true;
 
       const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
 
@@ -1852,7 +1852,11 @@ const WEEKS = [
 
         const total = data.flat.length;
         if (weekKey === 'prev') {
-          document.getElementById('prevWeekEvents').textContent = String(total || 120);
+          if (IS_FIRST_WEEK_OF_YEAR) {
+  document.getElementById('prevWeekEvents').textContent = '–';
+} else {
+  document.getElementById('prevWeekEvents').textContent = prevList.length;
+}
         }
 
         const header = document.createElement('button');
