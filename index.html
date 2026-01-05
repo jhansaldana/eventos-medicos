@@ -1534,6 +1534,28 @@ const WEEKS = [
     '2025-12-20': 'Saturday, Dec 20',
     '2025-12-21': 'Sunday, Dec 21'
   }
+},
+  {
+  key: 'holiday',
+  label: 'Week Dec 22, 2025 – Jan 4, 2026',
+  start: '2025-12-22',
+  end:   '2026-01-04',
+  dayNames: {
+    '2025-12-22': 'Monday, Dec 22',
+    '2025-12-23': 'Tuesday, Dec 23',
+    '2025-12-24': 'Wednesday, Dec 24',
+    '2025-12-25': 'Thursday, Dec 25',
+    '2025-12-26': 'Friday, Dec 26',
+    '2025-12-27': 'Saturday, Dec 27',
+    '2025-12-28': 'Sunday, Dec 28',
+    '2025-12-29': 'Monday, Dec 29',
+    '2025-12-30': 'Tuesday, Dec 30',
+    '2025-12-31': 'Wednesday, Dec 31',
+    '2026-01-01': 'Thursday, Jan 1',
+    '2026-01-02': 'Friday, Jan 2',
+    '2026-01-03': 'Saturday, Jan 3',
+    '2026-01-04': 'Sunday, Jan 4'
+  }
 }
 ];
       const IS_FIRST_WEEK_OF_YEAR = true;
@@ -2050,6 +2072,7 @@ async function loadAll() {
 
     const currentWeek = WEEKS.find(w => w.key === 'current');
     const prevWeek = WEEKS.find(w => w.key === 'prev');
+    const holidayWeek = WEEKS.find(w => w.key === 'holiday');
 
     // Filtrar eventos de la semana actual
     events = parsed.filter(e =>
@@ -2060,6 +2083,9 @@ async function loadAll() {
     const prevList = parsed.filter(e =>
       withinRange(e.date, prevWeek.start, prevWeek.end)
     );
+    const holidayList = parsed.filter(e =>
+  withinRange(e.date, holidayWeek.start, holidayWeek.end)
+);
 
     document.getElementById('totalEvents').textContent = events.length;
     document.getElementById('visibleEvents').textContent = events.length;
@@ -2077,12 +2103,29 @@ async function loadAll() {
         return acc;
       }, {})
     };
+    archive['holiday'] = {
+  flat: holidayList,
+  byDay: holidayList.reduce((acc, ev) => {
+    (acc[ev.date] ||= []).push(ev);
+    return acc;
+  }, {})
+};
 
-    document.getElementById('archiveAccordion').innerHTML = '';
-    if (prevList.length > 0) {
-      renderArchive('prev');
-      document.getElementById('archiveBlock').style.display = 'block';
-    }
+   document.getElementById('archiveAccordion').innerHTML = '';
+
+let hasArchive = false;
+
+if (prevList.length > 0) {
+  renderArchive('prev');
+  hasArchive = true;
+}
+
+if (holidayList.length > 0) {
+  renderArchive('holiday');
+  hasArchive = true;
+}
+
+document.getElementById('archiveBlock').style.display = hasArchive ? 'block' : 'none';
 
     updateFutureCounter();
     filterEvents(currentWeek.dayNames);
