@@ -56,9 +56,9 @@
   flex-wrap: wrap;
   padding-bottom: 10px;
   margin-bottom: 14px;
-  border-bottom: 3px solid #2b6cb0;
+  border-bottom: 3px solid #2b6cb0;  /* Línea azul estilo Irvin */
 }
-
+/* Improve readability in header description */
 header .intro {
   line-height: 1.7;
 }
@@ -87,6 +87,19 @@ header .intro p {
   color: #2b6cb0;
 }
 
+    .holiday-banner {
+  max-width: 1100px;
+  margin: 24px auto 36px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+}
+
+.holiday-banner img {
+  width: 100%;
+  display: block;
+}
+/* En móvil que no se rompa */
 @media (max-width: 768px) {
   .header-top {
     flex-direction: column;
@@ -595,10 +608,12 @@ header .intro p {
       line-height: 1.6;
     }
 
+    /* Sección pacientes */
+   
 .patient-section {
   border-top: 3px solid #2b6cb0;
   background: linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%);
-  padding: 20px;
+  padding: 20px; /* un poco menos que 30px */
 }
 
     .linkedin-btn {
@@ -616,13 +631,14 @@ header .intro p {
 .whatsapp-btn:hover {
   background: #1ebe5d;
 }
-
+/* Título más pequeño para que no compita con el resto */
 .patient-section h2 {
   color: #2b6cb0;
   font-size: 1.3em;
   margin-bottom: 10px;
 }
 
+/* Texto un poco más compacto */
 .patient-section p {
   font-size: 0.9em;
 }
@@ -717,6 +733,14 @@ header .intro p {
       .events-grid { grid-template-columns: 1fr; }
     }
 
+  
+
+@media (max-width: 900px) {
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -728,6 +752,7 @@ header .intro p {
   style="width:100%; max-height:260px; object-fit:contain; margin-bottom:20px; border-radius:12px; background:#000;">
 
 <header>
+  <!-- Logo + Título + Nav -->
   <div class="header-top">
     <div style="display:flex; align-items:center; gap:15px;">
       <img 
@@ -746,26 +771,27 @@ header .intro p {
     </nav>
   </div>
 
+  <!-- Subtítulo de la semana (solo una vez) -->
   <p class="subtitle">
   <strong>Week: January 5 – 11, 2026</strong> · 
   <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
 
+  <!-- Intro completa: bloque amarillo + explicación + Instagram -->
   <div class="intro">
-<div class="weekly-update featured-gold">
+<div class="weekly-update">
   <h3>🌍 CCW Milestone Update</h3>
   <p>
     Since its creation, <strong>Critical Care Webinars</strong> has reached professionals in
-    <strong>115+ countries</strong>, accumulated over <strong>5,100 visits</strong>,
-    and shared more than <strong>1,200 high-quality webinars</strong> worldwide.
-    <br><br>
+    <strong>115+ countries</strong>, accumulated over <strong>5,100 visits</strong>, and shared more than
+    <strong>1,200 high-quality webinars</strong> worldwide.
+  </p>
+  <p>
     This project remains committed to <strong>decentralized, open, and barrier-free medical education</strong>,
     helping clinicians discover valuable learning opportunities that might otherwise go unnoticed.
-    <br><br>
-    ✨ Thank you for being part of this growing global community. Your engagement and support
-    make this initiative possible and meaningful.
   </p>
 </div>
+
 
 <p style="margin-top:18px;">
   <strong>Who we are & What is Critical Care Webinars</strong><br>
@@ -796,6 +822,7 @@ header .intro p {
 </p>
 <div class="social" style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
 
+  <!-- Instagram -->
   <a href="https://www.instagram.com/ccw_critalcarewebinars?igsh=dWNiNzc4MWVnZjE5"
      target="_blank"
      rel="noopener noreferrer"
@@ -812,6 +839,7 @@ header .intro p {
     Instagram
   </a>
 
+  <!-- LinkedIn -->
   <a href="https://www.linkedin.com/in/jhan-carlos-salda%C3%B1a-073248178"
      target="_blank"
      rel="noopener noreferrer"
@@ -826,6 +854,7 @@ header .intro p {
     LinkedIn
   </a>
 
+  <!-- WhatsApp -->
   <a href="https://chat.whatsapp.com/EoX5VRcvvAVIYwllDUgN9p"
      target="_blank"
      rel="noopener noreferrer"
@@ -850,7 +879,7 @@ header .intro p {
   </a>
 
 </div>
-</div>
+
 </header>
 
     <div id="loadingSection" class="loading">
@@ -1274,4 +1303,869 @@ header .intro p {
 
             <div class="resource-card" onclick="window.open('https://www.youtube.com/@sociedadargentinadeterapia7430', '_blank')">
               <h4>Sociedad Argentina de Terapia Intensiva (SATI)</h4>
-              <p>
+              <p>Leading Argentine society for critical care medicine with educational content in Spanish.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@icbacardiovascular', '_blank')">
+              <h4>ICBA Cardiovascular</h4>
+              <p>Cardiovascular care and cardiac critical care from Instituto Cardiovascular de Buenos Aires.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@Canal_INER', '_blank')">
+              <h4>Canal INER (Instituto Nacional de Enfermedades Respiratorias)</h4>
+              <p>Mexico's national respiratory diseases institute - pulmonary critical care and respiratory medicine.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@incnet5698', '_blank')">
+              <h4>INCNet</h4>
+              <p>Critical care network sharing knowledge and best practices across institutions.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@renasicvirtual', '_blank')">
+              <h4>RENASIC Virtual</h4>
+              <p>Latin American network for pediatric and neonatal intensive care education.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@euroelso544', '_blank')">
+              <h4>EuroELSO</h4>
+              <p>European chapter of ELSO - ECMO education, research, and clinical guidelines.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@YashodaHospitalsHyderabad', '_blank')">
+              <h4>Yashoda Hospitals</h4>
+              <p>Multi-specialty hospital group sharing medical education and patient care insights.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@ICCNNetwork', '_blank')">
+              <h4>ICCN Network</h4>
+              <p>International Critical Care Nursing Network - global nursing education and collaboration.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@SBCECOFICIAL', '_blank')">
+              <h4>SBCEC - Sociedade Brasileira de Circulação Extracorpórea</h4>
+              <p>Brazilian society for extracorporeal circulation - perfusion and ECMO education.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@RafaelHerreraACVP', '_blank')">
+              <h4>Rafael Herrera - ACVP</h4>
+              <p>Cardiovascular perfusion education and extracorporeal life support resources.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@sociedadperuanadecardiolog4004', '_blank')">
+              <h4>Sociedad Peruana de Cardiología</h4>
+              <p>Peruvian cardiology society with lectures, conferences, and cardiovascular medicine updates.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@youngindiaintensivist7709', '_blank')">
+              <h4>Young India Intensivist</h4>
+              <p>Indian critical care perspective with practical ICU management and education for young intensivists.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@TexasHeartInstitute', '_blank')">
+              <h4>Texas Heart Institute</h4>
+              <p>World-renowned cardiovascular center sharing cutting-edge research and cardiac care education.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@CTSNetVideo', '_blank')">
+              <h4>CTSNet - Cardiothoracic Surgery Network</h4>
+              <p>Surgical videos, techniques, and education for cardiothoracic surgery professionals.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@amrelhusseini5321', '_blank')">
+              <h4>Amr El Husseini</h4>
+              <p>Critical care and emergency medicine education with clinical pearls and case discussions.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@WorldInstituteofCCEM', '_blank')">
+              <h4>World Institute of Critical Care & Emergency Medicine (WICCM)</h4>
+              <p>Global critical care education platform with conferences, webinars, and expert lectures.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NUEVA SECCIÓN EN ESPAÑOL PARA PACIENTES -->
+<div class="resources-section patient-section" id="patients-families">
+        <h2>🧩 Entender la UCI: Información para pacientes y familias</h2>
+        <p style="font-size:0.95em; color:#2d3748; line-height:1.6; margin-bottom:10px;">
+          Esta sección está pensada para pacientes y familiares que se enfrentan, muchas veces por primera vez,
+          a una Unidad de Cuidados Intensivos (UCI). No reemplaza la conversación con el equipo tratante,
+          pero puede ayudarte a comprender mejor lo que estás viendo y a qué prestar atención.
+        </p>
+
+        <div class="patient-grid">
+          <div class="patient-card">
+            <h4>1. ¿Qué es la UCI?</h4>
+            <p>
+              La UCI es un área del hospital donde se atienden pacientes graves o inestables que necesitan
+              monitoreo continuo y tratamientos avanzados.
+            </p>
+            <ul>
+              <li>Monitoreo continuo de signos vitales (corazón, presión, respiración, oxígeno).</li>
+              <li>Mayor proporción de enfermeras por paciente.</li>
+              <li>Equipos especiales como ventiladores, bombas de infusión y monitores.</li>
+            </ul>
+          </div>
+
+          <div class="patient-card">
+            <h4>2. Primeras 24 horas: qué puedes esperar</h4>
+            <p>
+              Las primeras horas suelen ser las más intensas: el equipo se enfoca en estabilizar al paciente.
+              Es normal ver mucho movimiento, alarmas y personal entrando y saliendo.
+            </p>
+            <ul>
+              <li>El equipo ajusta medicamentos, oxígeno y líquidos con frecuencia.</li>
+              <li>Pueden realizarse exámenes de sangre, radiografías o ecografías junto a la cama.</li>
+              <li>Es posible que el paciente esté sedado o no pueda hablar al inicio.</li>
+            </ul>
+          </div>
+
+          <div class="patient-card">
+            <h4>3. Cómo ayudar a tu familiar</h4>
+            <p>
+              La familia es parte importante del cuidado. Pequeños gestos pueden marcar una gran diferencia
+              en la recuperación y el bienestar emocional del paciente.
+            </p>
+            <ul>
+              <li>Habla con el paciente, aunque parezca dormido: tu voz puede reconfortarlo.</li>
+              <li>Pregunta al equipo de salud cuál es el mejor momento para visitar.</li>
+              <li>Respeta las normas de higiene (lavado de manos, uso de mascarilla) para evitar infecciones.</li>
+            </ul>
+          </div>
+
+          <div class="patient-card">
+            <h4>4. Preguntas clave para el equipo de salud</h4>
+            <p>Algunas preguntas que puedes hacer al médico o a la enfermera a cargo:</p>
+            <ul>
+              <li>¿Cuál es el diagnóstico principal y qué complicaciones son las más importantes?</li>
+              <li>¿Qué se espera en las próximas 24–48 horas?</li>
+              <li>¿Cómo puedo colaborar sin interferir con la atención?</li>
+            </ul>
+          </div>
+
+          <div class="patient-card">
+            <h4>5. Cuidarte también es cuidar</h4>
+            <p>
+              Acompañar a un ser querido en la UCI puede ser agotador. Cuidar tu descanso y tu salud mental
+              también forma parte del proceso.
+            </p>
+            <ul>
+              <li>Organiza turnos con otros familiares si es posible.</li>
+              <li>Pregunta si el hospital cuenta con apoyo psicológico o trabajo social.</li>
+              <li>No dudes en decir al equipo si algo no entiendes: estás en tu derecho de preguntar.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="font-size:0.9em; color:#4a5568; margin-top:14px;">
+          Si eres paciente o familiar y tienes dudas, te recomendamos siempre hablar directamente
+          con el equipo tratante. Cada UCI y cada paciente es diferente, y la información personalizada
+          es la más importante.
+        </p>
+      </div>
+
+
+      <div class="resources-section" style="border-top: 4px solid #3182ce; background:linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%); margin-top:40px;">
+        <h2>💜 Support the Project</h2>
+        <p style="font-size:1em; color:#2d3748; line-height:1.6;">
+          <strong>Critical Care Webinars</strong> is a collaborative, non-profit educational initiative that curates global webinars, courses, and podcasts in intensive care, simulation, and medical innovation.  
+          We are committed to keeping this resource open, free, and continuously updated for the entire healthcare community.  
+        </p>
+
+        <p style="margin-top:16px; color:#4a5568;">
+          If you wish to support our work and help maintain the platform, you can make a contribution through:
+        </p>
+
+        <div style="margin-top:20px; background:#ffffff; border:2px dashed #3182ce; border-radius:10px; padding:18px;">
+          <h4 style="color:#2b6cb0; margin-bottom:10px;">💰 Donation Links:</h4>
+          <ul style="list-style:none; padding-left:0; line-height:1.8; color:#2d3748;">
+            <li><strong>BTC:</strong> <em>1Cy8uxDTQ6CWbxFxAQX88NTHh7EWZc2Z5A</em></li>
+            <li><strong>BNB:</strong> <em>3Lrosc3SFc5N9buFD4SHoHw98Tc11iYidQ</em></li>
+          </ul>
+          <p style="color:#4a5568; font-size:0.9em; margin-top:10px;">
+            Your support helps sustain and expand open access education for clinicians worldwide 🌍
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=46389417&single=true&output=csv';
+
+const WEEKS = [
+{
+  key: 'current',
+  label: 'Week January 5 – 11, 2026',
+  start: '2026-01-05',
+  end: '2026-01-11',
+  dayNames: {
+    '2026-01-05': 'Monday, Jan 5',
+    '2026-01-06': 'Tuesday, Jan 6',
+    '2026-01-07': 'Wednesday, Jan 7',
+    '2026-01-08': 'Thursday, Jan 8',
+    '2026-01-09': 'Friday, Jan 9',
+    '2026-01-10': 'Saturday, Jan 10',
+    '2026-01-11': 'Sunday, Jan 11'
+  }
+},
+
+{
+  key: 'prev',
+  label: 'Week Dec 15 – 21, 2025',
+  start: '2025-12-15',
+  end:   '2025-12-21',
+  dayNames: {
+    '2025-12-15': 'Monday, Dec 15',
+    '2025-12-16': 'Tuesday, Dec 16',
+    '2025-12-17': 'Wednesday, Dec 17',
+    '2025-12-18': 'Thursday, Dec 18',
+    '2025-12-19': 'Friday, Dec 19',
+    '2025-12-20': 'Saturday, Dec 20',
+    '2025-12-21': 'Sunday, Dec 21'
+  }
+}
+];
+
+
+      const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
+
+      let events = [];
+      let allDates = new Set();
+      let archive = {};
+      let showTodayOnly = true;
+
+      function normalizeDate(x) {
+        if (!x) return "";
+        const s = String(x).trim();
+        if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+        const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+        if (m) {
+          let [, d, mo, y] = m;
+          if (y.length === 2) y = (Number(y) > 50 ? "19" : "20") + y;
+          return `${y.padStart(4, "0")}-${mo.padStart(2, "0")}-${d.padStart(2, "0")}`;
+        }
+        return "";
+      }
+      function toISODate(d) {
+  const x = new Date(d + 'T00:00:00');
+  return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;
+}
+
+      function normalizeTime(x) {
+        if (x === null || x === undefined) return "";
+        let s = String(x).trim().toLowerCase();
+        s = s.replace(/\s*[ap]\.?m\.?$/, "");
+        if (/^\d{1,2}:\d{2}$/.test(s)) {
+          const [h, m] = s.split(":");
+          return `${h.padStart(2, "0")}:${m}`;
+        }
+        if (/^\d{1,2}$/.test(s)) return `${s.padStart(2, "0")}:00`;
+        const f = parseFloat(s.replace(",", "."));
+        if (!isNaN(f)) {
+          const h = Math.floor(f), m = Math.round((f - h) * 60);
+          return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+        }
+        return "";
+      }
+
+      function getField(row, keys) {
+        for (const k of keys) {
+          if (row[k] !== undefined && String(row[k]).trim() !== "") return String(row[k]).trim();
+        }
+        return "";
+      }
+
+      function parseCSV(csv) {
+        if (typeof Papa === 'undefined') {
+          throw new Error('PapaParse library not loaded');
+        }
+        
+        const result = Papa.parse(csv, {
+          header: true,
+          skipEmptyLines: "greedy",
+          transformHeader: h => String(h).trim().toLowerCase()
+        });
+
+        const rows = [];
+        for (const row of result.data) {
+          const date = normalizeDate(getField(row, ["date", "fecha", "día", "dia"]));
+          const time = normalizeTime(getField(row, ["time", "hora", "start", "inicio"]));
+          const title = getField(row, ["title", "título", "titulo", "tema", "subject"]);
+          const link = getField(row, ["link", "enlace", "url"]);
+          const organizer = getField(row, ["organizer", "organizador", "host", "org", "institucion", "institución"]);
+          const category = getField(row, ["category", "categoría", "categoria", "especialidad"]);
+          const language = getField(row, ["language", "idioma", "lang"]);
+          const certificate = getField(row, ["certificate", "certificado", "cert"]);
+
+          if (date && time && title) {
+            rows.push({ date, time, title, link, organizer, category, language, certificate });
+          }
+        }
+        return rows;
+      }
+
+      function withinRange(d, s, e) {
+  if (!d || !s || !e) return false;
+  const D = new Date(d + 'T00:00:00');
+  const S = new Date(s + 'T00:00:00');
+  const E = new Date(e + 'T23:59:59');
+  return D >= S && D <= E;
+}
+      function todayStrLima() {
+        const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+        const Y = d.getFullYear();
+        const M = String(d.getMonth() + 1).padStart(2, '0');
+        const D = String(d.getDate()).padStart(2, '0');
+        return `${Y}-${M}-${D}`;
+      }
+
+      function currentTimeLima() {
+        const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+        return {
+          hours: d.getHours(),
+          minutes: d.getMinutes()
+        };
+      }
+
+      function updateDateFilter(dayNames) {
+        const select = document.getElementById('dayFilter');
+        select.innerHTML = '';
+        const optAll = document.createElement('option');
+        optAll.value = 'all';
+        optAll.textContent = 'All days';
+        select.appendChild(optAll);
+        Array.from(allDates).sort().forEach(date => {
+          const option = document.createElement('option');
+          option.value = date;
+          option.textContent = dayNames[date] || date;
+          select.appendChild(option);
+        });
+      }
+
+      function initLanguageFilter(rows) {
+        const sel = document.getElementById('langFilter');
+        sel.innerHTML = '<option value="__ALL__">All languages</option>';
+        const langs = Array.from(new Set(
+          rows.map(r => (r.language || '').trim()).filter(Boolean)
+        )).sort((a, b) => a.localeCompare(b));
+        langs.forEach(l => {
+          const opt = document.createElement('option');
+          opt.value = l;
+          opt.textContent = l;
+          sel.appendChild(opt);
+        });
+        sel.onchange = () => filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+      }
+
+      function scrollToNearestEvent() {
+        const todayStr = todayStrLima();
+        const currentTime = currentTimeLima();
+        
+        const todaySections = document.querySelectorAll('.day-section');
+        let targetSection = null;
+        
+        for (const section of todaySections) {
+          const header = section.querySelector('.day-header');
+          if (header && header.classList.contains('today')) {
+            targetSection = section;
+            break;
+          }
+        }
+        
+        if (!targetSection) return;
+
+        const todayEvents = events.filter(e => e.date === todayStr);
+        if (todayEvents.length === 0) return;
+
+        let nearestEvent = null;
+        let minDiff = Infinity;
+
+        todayEvents.forEach(ev => {
+          const [h, m] = ev.time.split(':').map(Number);
+          const eventMinutes = h * 60 + m;
+          const currentMinutes = currentTime.hours * 60 + currentTime.minutes;
+          const diff = Math.abs(eventMinutes - currentMinutes);
+          
+          if (diff < minDiff) {
+            minDiff = diff;
+            nearestEvent = ev;
+          }
+        });
+
+        if (nearestEvent) {
+          setTimeout(() => {
+            const cards = targetSection.querySelectorAll('.event-card');
+            for (const card of cards) {
+              const timeEl = card.querySelector('.event-time');
+              if (timeEl && timeEl.textContent.includes(nearestEvent.time)) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                break;
+              }
+            }
+          }, 500);
+        } else {
+          setTimeout(() => {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 300);
+        }
+      }
+
+      function renderEvents(filteredEvents, dayNames) {
+        const container = document.getElementById('eventsContainer');
+        container.innerHTML = '';
+        
+        if (filteredEvents.length === 0) {
+          container.innerHTML = '<div class="loading"><p>No events found</p></div>';
+          document.getElementById('visibleEvents').textContent = '0';
+          return;
+        }
+
+        const eventsByDay = {};
+        filteredEvents.forEach(ev => {
+          (eventsByDay[ev.date] ||= []).push(ev);
+        });
+
+        const todayStr = todayStrLima();
+
+        Object.keys(eventsByDay).sort().forEach(date => {
+          const isPast = date < todayStr;
+          const isToday = date === todayStr;
+          const daySection = document.createElement('div');
+          daySection.className = 'day-section';
+          const count = eventsByDay[date].length;
+
+          const dayHeader = document.createElement('div');
+          dayHeader.className = `day-header ${isPast ? 'past' : ''} ${isToday ? 'today' : ''}`;
+          const shouldCollapse = !isToday;
+          if (shouldCollapse) dayHeader.classList.add('collapsed');
+
+          dayHeader.innerHTML = `
+            <div style="display:flex; align-items:center;">
+              <div class="day-title">${(dayNames[date] || date)} <span style="color:#718096; font-weight:600;">(${count})</span></div>
+              ${isToday ? '<span class="today-badge">📍 TODAY</span>' : ''}
+            </div>
+            <div style="display:flex; align-items:center; gap:15px;">
+              <button class="btn-secondary" data-day="${date}" onclick="event.stopPropagation()">📥 Export day (.ics)</button>
+              <span class="collapse-icon">${shouldCollapse ? '▶' : '▼'}</span>
+            </div>
+          `;
+
+          const dayContent = document.createElement('div');
+          dayContent.className = `day-content ${shouldCollapse ? 'collapsed' : ''}`;
+          if (shouldCollapse) {
+            dayContent.style.maxHeight = '0';
+          } else {
+            dayContent.style.maxHeight = 'none';
+          }
+
+          dayHeader.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') return;
+            const isCurrentlyCollapsed = dayContent.classList.contains('collapsed');
+            dayContent.classList.toggle('collapsed');
+            dayHeader.classList.toggle('collapsed');
+            if (isCurrentlyCollapsed) {
+              dayContent.style.maxHeight = dayContent.scrollHeight + 'px';
+              setTimeout(() => {
+                dayContent.style.maxHeight = 'none';
+              }, 300);
+            } else {
+              dayContent.style.maxHeight = dayContent.scrollHeight + 'px';
+              setTimeout(() => {
+                dayContent.style.maxHeight = '0';
+              }, 10);
+            }
+          });
+
+          const eventsGrid = document.createElement('div');
+          eventsGrid.className = 'events-grid';
+
+          eventsByDay[date].forEach(event => {
+            const card = document.createElement('div');
+            card.className = 'event-card';
+
+            const isCertified = (() => {
+              const raw = (event.certificate || '').toString().trim().toLowerCase();
+              if (!raw) return false;
+              return ['yes', 'y', 'true', '1', 'certified', 'sí', 'si'].includes(raw) || (raw !== 'no' && raw !== 'false' && raw !== '0');
+            })();
+
+            if (isCertified) card.classList.add('certified');
+
+            card.innerHTML = `
+              <div class="category-tag">${event.category || 'General'}</div>
+              <div class="event-time">🕐 ${event.time}</div>
+              <div class="event-title">
+                ${event.title}
+                ${isCertified ? '<span class="badge badge-cert">Certified</span>' : ''}
+              </div>
+              <div class="event-organizer">📍 ${event.organizer || '—'}</div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
+                ${event.language ? `<span class="badge badge-lang">${event.language}</span>` : ''}
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
+                <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">.ics</button>
+              </div>
+            `;
+
+            eventsGrid.appendChild(card);
+          });
+
+          dayContent.appendChild(eventsGrid);
+          daySection.appendChild(dayHeader);
+          daySection.appendChild(dayContent);
+          container.appendChild(daySection);
+        });
+
+        document.getElementById('visibleEvents').textContent = String(filteredEvents.length);
+
+        document.querySelectorAll('[data-day]').forEach(btn => {
+          btn.onclick = () => exportICS(filteredEvents.filter(e => e.date === btn.dataset.day), `events-${btn.dataset.day}.ics`);
+        });
+        document.querySelectorAll('[data-ics]').forEach(btn => {
+          btn.onclick = () => {
+            const [d, t] = btn.dataset.ics.split('__');
+            const ev = filteredEvents.find(e => e.date === d && e.time === t);
+            if (ev) exportICS([ev], `event-${d}-${t.replace(':', '')}.ics`);
+          };
+        });
+
+        scrollToNearestEvent();
+      }
+
+      function renderArchive(weekKey) {
+        const acc = document.getElementById('archiveAccordion');
+        const data = archive[weekKey];
+        const week = WEEKS.find(w => w.key === weekKey);
+        if (!data || !week) return;
+
+        const total = data.flat.length;
+        if (weekKey === 'prev') {
+          document.getElementById('prevWeekEvents').textContent = String(total || 120);
+        }
+
+        const header = document.createElement('button');
+        header.className = 'accordion-header';
+        header.textContent = `${week.label} · total ${total} events`;
+
+        const content = document.createElement('div');
+        content.className = 'accordion-content';
+        content.style.display = 'none';
+
+        const exportBtn = document.createElement('button');
+        exportBtn.className = 'btn-secondary';
+        exportBtn.style.margin = '6px 0 12px 0';
+        exportBtn.textContent = '📥 Export week (.ics)';
+        exportBtn.onclick = () => exportICS(data.flat, `events_${week.label.replace(/\s+/g, '_')}.ics`);
+        content.appendChild(exportBtn);
+
+        Object.keys(data.byDay).sort().forEach(date => {
+          const list = data.byDay[date];
+          const wrap = document.createElement('div');
+          wrap.className = 'day-section';
+
+          const dayHeader = document.createElement('div');
+          dayHeader.className = 'day-header';
+          dayHeader.innerHTML = `
+            <div class="day-title">${(week.dayNames[date] || date)} <span style="color:#718096; font-weight:600;">(${list.length})</span></div>
+            <button class="btn-secondary" data-archived-day="${weekKey}__${date}">📥 Export day (.ics)</button>
+          `;
+          wrap.appendChild(dayHeader);
+
+          const grid = document.createElement('div');
+          grid.className = 'events-grid';
+          list.forEach(ev => {
+            const card = document.createElement('div');
+            card.className = 'event-card';
+
+            const isCertified = (() => {
+              const raw = (ev.certificate || '').toString().trim().toLowerCase();
+              if (!raw) return false;
+              return ['yes', 'y', 'true', '1', 'certified', 'sí', 'si'].includes(raw) || (raw !== 'no' && raw !== 'false' && raw !== '0');
+            })();
+
+            if (isCertified) card.classList.add('certified');
+
+            card.innerHTML = `
+              <div class="category-tag">${ev.category || 'General'}</div>
+              <div class="event-time">🕐 ${ev.time}</div>
+              <div class="event-title">
+                ${ev.title}
+                ${isCertified ? '<span class="badge badge-cert">Certified</span>' : ''}
+              </div>
+              <div class="event-organizer">📍 ${ev.organizer || '—'}</div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
+                ${ev.language ? `<span class="badge badge-lang">${ev.language}</span>` : ''}
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                ${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
+                <button class="ics-btn" data-archived-ics="${weekKey}__${ev.date}__${ev.time}">.ics</button>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+
+          wrap.appendChild(grid);
+          content.appendChild(wrap);
+        });
+
+        const block = document.createElement('div');
+        block.className = 'accordion-item';
+        block.appendChild(header);
+        block.appendChild(content);
+        acc.appendChild(block);
+
+        header.onclick = () => {
+          const isOpen = header.classList.toggle('open');
+          content.style.display = isOpen ? 'block' : 'none';
+        };
+
+        content.querySelectorAll('[data-archived-day]').forEach(btn => {
+          btn.onclick = () => {
+            const [, date] = btn.dataset.archivedDay.split('__');
+            exportICS(archive[weekKey].byDay[date], `events-${date}.ics`);
+          };
+        });
+        content.querySelectorAll('[data-archived-ics]').forEach(btn => {
+          btn.onclick = () => {
+            const [, d, t] = btn.dataset.archivedIcs.split('__');
+            const ev = archive[weekKey].flat.find(e => e.date === d && e.time === t);
+            if (ev) exportICS([ev], `event-${d}-${t.replace(':', '')}.ics`);
+          };
+        });
+      }
+
+      function filterEvents(dayNames) {
+        const select = document.getElementById('dayFilter');
+        const search = (document.getElementById('searchFilter').value || '').toLowerCase();
+        const langSel = document.getElementById('langFilter');
+        const langVal = (langSel && langSel.value) ? langSel.value : '__ALL__';
+
+        let selectedDay = select.value;
+
+        if (showTodayOnly) {
+          const t = todayStrLima();
+          if (allDates.has(t)) {
+            selectedDay = t;
+            select.value = t;
+          } else {
+            selectedDay = 'all';
+            select.value = 'all';
+          }
+        }
+
+        const out = events.filter(ev => {
+          const okDay = (selectedDay === 'all') || ev.date === selectedDay;
+          const hay = [ev.title, ev.organizer, ev.category].filter(Boolean).join(' ').toLowerCase();
+          const okSearch = !search || hay.includes(search);
+          const evLang = (ev.language || '').trim();
+          const okLang = (langVal === '__ALL__') || evLang === langVal;
+          return okDay && okSearch && okLang;
+        });
+
+        renderEvents(out, dayNames);
+      }
+
+      function toICS(list) {
+        const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Critical Care Webinars//EN"];
+        const now = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z/, "Z");
+        
+        for (const ev of list) {
+          const [h, m] = (ev.time || "00:00").split(':').map(n => parseInt(n || "0", 10));
+          const [Y, Mo, D] = ev.date.split('-').map(n => parseInt(n, 10));
+          const start = new Date(Y, (Mo - 1), D, h, m, 0);
+          const end = new Date(start.getTime() + 60 * 60 * 1000);
+          const fmt = d => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z/, "Z");
+          
+          lines.push("BEGIN:VEVENT");
+          lines.push(`UID:${Y}${String(Mo).padStart(2, '0')}${String(D).padStart(2, '0')}-${String(h).padStart(2, '0')}${String(m).padStart(2, '0')}@ccw`);
+          lines.push(`DTSTAMP:${now}`);
+          lines.push(`DTSTART:${fmt(start)}`);
+          lines.push(`DTEND:${fmt(end)}`);
+          lines.push(`SUMMARY:${(ev.title || 'Event').replace(/[\r\n,]/g, ' ')}`);
+          lines.push(`DESCRIPTION:${[(ev.organizer || ''), (ev.category || '')].filter(Boolean).join(' | ').replace(/[\r\n,]/g, ' ')}`);
+          if (ev.link) lines.push(`URL:${ev.link}`);
+          lines.push("END:VEVENT");
+        }
+        
+        lines.push("END:VCALENDAR");
+        return lines.join("\r\n");
+      }
+
+      function exportICS(list, filename) {
+        const blob = new Blob([toICS(list)], { type: "text/calendar" });
+        const url = URL.createObjectURL(blob);
+        const a = Object.assign(document.createElement("a"), { href: url, download: filename });
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function updateFutureCounter() {
+        const nowLima = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+        const count = events.reduce((acc, e) => {
+          const [Y, Mo, D] = e.date.split('-').map(Number);
+          const [h, m] = (e.time || '00:00').split(':').map(n => parseInt(n || "0", 10));
+          const dt = new Date(Y, Mo - 1, D, h, m, 0);
+          return acc + (dt >= nowLima ? 1 : 0);
+        }, 0);
+        document.getElementById('futureEvents').textContent = String(count);
+      }
+async function loadAll() {
+  const $loading = document.getElementById('loadingSection');
+  const $error = document.getElementById('errorSection');
+  const $main = document.getElementById('mainContent');
+
+  $loading.style.display = 'block';
+  $error.style.display = 'none';
+  $main.style.display = 'none';
+
+  try {
+    const res = await fetch(BASE_SHEET_CSV, { cache: "no-store" });
+    if (!res.ok) throw new Error("Cannot load Google Sheet");
+
+    const csv = await res.text();
+    const parsed = parseCSV(csv);
+
+    // Normalizar todas las fechas
+    parsed.forEach(e => {
+      e.date = normalizeDate(e.date);
+    });
+
+    const currentWeek = WEEKS.find(w => w.key === 'current');
+    const prevWeek = WEEKS.find(w => w.key === 'prev');
+
+    // Filtrar eventos de la semana actual
+    events = parsed.filter(e =>
+      withinRange(e.date, currentWeek.start, currentWeek.end)
+    );
+
+    // Filtrar eventos de la semana anterior
+    const prevList = parsed.filter(e =>
+      withinRange(e.date, prevWeek.start, prevWeek.end)
+    );
+
+    document.getElementById('totalEvents').textContent = events.length;
+    document.getElementById('visibleEvents').textContent = events.length;
+    document.getElementById('prevWeekEvents').textContent = prevList.length;
+
+    allDates = new Set(events.map(e => e.date));
+    initLanguageFilter(events);
+    updateDateFilter(currentWeek.dayNames);
+
+    // Preparar archivo
+    archive['prev'] = {
+      flat: prevList,
+      byDay: prevList.reduce((acc, ev) => {
+        (acc[ev.date] ||= []).push(ev);
+        return acc;
+      }, {})
+    };
+
+    document.getElementById('archiveAccordion').innerHTML = '';
+    if (prevList.length > 0) {
+      renderArchive('prev');
+      document.getElementById('archiveBlock').style.display = 'block';
+    }
+
+    updateFutureCounter();
+    filterEvents(currentWeek.dayNames);
+
+    $loading.style.display = 'none';
+    $main.style.display = 'block';
+
+  } catch (err) {
+    console.error(err);
+    $loading.style.display = 'none';
+    $error.style.display = 'block';
+    $error.innerHTML = `
+      <strong>⚠️ Error loading events</strong><br>
+      ${err.message}<br><br>
+      Please verify that:<br>
+      • The sheet is <em>Published to the web</em> as CSV<br>
+      • PapaParse library loaded correctly<br>
+      • Your internet connection is stable<br><br>
+      <button class="btn-secondary" id="retryBtn">Retry</button>
+    `;
+    document.getElementById('retryBtn').onclick = loadAll;
+  }
+}
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('reloadBtn').onclick = () => { loadAll(); };
+        document.getElementById('searchFilter').oninput = () => filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+        document.getElementById('dayFilter').onchange = () => {
+          showTodayOnly = false;
+          const btn = document.getElementById('toggleTodayBtn');
+          btn.classList.remove('active');
+          btn.textContent = '🟣 Today only';
+          filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+        };
+        document.getElementById('exportWeek').onclick = () => exportICS(events, 'events-current-week.ics');
+        document.getElementById('toggleTodayBtn').onclick = () => {
+          showTodayOnly = !showTodayOnly;
+          const btn = document.getElementById('toggleTodayBtn');
+          if (showTodayOnly) {
+            btn.classList.add('active');
+            btn.textContent = '↩️ Show all';
+          } else {
+            btn.classList.remove('active');
+            btn.textContent = '🟣 Today only';
+            document.getElementById('dayFilter').value = 'all';
+          }
+          filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+        };
+
+        // Initialize resource section collapse functionality
+        document.querySelectorAll('.resource-collapse-header').forEach(header => {
+          header.addEventListener('click', () => {
+            const section = header.dataset.section;
+            const content = document.getElementById(`${section}-content`);
+            const isCurrentlyCollapsed = header.classList.contains('collapsed');
+            
+            header.classList.toggle('collapsed');
+            
+            if (isCurrentlyCollapsed) {
+              content.style.maxHeight = 'none';
+              const height = content.scrollHeight;
+              content.style.maxHeight = '0';
+              setTimeout(() => {
+                content.style.maxHeight = height + 'px';
+              }, 10);
+              setTimeout(() => {
+                content.style.maxHeight = 'none';
+              }, 300);
+            } else {
+              content.style.maxHeight = content.scrollHeight + 'px';
+              setTimeout(() => {
+                content.style.maxHeight = '0';
+              }, 10);
+            }
+          });
+        });
+
+        loadAll();
+        setInterval(() => { loadAll(); }, 300000);
+        setInterval(() => { updateFutureCounter(); }, 60000);
+      });
+    </script>
+  </div>
+</body>
+</html>
