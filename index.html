@@ -1846,19 +1846,30 @@ if (ongoing) card.classList.add('ongoing');
               <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
                 ${event.language ? `<span class="badge badge-lang">${event.language}</span>` : ''}
               </div>
-             <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
   ${event.link ? `
     <a href="${event.link}"
        target="_blank"
        rel="noopener noreferrer"
        class="event-link"
-       onclick="trackJoinEvent(${JSON.stringify(event.title || '')}, ${JSON.stringify(event.date || '')}, ${JSON.stringify(event.time || '')})">
-       Join →
-    </a>` : ''
-  }
-  <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">.ics</button>
-</div>
-            `;
+       onclick="
+         gtag('event', 'join_click', {
+           webinar_title: '${event.title?.replace(/'/g, "\\'") || ''}',
+           webinar_date: '${event.date}',
+           webinar_time: '${event.time}',
+           category: '${event.category || 'General'}',
+           organizer: '${event.organizer || 'Unknown'}'
+         });
+       ">
+      Join →
+    </a>` : ''}
+    
+  <button class="ics-btn"
+          data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">
+    .ics
+  </button>
+</div>`;
 
             eventsGrid.appendChild(card);
           });
@@ -1953,9 +1964,26 @@ if (ongoing) card.classList.add('ongoing');
                 ${ev.language ? `<span class="badge badge-lang">${ev.language}</span>` : ''}
               </div>
               <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                ${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
-                <button class="ics-btn" data-archived-ics="${weekKey}__${ev.date}__${ev.time}">.ics</button>
-              </div>
+  ${event.link ? `
+    <a href="${event.link}"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="event-link"
+       onclick='trackJoinEvent(
+         ${JSON.stringify(event.title || "")},
+         ${JSON.stringify(event.date || "")},
+         ${JSON.stringify(event.time || "")},
+         ${JSON.stringify(event.category || "General")},
+         ${JSON.stringify(event.organizer || "Unknown")}
+       )'>
+      Join →
+    </a>` : ''}
+
+  <button class="ics-btn"
+          data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">
+    .ics
+  </button>
+</div>
             `;
             grid.appendChild(card);
           });
@@ -1989,7 +2017,17 @@ if (ongoing) card.classList.add('ongoing');
           };
         });
       }
+function trackJoinEvent(title, date, time, category, organizer) {
+  if (typeof gtag !== "function") return;
 
+  gtag("event", "join_click", {
+    webinar_title: title || "",
+    webinar_date: date || "",
+    webinar_time: time || "",
+    category: category || "General",
+    organizer: organizer || "Unknown"
+  });
+}
       function filterEvents(dayNames) {
         const select = document.getElementById('dayFilter');
         const search = (document.getElementById('searchFilter').value || '').toLowerCase();
