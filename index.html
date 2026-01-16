@@ -1846,10 +1846,18 @@ if (ongoing) card.classList.add('ongoing');
               <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
                 ${event.language ? `<span class="badge badge-lang">${event.language}</span>` : ''}
               </div>
-              <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
-                <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">.ics</button>
-              </div>
+             <div style="display:flex; gap:10px; flex-wrap:wrap;">
+  ${event.link ? `
+    <a href="${event.link}"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="event-link"
+       onclick="trackJoinEvent(${JSON.stringify(event.title || '')}, ${JSON.stringify(event.date || '')}, ${JSON.stringify(event.time || '')})">
+       Join →
+    </a>` : ''
+  }
+  <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">.ics</button>
+</div>
             `;
 
             eventsGrid.appendChild(card);
@@ -2048,6 +2056,17 @@ if (ongoing) card.classList.add('ongoing');
         a.remove();
         URL.revokeObjectURL(url);
       }
+
+      function trackJoinEvent(title, date, time) {
+  if (typeof gtag !== 'function') return;
+
+  gtag('event', 'join_click', {
+    event_category: 'engagement',
+    event_label: title,
+    webinar_date: date,
+    webinar_time: time
+  });
+}
 
       function updateFutureCounter() {
         const nowLima = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
