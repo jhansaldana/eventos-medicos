@@ -780,18 +780,17 @@ header .intro p {
   <!-- Intro completa: bloque amarillo + explicación + Instagram -->
   <div class="intro">
 <div class="weekly-update">
-  <h3>🌍 CCW Milestone Update</h3>
   <p>
-    Since its creation, <strong>Critical Care Webinars</strong> has reached professionals in
-    <strong>115+ countries</strong>, accumulated over <strong>5,100 visits</strong>, and shared more than
-    <strong>1,200 high-quality webinars</strong> worldwide.
+    During the <strong>last 30 days</strong>, <strong>Critical Care Webinars</strong> has registered
+    <strong>877 active users</strong> and more than <strong>7,400 interactions</strong>,
+    reflecting sustained engagement with critical care educational content.
   </p>
+
   <p>
     This project remains committed to <strong>decentralized, open, and barrier-free medical education</strong>,
     helping clinicians discover valuable learning opportunities that might otherwise go unnoticed.
   </p>
 </div>
-
 
 <p style="margin-top:18px;">
   <strong>Who we are & What is Critical Care Webinars</strong><br>
@@ -1846,30 +1845,11 @@ if (ongoing) card.classList.add('ongoing');
               <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
                 ${event.language ? `<span class="badge badge-lang">${event.language}</span>` : ''}
               </div>
-            
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-  ${event.link ? `
-    <a href="${event.link}"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="event-link"
-       onclick="
-         gtag('event', 'join_click', {
-           webinar_title: '${event.title?.replace(/'/g, "\\'") || ''}',
-           webinar_date: '${event.date}',
-           webinar_time: '${event.time}',
-           category: '${event.category || 'General'}',
-           organizer: '${event.organizer || 'Unknown'}'
-         });
-       ">
-      Join →
-    </a>` : ''}
-    
-  <button class="ics-btn"
-          data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">
-    .ics
-  </button>
-</div>`;
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
+                <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">.ics</button>
+              </div>
+            `;
 
             eventsGrid.appendChild(card);
           });
@@ -1964,26 +1944,9 @@ if (ongoing) card.classList.add('ongoing');
                 ${ev.language ? `<span class="badge badge-lang">${ev.language}</span>` : ''}
               </div>
               <div style="display:flex; gap:10px; flex-wrap:wrap;">
-  ${event.link ? `
-    <a href="${event.link}"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="event-link"
-       onclick='trackJoinEvent(
-         ${JSON.stringify(event.title || "")},
-         ${JSON.stringify(event.date || "")},
-         ${JSON.stringify(event.time || "")},
-         ${JSON.stringify(event.category || "General")},
-         ${JSON.stringify(event.organizer || "Unknown")}
-       )'>
-      Join →
-    </a>` : ''}
-
-  <button class="ics-btn"
-          data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">
-    .ics
-  </button>
-</div>
+                ${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
+                <button class="ics-btn" data-archived-ics="${weekKey}__${ev.date}__${ev.time}">.ics</button>
+              </div>
             `;
             grid.appendChild(card);
           });
@@ -2017,17 +1980,7 @@ if (ongoing) card.classList.add('ongoing');
           };
         });
       }
-function trackJoinEvent(title, date, time, category, organizer) {
-  if (typeof gtag !== "function") return;
 
-  gtag("event", "join_click", {
-    webinar_title: title || "",
-    webinar_date: date || "",
-    webinar_time: time || "",
-    category: category || "General",
-    organizer: organizer || "Unknown"
-  });
-}
       function filterEvents(dayNames) {
         const select = document.getElementById('dayFilter');
         const search = (document.getElementById('searchFilter').value || '').toLowerCase();
@@ -2094,17 +2047,6 @@ function trackJoinEvent(title, date, time, category, organizer) {
         a.remove();
         URL.revokeObjectURL(url);
       }
-
-      function trackJoinEvent(title, date, time) {
-  if (typeof gtag !== 'function') return;
-
-  gtag('event', 'join_click', {
-    event_category: 'engagement',
-    event_label: title,
-    webinar_date: date,
-    webinar_time: time
-  });
-}
 
       function updateFutureCounter() {
         const nowLima = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
