@@ -772,8 +772,8 @@ header .intro p {
   </div>
 
   <!-- Subtítulo de la semana (solo una vez) -->
-  <p class="subtitle">
-  <strong>Week: January 12 – 18, 2026</strong> · 
+<p class="subtitle">
+  <strong id="weekSubtitle">Loading weeks…</strong> · 
   <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
 
@@ -1502,40 +1502,71 @@ header .intro p {
     <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=46389417&single=true&output=csv';
 
-const WEEKS = [
-  {
-    key: 'current',
-    label: 'Week January 12 – 18, 2026',
-    start: '2026-01-12',
-    end:   '2026-01-18',
-    dayNames: {
-      '2026-01-12': 'Monday, Jan 12',
-      '2026-01-13': 'Tuesday, Jan 13',
-      '2026-01-14': 'Wednesday, Jan 14',
-      '2026-01-15': 'Thursday, Jan 15',
-      '2026-01-16': 'Friday, Jan 16',
-      '2026-01-17': 'Saturday, Jan 17',
-      '2026-01-18': 'Sunday, Jan 18'
-    }
-  },
-  {
-    key: 'prev',
-    label: 'Week January 5 – 11, 2026',
-    start: '2026-01-05',
-    end:   '2026-01-11',
-    dayNames: {
-      '2026-01-05': 'Monday, Jan 5',
-      '2026-01-06': 'Tuesday, Jan 6',
-      '2026-01-07': 'Wednesday, Jan 7',
-      '2026-01-08': 'Thursday, Jan 8',
-      '2026-01-09': 'Friday, Jan 9',
-      '2026-01-10': 'Saturday, Jan 10',
-      '2026-01-11': 'Sunday, Jan 11'
-    }
-  }
-];
+// ---- AUTO WEEKS (2 upcoming weeks) ----
+function fmtISO(d) {
+  const Y = d.getFullYear();
+  const M = String(d.getMonth() + 1).padStart(2, "0");
+  const D = String(d.getDate()).padStart(2, "0");
+  return `${Y}-${M}-${D}`;
+}
 
-const IS_FIRST_WEEK_OF_YEAR = false;
+function addDaysISO(iso, n) {
+  const d = new Date(iso + "T00:00:00");
+  d.setDate(d.getDate() + n);
+  return fmtISO(d);
+}
+
+// Monday-based week in Lima timezone
+function mondayISOOfWeek(isoDate) {
+  const d = new Date(isoDate + "T00:00:00");
+  const day = d.getDay(); // 0 Sun ... 6 Sat
+  const diffToMon = (day === 0) ? -6 : (1 - day);
+  d.setDate(d.getDate() + diffToMon);
+  return fmtISO(d);
+}
+
+function buildDayNames(startISO) {
+  const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const out = {};
+  for (let i = 0; i < 7; i++) {
+    const iso = addDaysISO(startISO, i);
+    const d = new Date(iso + "T00:00:00");
+    out[iso] = `${labels[i]}, ${months[d.getMonth()]} ${d.getDate()}`;
+  }
+  return out;
+}
+
+function buildWeeksForTwoWeeks() {
+  const todayISO = todayStrLima();        // yyyy-mm-dd in Lima
+  const start1 = mondayISOOfWeek(todayISO);
+  const end1   = addDaysISO(start1, 6);
+
+  const start2 = addDaysISO(start1, 7);
+  const end2   = addDaysISO(start2, 6);
+
+  const startPrev = addDaysISO(start1, -7);
+  const endPrev   = addDaysISO(startPrev, 6);
+
+  return {
+    current: {
+      key: "current",
+      label: `Weeks: ${start1} → ${end2}`,
+      start: start1,
+      end: end2,
+      dayNames: { ...buildDayNames(start1), ...buildDayNames(start2) }
+    },
+    prev: {
+      key: "prev",
+      label: `Previous week: ${startPrev} → ${endPrev}`,
+      start: startPrev,
+      end: endPrev,
+      dayNames: buildDayNames(startPrev)
+    }
+  };
+}
+
+let WEEKS = null; // se llena en loadAll()
 
 
       const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
@@ -1762,6 +1793,9 @@ function isOngoingEvent(ev) {
         filteredEvents.forEach(ev => {
           (eventsByDay[ev.date] ||= []).push(ev);
         });
+Object.keys(eventsByDay).forEach(d => {
+  eventsByDay[d].sort((a,b) => (a.time || '').localeCompare(b.time || ''));
+});
 
         const todayStr = todayStrLima();
 
@@ -2078,6 +2112,12 @@ async function loadAll() {
     parsed.forEach(e => {
       e.date = normalizeDate(e.date);
     });
+// construir semanas automáticamente (2 semanas hacia adelante)
+const wk = buildWeeksForTwoWeeks();
+WEEKS = [wk.current, wk.prev];
+
+document.getElementById('weekSubtitle').textContent =
+  `Weeks: ${wk.current.start} – ${wk.current.end}`;
 
     const currentWeek = WEEKS.find(w => w.key === 'current');
     const prevWeek = WEEKS.find(w => w.key === 'prev');
