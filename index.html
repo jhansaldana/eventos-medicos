@@ -772,8 +772,8 @@ header .intro p {
   </div>
 
   <!-- Subtítulo de la semana (solo una vez) -->
-<p class="subtitle">
-  <strong id="weekSubtitle">Week: January 19 – 25, 2026</strong> · 
+  <p class="subtitle">
+  <strong>Week: January 12 – 18, 2026</strong> · 
   <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
 
@@ -781,8 +781,9 @@ header .intro p {
   <div class="intro">
 <div class="weekly-update">
   <p>
-    During the <strong>last 7 days</strong>, <strong>Critical Care Webinars</strong> registered
-    <strong>897 active users</strong>, <strong>5.1K views</strong>, and <strong>244 new users</strong>.
+    During the <strong>last 30 days</strong>, <strong>Critical Care Webinars</strong> has registered
+    <strong>877 active users</strong> and more than <strong>7,400 interactions</strong>,
+    reflecting sustained engagement with critical care educational content.
   </p>
 
   <p>
@@ -1501,83 +1502,40 @@ header .intro p {
     <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=46389417&single=true&output=csv';
 
-// ---- AUTO WEEKS (2 upcoming weeks) ----
-function fmtISO(d) {
-  const Y = d.getFullYear();
-  const M = String(d.getMonth() + 1).padStart(2, "0");
-  const D = String(d.getDate()).padStart(2, "0");
-  return `${Y}-${M}-${D}`;
-}
-
-function addDaysISO(iso, n) {
-  const d = new Date(iso + "T00:00:00");
-  d.setDate(d.getDate() + n);
-  return fmtISO(d);
-}
-
-// Monday-based week in Lima timezone
-function mondayISOOfWeek(isoDate) {
-  const d = new Date(isoDate + "T00:00:00");
-  const day = d.getDay(); // 0 Sun ... 6 Sat
-  const diffToMon = (day === 0) ? -6 : (1 - day);
-  d.setDate(d.getDate() + diffToMon);
-  return fmtISO(d);
-}
-
-function buildDayNames(startISO) {
-  const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  const out = {};
-  for (let i = 0; i < 7; i++) {
-    const iso = addDaysISO(startISO, i);
-    const d = new Date(iso + "T00:00:00");
-    out[iso] = `${labels[i]}, ${months[d.getMonth()]} ${d.getDate()}`;
-  }
-  return out;
-}
-
-function buildWeeksForTwoWeeks() {
-  const todayISO = todayStrLima();        // yyyy-mm-dd in Lima
-  const start1 = mondayISOOfWeek(todayISO);
-  const end1   = addDaysISO(start1, 6);
-
-  const start2 = addDaysISO(start1, 7);
-  const end2   = addDaysISO(start2, 6);
-
-  const startPrev = addDaysISO(start1, -7);
-  const endPrev   = addDaysISO(startPrev, 6);
-
-  return {
-    current: {
-      key: "current",
-   label: `Week: ${start1} → ${end1}`,
-start: start1,
-end: end1,
-dayNames: buildDayNames(start1)
-
-    prev: {
-      key: "prev",
-      label: `Previous week: ${startPrev} → ${endPrev}`,
-      start: startPrev,
-      end: endPrev,
-      dayNames: buildDayNames(startPrev)
+const WEEKS = [
+  {
+    key: 'current',
+    label: 'Week January 12 – 18, 2026',
+    start: '2026-01-12',
+    end:   '2026-01-18',
+    dayNames: {
+      '2026-01-12': 'Monday, Jan 12',
+      '2026-01-13': 'Tuesday, Jan 13',
+      '2026-01-14': 'Wednesday, Jan 14',
+      '2026-01-15': 'Thursday, Jan 15',
+      '2026-01-16': 'Friday, Jan 16',
+      '2026-01-17': 'Saturday, Jan 17',
+      '2026-01-18': 'Sunday, Jan 18'
     }
-  };
-}
+  },
+  {
+    key: 'prev',
+    label: 'Week January 5 – 11, 2026',
+    start: '2026-01-05',
+    end:   '2026-01-11',
+    dayNames: {
+      '2026-01-05': 'Monday, Jan 5',
+      '2026-01-06': 'Tuesday, Jan 6',
+      '2026-01-07': 'Wednesday, Jan 7',
+      '2026-01-08': 'Thursday, Jan 8',
+      '2026-01-09': 'Friday, Jan 9',
+      '2026-01-10': 'Saturday, Jan 10',
+      '2026-01-11': 'Sunday, Jan 11'
+    }
+  }
+];
 
-let WEEKS = null; // se llena en loadAll()
-      
-// Build weeks once (current + previous) based on Lima date
-function ensureWeeksReady() {
-  if (WEEKS) return;
-
-  const wk = buildWeeksForTwoWeeks();
-  WEEKS = [wk.current, wk.prev];
-
-  // Subtitle (solo semana actual)
-  const el = document.getElementById('weekSubtitle');
-  if (el) el.textContent = `Week: ${wk.current.start} – ${wk.current.end}`;
-}
+const IS_FIRST_WEEK_OF_YEAR = false;
 
 
       const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
@@ -1804,9 +1762,6 @@ function isOngoingEvent(ev) {
         filteredEvents.forEach(ev => {
           (eventsByDay[ev.date] ||= []).push(ev);
         });
-Object.keys(eventsByDay).forEach(d => {
-  eventsByDay[d].sort((a,b) => (a.time || '').localeCompare(b.time || ''));
-});
 
         const todayStr = todayStrLima();
 
@@ -2113,31 +2068,30 @@ async function loadAll() {
   $main.style.display = 'none';
 
   try {
-    ensureWeeksReady();
     const res = await fetch(BASE_SHEET_CSV, { cache: "no-store" });
     if (!res.ok) throw new Error("Cannot load Google Sheet");
 
     const csv = await res.text();
     const parsed = parseCSV(csv);
 
-    // Normalizar fechas y horas (por si el sheet viene sucio)
+    // Normalizar todas las fechas
     parsed.forEach(e => {
       e.date = normalizeDate(e.date);
-      e.time = normalizeTime(e.time);
     });
 
     const currentWeek = WEEKS.find(w => w.key === 'current');
     const prevWeek = WEEKS.find(w => w.key === 'prev');
 
-    // SOLO semana actual
-    events = parsed
-      .filter(e => withinRange(e.date, currentWeek.start, currentWeek.end))
-      .sort((a, b) => dateTimeLima(a.date, a.time) - dateTimeLima(b.date, b.time));
+    // Filtrar eventos de la semana actual
+    events = parsed.filter(e =>
+      withinRange(e.date, currentWeek.start, currentWeek.end)
+    );
 
-    // SOLO semana previa (archive)
-    const prevList = parsed
-      .filter(e => withinRange(e.date, prevWeek.start, prevWeek.end))
-      .sort((a, b) => dateTimeLima(a.date, a.time) - dateTimeLima(b.date, b.time));
+    // Filtrar eventos de la semana anterior
+    const prevList = parsed.filter(e =>
+      withinRange(e.date, prevWeek.start, prevWeek.end)
+    );
+
 
     document.getElementById('totalEvents').textContent = events.length;
     document.getElementById('visibleEvents').textContent = events.length;
@@ -2147,6 +2101,7 @@ async function loadAll() {
     initLanguageFilter(events);
     updateDateFilter(currentWeek.dayNames);
 
+    // Preparar archivo
     archive['prev'] = {
       flat: prevList,
       byDay: prevList.reduce((acc, ev) => {
@@ -2155,10 +2110,16 @@ async function loadAll() {
       }, {})
     };
 
-    document.getElementById('archiveAccordion').innerHTML = '';
-    const hasArchive = prevList.length > 0;
-    if (hasArchive) renderArchive('prev');
-    document.getElementById('archiveBlock').style.display = hasArchive ? 'block' : 'none';
+   document.getElementById('archiveAccordion').innerHTML = '';
+
+let hasArchive = false;
+
+if (prevList.length > 0) {
+  renderArchive('prev');
+  hasArchive = true;
+}
+
+document.getElementById('archiveBlock').style.display = hasArchive ? 'block' : 'none';
 
     updateFutureCounter();
     filterEvents(currentWeek.dayNames);
@@ -2173,12 +2134,15 @@ async function loadAll() {
     $error.innerHTML = `
       <strong>⚠️ Error loading events</strong><br>
       ${err.message}<br><br>
+      Please verify that:<br>
+      • The sheet is <em>Published to the web</em> as CSV<br>
+      • PapaParse library loaded correctly<br>
+      • Your internet connection is stable<br><br>
       <button class="btn-secondary" id="retryBtn">Retry</button>
     `;
     document.getElementById('retryBtn').onclick = loadAll;
   }
 }
-// construir semanas automáticamente (2 semanas hacia adelante)
 
       document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('reloadBtn').onclick = () => { loadAll(); };
