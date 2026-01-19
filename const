@@ -773,7 +773,7 @@ header .intro p {
 
   <!-- Subtítulo de la semana (solo una vez) -->
   <p class="subtitle">
-  <strong>Week: January 12 – 18, 2026</strong> · 
+ <strong>Week: January 19 – 25, 2026</strong>
   <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
 
@@ -781,9 +781,9 @@ header .intro p {
   <div class="intro">
 <div class="weekly-update">
   <p>
-    During the <strong>last 30 days</strong>, <strong>Critical Care Webinars</strong> has registered
-    <strong>877 active users</strong> and more than <strong>7,400 interactions</strong>,
-    reflecting sustained engagement with critical care educational content.
+    During the <strong>last 7 days</strong>, <strong>Critical Care Webinars</strong> has reached
+    <strong>897 active users</strong> and logged more than <strong>5,100 interactions</strong>,
+    with <strong>244 returning users</strong>.
   </p>
 
   <p>
@@ -1505,6 +1505,21 @@ const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3C
 const WEEKS = [
   {
     key: 'current',
+    label: 'Week January 19 – 25, 2026',
+    start: '2026-01-19',
+    end:   '2026-01-25',
+    dayNames: {
+      '2026-01-19': 'Monday, Jan 19',
+      '2026-01-20': 'Tuesday, Jan 20',
+      '2026-01-21': 'Wednesday, Jan 21',
+      '2026-01-22': 'Thursday, Jan 22',
+      '2026-01-23': 'Friday, Jan 23',
+      '2026-01-24': 'Saturday, Jan 24',
+      '2026-01-25': 'Sunday, Jan 25'
+    }
+  },
+  {
+    key: 'prev',
     label: 'Week January 12 – 18, 2026',
     start: '2026-01-12',
     end:   '2026-01-18',
@@ -1516,21 +1531,6 @@ const WEEKS = [
       '2026-01-16': 'Friday, Jan 16',
       '2026-01-17': 'Saturday, Jan 17',
       '2026-01-18': 'Sunday, Jan 18'
-    }
-  },
-  {
-    key: 'prev',
-    label: 'Week January 5 – 11, 2026',
-    start: '2026-01-05',
-    end:   '2026-01-11',
-    dayNames: {
-      '2026-01-05': 'Monday, Jan 5',
-      '2026-01-06': 'Tuesday, Jan 6',
-      '2026-01-07': 'Wednesday, Jan 7',
-      '2026-01-08': 'Thursday, Jan 8',
-      '2026-01-09': 'Friday, Jan 9',
-      '2026-01-10': 'Saturday, Jan 10',
-      '2026-01-11': 'Sunday, Jan 11'
     }
   }
 ];
