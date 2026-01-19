@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Critical Care Webinars</title>
+
+  <!-- PapaParse for robust CSV parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1WKDR4C816"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1WKDR4C816');
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ebf8ff 0%, #dbeafe 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #1a202c;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    header {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      color: #2b6cb0;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #4a5568;
+      font-size: 1.05em;
+    }
+   .header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 3px solid #2b6cb0;  /* Línea azul estilo Irvin */
+}
+/* Improve readability in header description */
+header .intro {
+  line-height: 1.7;
+}
+
+header .intro p {
+  margin-bottom: 12px;
+}
+
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  font-size: 0.95em;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #2b6cb0;
+}
+
+/* En móvil que no se rompa */
+@media (max-width: 768px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+    .intro {
+      margin-top: 14px;
+      color: #2d3748;
+      line-height: 1.5;
+      font-size: 0.98em;
+      background: #f7fafc;
+      border: 1px solid rgba(49,130,206,.25);
+      padding: 12px 14px;
+      border-radius: 10px;
+    }
+
+    .loading {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+
+    .loading-spinner {
+      border: 4px solid #e2e8f0;
+      border-top: 4px solid #3182ce;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100%{ transform: rotate(360deg);}
+    }
+
+    .error {
+      background: #fff5f5;
+      border: 2px solid #fc8181;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      color: #c53030;
+    }
+
+    .filters {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-actions {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom: 10px;
+    }
+
+    .filter-label {
+      font-weight: bold;
+      color: #2b6cb0;
+    }
+
+    select,
+    input[type="text"] {
+      padding: 10px 15px;
+      border: 2px solid #3182ce;
+      border-radius: 8px;
+      font-size: 1em;
+      outline: none;
+      transition: all 0.3s;
+      background: #ffffff;
+      color: #1a202c;
+    }
+
+    select:focus,
+    input[type="text"]:focus {
+      border-color: #2b6cb0;
+      box-shadow: 0 0 0 3px rgba(49,130,206,.15);
+    }
+
+    .toggle-today {
+      background: #ffffff;
+      color: #2b6cb0;
+      border: 2px solid #2b6cb0;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .toggle-today.active {
+      background: #2b6cb0;
+      color:#ffffff;
+    }
+
+    .day-section {
+      margin-bottom: 30px;
+      scroll-margin-top: 100px;
+    }
+
+    .day-header {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-bottom: 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .day-header:hover { background: #f7fafc; }
+
+    .day-header.past { opacity: 0.6; }
+
+    .day-header.today {
+      background: linear-gradient(135deg, #fefcbf 0%, #e0f2fe 100%);
+      border: 2px solid #2b6cb0;
+    }
+
+    .today-badge {
+      background: #2b6cb0;
+      color: #ffffff;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .collapse-icon {
+      font-size: 1.2em;
+      transition: transform 0.3s;
+    }
+
+    .collapsed .collapse-icon {
+      transform: rotate(-90deg);
+    }
+
+    .day-content {
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .day-content.collapsed { max-height: 0 !important; }
+
+    .day-title {
+      color: #2b6cb0;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .event-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-left: 5px solid #3182ce;
+      scroll-margin-top: 120px;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .event-time {
+      color: #2b6cb0;
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .event-title {
+      color: #1a202c;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .event-organizer {
+      color: #4a5568;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .event-link,
+    .ics-btn {
+      display: inline-block;
+      background: #3182ce;
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .event-link:hover,
+    .ics-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 5px 15px rgba(49,130,206,0.4);
+      background: #2b6cb0;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: #3182ce;
+      border: 2px solid #3182ce;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .btn-secondary:hover {
+      background: #3182ce;
+      color: #ffffff;
+    }
+
+    .category-tag {
+      display: inline-block;
+      background: #ebf8ff;
+      color: #2b6cb0;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.85em;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .stats {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-number {
+      font-size: 2.5em;
+      color: #2b6cb0;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      color: #4a5568;
+      font-size: 1em;
+    }
+
+    .small-note { font-size: .85em; color:#4a5568; }
+
+    .archive {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 24px;
+    }
+
+    .accordion {
+      border-top: 1px solid #e2e8f0;
+      margin-top: 10px;
+    }
+
+    .accordion-item { border-bottom: 1px solid #e2e8f0; }
+
+    .accordion-header {
+      width: 100%;
+      text-align: left;
+      background: #f7fafc;
+      border: 1px solid #dbeafe;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-weight: 600;
+      color: #2b6cb0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .accordion-content { display: none; padding: 6px 0 14px 0; }
+
+    .accordion-header.open + .accordion-content { display: block; }
+
+    .resources-section {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .resources-section h2 {
+      color: #2b6cb0;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #3182ce;
+      padding-bottom: 10px;
+    }
+
+    .resource-collapse-header {
+      color: #2b6cb0;
+      font-size: 1.3em;
+      margin: 25px 0 15px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+      background: #f7fafc;
+      border: 1px solid #dbeafe;
+      border-radius: 10px;
+      transition: all 0.3s;
+    }
+
+    .resource-collapse-header:hover {
+      background: #edf2f7;
+      border-color: #3182ce;
+    }
+
+    .resource-collapse-header .collapse-icon {
+      font-size: 1em;
+      transition: transform 0.3s;
+      color: #3182ce;
+    }
+
+    .resource-collapse-header.collapsed .collapse-icon {
+      transform: rotate(-90deg);
+    }
+
+    .resource-collapsible-content {
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .resource-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 15px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(49,130,206,0.25);
+      border-color: #3182ce;
+    }
+
+    .resource-card h4 {
+      color: #2b6cb0;
+      font-size: 1.1em;
+      margin-bottom: 8px;
+    }
+
+    .resource-card p {
+      color: #4a5568;
+      font-size: 0.9em;
+      line-height: 1.4;
+    }
+
+    .resource-link {
+      color: #3182ce;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9em;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .resource-link:hover { text-decoration: underline; }
+
+    .intro .weekly-update { 
+      margin-bottom: 28px;
+    }
+
+    .featured-gold {
+      border: 3px solid #ecc94b !important;
+      background: linear-gradient(135deg,#fefcbf 0%, #fffaf0 100%) !important;
+      position: relative;
+    }
+
+    .featured-gold .featured-badge {
+      background: #d69e2e;
+      color: #000;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: .5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      box-shadow: 0 2px 8px rgba(214,158,46,.25);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .featured-gold .resource-cta {
+      background: linear-gradient(135deg,#f6e05e 0%, #ecc94b 100%);
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(214,158,46,.25);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .featured-gold .resource-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(214,158,46,.35);
+    }
+
+    .event-card.certified {
+      background: #f3fbf6;
+      border-left-color: #68d391;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.06);
+      margin-left: 8px;
+    }
+
+    .badge-cert {
+      background: #e9f8ef;
+      border-color: #c6f6d5;
+      color: #276749;
+    }
+
+    .badge-lang {
+      background: #ebf8ff;
+      border-color: #bfdbfe;
+      color: #1d4ed8;
+      margin-left: 0;
+    }
+
+    .badge-ongoing{
+  background:#ecfdf5;
+  border-color:#bbf7d0;
+  color:#166534;
+  font-weight:800;
+}
+
+.event-card.ongoing{
+  border-left-color:#22c55e;
+  box-shadow: 0 10px 24px rgba(34,197,94,0.18);
+}
+
+    .weekly-update {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+
+    .weekly-update h3 {
+      color: #2b6cb0;
+      margin-bottom: 10px;
+    }
+
+    .weekly-update p {
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    /* Sección pacientes */
+   
+.patient-section {
+  border-top: 3px solid #2b6cb0;
+  background: linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%);
+  padding: 20px; /* un poco menos que 30px */
+}
+
+    .linkedin-btn {
+  background: #0a66c2;
+}
+
+.linkedin-btn:hover {
+  background: #084d96;
+}
+
+.whatsapp-btn {
+  background: #25d366;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+}
+/* Título más pequeño para que no compita con el resto */
+.patient-section h2 {
+  color: #2b6cb0;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+/* Texto un poco más compacto */
+.patient-section p {
+  font-size: 0.9em;
+}
+
+.patient-card {
+  font-size: 0.9em;
+}
+.patient-card h4 {
+  font-size: 1em;
+}
+.patient-card p,
+.patient-card li {
+  font-size: 0.9em;
+}
+
+    .patient-section {
+      border-top: 4px solid #2b6cb0;
+      background: linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%);
+    }
+
+    .patient-section h3 {
+      color: #2b6cb0;
+      margin-bottom: 12px;
+      font-size: 1.3em;
+    }
+
+    .patient-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .patient-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .patient-card h4 {
+      color: #2b6cb0;
+      margin-bottom: 6px;
+      font-size: 1.05em;
+    }
+
+    .patient-card p {
+      font-size: 0.9em;
+      color: #2d3748;
+      line-height: 1.5;
+    }
+
+    .patient-card ul {
+      margin-top: 6px;
+      padding-left: 18px;
+      font-size: 0.9em;
+      color: #4a5568;
+    }
+
+    .patient-card li { margin-bottom: 4px; }
+    .insta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #3182ce;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.9em;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 6px rgba(49,130,206,0.35);
+}
+
+.insta-btn:hover {
+  background: #2b6cb0;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(49,130,206,0.45);
+}
+
+.insta-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.8em; }
+      .events-grid { grid-template-columns: 1fr; }
+    }
+
+  
+
+@media (max-width: 900px) {
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+
+     <img 
+  src="https://raw.githubusercontent.com/jhansaldana/eventos-medicos/main/CCW%20PORTADA.png"
+  alt="CCW Banner"
+  style="width:100%; max-height:260px; object-fit:contain; margin-bottom:20px; border-radius:12px; background:#000;">
+
+<header>
+  <!-- Logo + Título + Nav -->
+  <div class="header-top">
+    <div style="display:flex; align-items:center; gap:15px;">
+      <img 
+        src="https://raw.githubusercontent.com/jhansaldana/eventos-medicos/main/IMG_5085.jpg"
+        alt="CCW Logo"
+        style="height:55px; border-radius:8px; object-fit:contain;">
+      <h1>📅 Critical Care Webinars</h1>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#eventsContainer">Webinars</a></li>
+        <li><a href="#resources-section-main">Resources</a></li>
+        <li><a href="#patients-families">4Patients&Families</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Subtítulo de la semana (solo una vez) -->
+  <p class="subtitle">
+  <strong>Week: January 12 – 18, 2026</strong> · 
+  <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
+</p>
+
+  <!-- Intro completa: bloque amarillo + explicación + Instagram -->
+  <div class="intro">
+<div class="weekly-update">
+  <p>
+    During the <strong>last 30 days</strong>, <strong>Critical Care Webinars</strong> has registered
+    <strong>877 active users</strong> and more than <strong>7,400 interactions</strong>,
+    reflecting sustained engagement with critical care educational content.
+  </p>
+
+  <p>
+    This project remains committed to <strong>decentralized, open, and barrier-free medical education</strong>,
+    helping clinicians discover valuable learning opportunities that might otherwise go unnoticed.
+  </p>
+</div>
+
+<p style="margin-top:18px;">
+  <strong>Who we are & What is Critical Care Webinars</strong><br>
+  <strong>Critical Care Webinars (CCW)</strong> is an independent, open educational initiative
+  designed to organize, centralize, and share high-quality webinars and academic events
+  in <em>critical care, ECMO, clinical simulation, patient safety, and artificial intelligence in healthcare</em>,
+  as well as related fields such as <em>cardiology, nephrology, emergency medicine</em>,
+  and other areas of modern clinical medicine.
+</p>
+
+<p>
+  <strong>Behind CCW is me, Jhan Saldaña</strong>, a critical care physician and medical educator
+  with a strong interest in open medical education and global knowledge sharing.
+  This project was born from a simple but recurring need:
+  <em>valuable educational content was scattered across multiple platforms and often missed</em>.
+</p>
+
+<p>
+  CCW functions as an <strong>academic, living, and curated agenda</strong> that consolidates
+  learning opportunities from institutions and scientific societies worldwide into a single platform,
+  with <strong>automatic time-zone conversion to Lima, Peru (GMT-5)</strong>.
+</p>
+
+<div class="social" style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/ccw_critalcarewebinars?igsh=dWNiNzc4MWVnZjE5"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="insta-btn">
+    <svg class="insta-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 
+      0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 
+      3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 
+      1.346-3 3-3h10zm-5 3c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 
+      5-5-2.243-5-5-5zm0 2c1.654 0 3 1.346 3 3s-1.346 3-3 
+      3-3-1.346-3-3 1.346-3 3-3zm4.5-2a1.5 1.5 0 110 3 
+      1.5 1.5 0 010-3z"/>
+    </svg>
+    Instagram
+  </a>
+
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/in/jhan-carlos-salda%C3%B1a-073248178"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="insta-btn linkedin-btn">
+    <svg class="insta-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 
+      3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 
+      0H12v2.2h.1c.6-1.1 2.1-2.2 4.4-2.2 4.7 0 5.6 3.1 
+      5.6 7.1V24h-5v-7.8c0-1.9 0-4.3-2.6-4.3-2.6 
+      0-3 2-3 4.1V24h-5V8z"/>
+    </svg>
+    LinkedIn
+  </a>
+
+  <!-- WhatsApp -->
+  <a href="https://chat.whatsapp.com/EoX5VRcvvAVIYwllDUgN9p"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="insta-btn whatsapp-btn">
+    <svg class="insta-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.52 3.48A11.9 11.9 0 0012 0C5.37 
+      0 0 5.37 0 12c0 2.1.55 4.15 
+      1.6 5.97L0 24l6.3-1.65A11.93 
+      11.93 0 0012 24c6.63 0 12-5.37 
+      12-12 0-3.2-1.25-6.21-3.48-8.52zM12 
+      22a9.94 9.94 0 01-5.1-1.4l-.36-.22-3.74.98 
+      1-3.65-.24-.38A9.96 9.96 0 1122 
+      12c0 5.52-4.48 10-10 10zm5.43-7.55c-.3-.15-1.77-.87-2.05-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 
+      1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.8-1.49-1.79-1.66-2.09-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5-.17 
+      0-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.05 
+      1.02-1.05 2.5 0 1.47 1.07 2.9 1.22 
+      3.1.15.2 2.1 3.2 5.08 4.49.71.31 
+      1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.08 
+      1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/>
+    </svg>
+    WhatsApp
+  </a>
+
+</div>
+
+</header>
+
+    <div id="loadingSection" class="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading events…</p>
+    </div>
+
+    <div id="errorSection" class="error" style="display:none;"></div>
+
+    <div id="mainContent" style="display:none;">
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number" id="totalEvents">0</div>
+          <div class="stat-label">Total events (current week)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="visibleEvents">0</div>
+          <div class="stat-label">Visible events</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="futureEvents">0</div>
+          <div class="stat-label">Upcoming events (current week)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="prevWeekEvents">120</div>
+          <div class="stat-label">Events last week</div>
+        </div>
+        <div class="stat-item">
+          <button id="exportWeek" class="btn-secondary">📥 Export current week (.ics)</button>
+          <div class="small-note" style="margin-top:6px">Import into Google/Outlook</div>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button id="toggleTodayBtn" class="toggle-today">🟣 Today only</button>
+      </div>
+
+      <div class="filters">
+        <span class="filter-label">Filter:</span>
+        <select id="dayFilter"></select>
+        <select id="langFilter" title="Language">
+          <option value="__ALL__">All languages</option>
+        </select>
+        <input type="text" id="searchFilter" placeholder="Search by topic, organizer, or specialty…">
+        <button id="reloadBtn" class="btn-secondary">🔄 Refresh</button>
+      </div>
+
+      <div id="eventsContainer"></div>
+
+      <div class="archive" id="archiveBlock" style="display:none;">
+        <h2 style="color:#2b6cb0; margin-bottom:8px;">🗂️ Weeks archive</h2>
+        <div class="accordion" id="archiveAccordion"></div>
+      </div>
+
+<div class="resources-section" id="resources-section-main">
+        <h2>📚 Resources for Intensivists & Simulationists</h2>
+        
+        <h3 class="resource-collapse-header" data-section="courses">
+          <span>🎓 Recommended Courses</span>
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="courses-content">
+          <div class="resource-grid">
+            <div class="resource-card featured-gold"
+                 onclick="window.open('https://lnkd.in/ePXZUYVr', '_blank')"
+                 role="button"
+                 aria-label="Competencias Docentes para el entorno clínico de aprendizaje">
+              <div class="featured-badge">FEATURED</div>
+              <h4>🩺 Competencias Docentes para el entorno clínico de aprendizaje</h4>
+              <ul style="margin:8px 0 10px 18px; color:#2d3748; font-size:0.95em; line-height:1.4;">
+                <li><strong>Diseñado por:</strong> Dr. Ismael David Piedra</li>
+                <li><strong>Modalidad:</strong> Autogestiva</li>
+                <li><strong>Organiza:</strong> AMFEM (Asociación Mexicana de Facultades y Escuelas de Medicina, A.C.)</li>
+              </ul>
+              <button class="resource-cta">¡REGÍSTRATE AHORA!</button>
+            </div>
+
+            <div class="resource-card featured-gold"
+                 onclick="window.open('https://campus.paho.org/es/curso/manejo-sepsis', '_blank')"
+                 role="button"
+                 aria-label="Curso de Sepsis OPS/FEPIMCTI gratuito">
+              <div class="featured-badge">FEATURED</div>
+              <h4>🧬 Curso de Sepsis OPS / FEPIMCTI</h4>
+              <ul style="margin:8px 0 10px 18px; color:#2d3748; font-size:0.95em; line-height:1.4;">
+                <li><strong>Organiza:</strong> Organización Panamericana de la Salud (OPS) &amp; FEPIMCTI</li>
+                <li><strong>Dirigido a:</strong> Profesionales de cuidados críticos y urgencias</li>
+                <li><strong>Modalidad:</strong> En línea, autogestivo y <span style="color:#2f855a;font-weight:600;">GRATUITO</span></li>
+              </ul>
+              <button class="resource-cta">🌐 Ir al curso gratuito</button>
+            </div>
+
+            <div class="resource-card featured-gold"
+                 onclick="window.open('https://simulamos.tiendup.com/?fbclid=PAdGRleANjaudleHRuA2FlbQIxMQABp_FxpnFv-t5J-_uPt8soetBE8Homb2PB_Qe5iwQt6w4phX50jF9l6ozCAWSZ_aem_CFRSflcVricKKErnQmrTYw', '_blank')"
+                 role="button"
+                 aria-label="Introducción a la Enseñanza Basada en Simulación Clínica">
+              <div class="featured-badge">FEATURED</div>
+              <h4>🎓 Introducción a la Enseñanza Basada en Simulación Clínica </h4>
+              <ul style="margin:8px 0 10px 18px; color:#2d3748; font-size:0.95em; line-height:1.4;">
+                <li><strong>Enfocado en:</strong> docencia y aprendizaje basado en simulación</li>
+                <li><strong>Dirigido a:</strong> profesionales de salud y educadores</li>
+                <li><strong>Modalidad:</strong> online</li>
+                <li><strong>Diseñado por:</strong> Dr Federico Ferrero</li>
+              </ul>
+              <button class="resource-cta">Ver curso →</button>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://getinge.training/lms/signin', '_blank')">
+              <h4>Getinge Training LMS</h4>
+              <p>E-learning platform with modules on ventilation, ECMO, perfusion, and critical care.
+                <strong>Registration required</strong> and <strong>certificate-awarding courses</strong>.</p>
+              <span class="resource-link">Go to Getinge Training →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://advancedrenaleducation.com/wparep/emea/elearning/critical-care/', '_blank')">
+              <h4>AREP – Critical Care (Advanced Renal Education Program)</h4>
+              <p>Modules on CRRT, ICU hemodialysis, ultrafiltration, and renal support in critically ill patients.
+                <strong>Certificate awarded</strong>.</p>
+              <span class="resource-link">Explore AREP →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://www.fluidacademy.org/', '_blank')">
+              <h4>Fluid Academy – Fluid Championship</h4>
+              <p>Program/challenges on fluid stewardship and optimization of fluid therapy in critical care.
+                <strong>Certificate awarded</strong>.</p>
+              <span class="resource-link">Fluid Academy →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://www.fccs.org/', '_blank')">
+              <h4>FCCS (Fundamental Critical Care Support)</h4>
+              <p>Core SCCM course for the management of the critically ill patient.</p>
+              <span class="resource-link">Learn more →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://www.atls.org/', '_blank')">
+              <h4>ATLS (Advanced Trauma Life Support)</h4>
+              <p>Gold standard for initial trauma management (American College of Surgeons).</p>
+              <span class="resource-link">Learn more →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://acls.com/', '_blank')">
+              <h4>ACLS (Advanced Cardiovascular Life Support)</h4>
+              <p>Advanced cardiovascular life support (AHA).</p>
+              <span class="resource-link">Learn more →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://www.sccm.org/Education-Center', '_blank')">
+              <h4>SCCM Education Center</h4>
+              <p>Educational platform with SCCM courses and webinars.</p>
+              <span class="resource-link">Learn more →</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="resource-collapse-header collapsed" data-section="apps">
+          <span>📱 Essential Apps for Intensivists</span>
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="apps-content" style="max-height:0;">
+          <div class="resource-grid">
+            <div class="resource-card" onclick="window.open('https://apps.apple.com/app/epocrates/id281935788', '_blank')">
+              <h4>Epocrates</h4>
+              <p>Drug reference, interactions, and guidelines. iOS/Android.</p>
+              <span class="resource-link">Download →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://www.mdcalc.com/', '_blank')">
+              <h4>MDCalc</h4>
+              <p>Validated calculators: APACHE II, SOFA, GCS, vasopressor dosing, etc.</p>
+              <span class="resource-link">Visit site →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://reference.medscape.com/', '_blank')">
+              <h4>Medscape</h4>
+              <p>Comprehensive reference, news, and decision support.</p>
+              <span class="resource-link">Learn more →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://apps.apple.com/app/uptodate/id334265345', '_blank')">
+              <h4>UpToDate</h4>
+              <p>Evidence-based clinical decision support (subscription required).</p>
+              <span class="resource-link">Learn more →</span>
+            </div>
+
+            <div class="resource-card">
+              <h4>CSWG App</h4>
+              <p>Quick guides and bedside decision support for critical care.</p>
+              <p>
+                <a class="resource-link" href="https://apps.apple.com/us/search?term=CSWG" target="_blank" rel="noopener">iOS (search) →</a>
+                &nbsp;|&nbsp;
+                <a class="resource-link" href="https://play.google.com/store/search?q=CSWG&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+              </p>
+            </div>
+            
+            <div class="resource-card">
+              <h4>ALMAS LATAM App</h4>
+              <p>Resources, events, and community for medical simulation in LATAM.</p>
+              <p>
+                <a class="resource-link" href="https://apps.apple.com/us/search?term=ALMAS%20LATAM" target="_blank" rel="noopener">iOS (search) →</a>
+                &nbsp;|&nbsp;
+                <a class="resource-link" href="https://play.google.com/store/search?q=ALMAS%20LATAM&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+              </p>
+            </div>
+            
+            <div class="resource-card">
+              <h4>ELSO Bedside Guide</h4>
+              <p>ECMO bedside guidance by ELSO.</p>
+              <p>
+                <a class="resource-link" href="https://apps.apple.com/us/search?term=ELSO%20Bedside%20Guide" target="_blank" rel="noopener">iOS (search) →</a>
+                &nbsp;|&nbsp;
+                <a class="resource-link" href="https://play.google.com/store/search?q=ELSO%20Bedside%20Guide&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+              </p>
+            </div>
+
+            <div class="resource-card">
+              <h4>iElastance</h4>
+              <p>Calculate ventricular-arterial coupling and hemodynamic parameters for critical care applications.</p>
+              <p>
+                <a class="resource-link" href="https://apps.apple.com/us/search?term=iElastance" target="_blank" rel="noopener">iOS (search) →</a>
+                &nbsp;|&nbsp;
+                <a class="resource-link" href="https://play.google.com/store/search?q=iElastance&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="resource-collapse-header collapsed" data-section="simulation">
+          <span>🎮 Apps for Simulation</span>
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="simulation-content" style="max-height:0;">
+          <div class="resource-grid">
+            <div class="resource-card" onclick="window.open('https://www.laerdal.com/simpad/', '_blank')">
+              <h4>SimPad PLUS</h4>
+              <p>Wireless control for Laerdal simulators to run high-fidelity scenarios.</p>
+              <span class="resource-link">Learn more →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://www.resusroom.com/', '_blank')">
+              <h4>Resus Room</h4>
+              <p>Interactive resuscitation simulator for emergency practice.</p>
+              <span class="resource-link">Try it →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://apps.apple.com/app/full-code-pro/id456863476', '_blank')">
+              <h4>Full Code Pro</h4>
+              <p>Code blue scenarios (ACLS/PALS) with realistic cases.</p>
+              <span class="resource-link">Download →</span>
+            </div>
+            
+            <div class="resource-card" onclick="window.open('https://www.heartsim.com/', '_blank')">
+              <h4>HeartSim</h4>
+              <p>Interactive ECG simulator for rhythm training.</p>
+              <span class="resource-link">Visit →</span>
+            </div>
+
+            <div class="resource-card">
+              <h4>Vent Trainer (Hamilton)</h4>
+              <p>Hamilton Medical's mechanical ventilation training app for learning ventilator management and modes.</p>
+              <p>
+                <a class="resource-link" href="https://apps.apple.com/us/search?term=Hamilton%20Vent%20Trainer" target="_blank" rel="noopener">iOS (search) →</a>
+                &nbsp;|&nbsp;
+                <a class="resource-link" href="https://play.google.com/store/search?q=Hamilton%20Vent%20Trainer&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+              </p>
+            </div>
+
+            <div class="resource-card">
+              <h4>AED Sim</h4>
+              <p>Training in defibrillation and AED use with guided scenarios.</p>
+              <p>
+                <a class="resource-link" href="https://apps.apple.com/us/search?term=AED%20Sim" target="_blank" rel="noopener">iOS (search) →</a>
+                &nbsp;|&nbsp;
+                <a class="resource-link" href="https://play.google.com/store/search?q=AED%20Sim&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+              </p>
+            </div>
+            
+            <div class="resource-card">
+              <h4>DARTSim Remote</h4>
+              <p>Remote control of scenarios and monitor for team training.</p>
+              <p>
+                <a class="resource-link" href="https://apps.apple.com/us/search?term=DARTSim%20Remote" target="_blank" rel="noopener">iOS (search) →</a>
+                &nbsp;|&nbsp;
+                <a class="resource-link" href="https://play.google.com/store/search?q=DARTSim%20Remote&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+              </p>
+            </div>
+            
+            <div class="resource-card">
+              <h4>AirwayEx</h4>
+              <p>Airway management simulation with progressive cases and feedback.</p>
+              <p>
+                <a class="resource-link" href="https://apps.apple.com/us/search?term=AirwayEx" target="_blank" rel="noopener">iOS (search) →</a>
+                &nbsp;|&nbsp;
+                <a class="resource-link" href="https://play.google.com/store/search?q=AirwayEx&c=apps" target="_blank" rel="noopener">Android (search) →</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="resource-card featured-gold" 
+               style="margin-top: 20px;"
+               onclick="window.open('https://drive.google.com/file/d/1i1EGQC0WAzzSvxYgb22zsd7u7EPLDVDB/view?usp=sharing', '_blank')">
+            <div class="featured-badge">FEATURED</div>
+            <h4 style="color:#b8860b;">📘 Ferrero, F. – El Universo Educativo es una Simulación (Book)</h4>
+            <p style="color:#2d3748; font-weight:500;">A reference work by Dr. Federico Ferrero — essential reading on simulation pedagogy, debriefing, and patient safety frameworks.</p>
+            <button class="resource-cta">Open book (Google Drive) →</button>
+          </div>
+        </div>
+
+        <h3 class="resource-collapse-header collapsed" data-section="podcasts">
+          <span>🎧 Recommended Podcasts</span>
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="podcasts-content" style="max-height:0;">
+          <p style="color:#4a5568; margin-bottom:14px;">
+            Explore global voices in critical care, ECMO, cardiology, simulation, and patient safety.
+            Each podcast offers a unique perspective on innovation, leadership, and frontline experience.
+          </p>
+
+          <div class="resource-grid">
+            <div class="resource-card" onclick="window.open('https://www.sccm.org/communications/sccm-podcast', '_blank')">
+              <h4>SCCM Podcast</h4>
+              <p>Official Society of Critical Care Medicine podcast. Interviews with leaders in critical care and research highlights.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://store.nejm.org/signup/ai/podcasts', '_blank')">
+              <h4>NEJM AI Podcast</h4>
+              <p>Insights into artificial intelligence in medicine and clinical applications by the New England Journal of Medicine.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.theresusroom.co.uk/category/podcasts/', '_blank')">
+              <h4>The Resus Room</h4>
+              <p>Emergency medicine and resuscitation discussions by UK clinicians. Evidence-based, engaging, and practical.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://scc.org.co/category/podcast/', '_blank')">
+              <h4>Sociedad Colombiana de Cuidados Intensivos Podcast</h4>
+              <p>Episodes in Spanish featuring critical care updates, regional perspectives, and Latin American experts.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://open.spotify.com/show/10v0DqwnuAZH19Auvhri45', '_blank')">
+              <h4>Simucast LATAM</h4>
+              <p>Podcast on simulation, patient safety, and debriefing in Spanish. Hosted by leaders in simulation education.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://hfsa.org/research/heart-failure-beat-podcast', '_blank')">
+              <h4>HFSA – Heart Failure Beat</h4>
+              <p>Heart Failure Society of America's podcast with leading cardiologists on latest therapies and research.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.nejm.org/browse/nejm-media-type/audio-summary?date=past5Years', '_blank')">
+              <h4>NEJM Audio Summaries</h4>
+              <p>Weekly evidence-based audio summaries of the latest NEJM articles, ideal for clinicians on the move.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://journalfeed.captivate.fm/', '_blank')">
+              <h4>JournalFeed Podcast</h4>
+              <p>Daily critical care and emergency medicine literature review — concise, evidence-driven, and current.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://podcasts.apple.com/gb/podcast/critical-care-practitioner/id830803893', '_blank')">
+              <h4>Critical Care Practitioner Podcast</h4>
+              <p>Clinical interviews and practical discussions for nurses, physicians, and allied professionals in critical care.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://open.spotify.com/show/5FwCoz9ydI9KM4ttHfkwxa', '_blank')">
+              <h4>ICU Ed & Toddcast</h4>
+              <p>Australian critical care podcast mixing humor and high-level discussions of ICU and retrieval medicine.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.feinberg.northwestern.edu/sites/simulation/educational-opportunities/podcast.html', '_blank')">
+              <h4>Northwestern Simulation Podcast</h4>
+              <p>Exploring educational innovation, simulation, and patient safety from Northwestern University.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://harvardmedsim.org/resources/podcasts/', '_blank')">
+              <h4>Harvard Center for Medical Simulation Podcast</h4>
+              <p>Conversations on leadership, teamwork, and simulation with faculty from Harvard Medical School.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://podcasts.apple.com/us/podcast/edecmo-podcast/id675769252', '_blank')">
+              <h4>ED ECMO Podcast</h4>
+              <p>The original podcast on ECMO, resuscitation, and ECPR — bridging emergency medicine and cardiac care.</p>
+              <span class="resource-link">Listen →</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="resource-collapse-header collapsed" data-section="youtube">
+          <span>📺 Recommended YouTube Channels</span>
+          <span class="collapse-icon">▼</span>
+        </h3>
+        <div class="resource-collapsible-content" id="youtube-content" style="max-height:0;">
+          <div class="resource-grid">
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/channel/UCESYe22nC1uSmxqj4lQmRvA', '_blank')">
+              <h4>Dr. Faten Farid - ICU Advantage</h4>
+              <p>Comprehensive critical care education covering mechanical ventilation, hemodynamics, and ICU protocols. Excellent resource for intensivists and residents.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@HealthcareTrainingExperience', '_blank')">
+              <h4>Healthcare Training Experience</h4>
+              <p>Medical simulation and healthcare education resources for professionals and educators.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@WorldSepsisDay', '_blank')">
+              <h4>World Sepsis Day</h4>
+              <p>Global initiative focused on sepsis awareness, prevention, and management education.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@sociedadargentinadeterapia7430', '_blank')">
+              <h4>Sociedad Argentina de Terapia Intensiva (SATI)</h4>
+              <p>Leading Argentine society for critical care medicine with educational content in Spanish.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@icbacardiovascular', '_blank')">
+              <h4>ICBA Cardiovascular</h4>
+              <p>Cardiovascular care and cardiac critical care from Instituto Cardiovascular de Buenos Aires.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@Canal_INER', '_blank')">
+              <h4>Canal INER (Instituto Nacional de Enfermedades Respiratorias)</h4>
+              <p>Mexico's national respiratory diseases institute - pulmonary critical care and respiratory medicine.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@incnet5698', '_blank')">
+              <h4>INCNet</h4>
+              <p>Critical care network sharing knowledge and best practices across institutions.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@renasicvirtual', '_blank')">
+              <h4>RENASIC Virtual</h4>
+              <p>Latin American network for pediatric and neonatal intensive care education.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@euroelso544', '_blank')">
+              <h4>EuroELSO</h4>
+              <p>European chapter of ELSO - ECMO education, research, and clinical guidelines.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@YashodaHospitalsHyderabad', '_blank')">
+              <h4>Yashoda Hospitals</h4>
+              <p>Multi-specialty hospital group sharing medical education and patient care insights.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@ICCNNetwork', '_blank')">
+              <h4>ICCN Network</h4>
+              <p>International Critical Care Nursing Network - global nursing education and collaboration.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@SBCECOFICIAL', '_blank')">
+              <h4>SBCEC - Sociedade Brasileira de Circulação Extracorpórea</h4>
+              <p>Brazilian society for extracorporeal circulation - perfusion and ECMO education.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@RafaelHerreraACVP', '_blank')">
+              <h4>Rafael Herrera - ACVP</h4>
+              <p>Cardiovascular perfusion education and extracorporeal life support resources.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@sociedadperuanadecardiolog4004', '_blank')">
+              <h4>Sociedad Peruana de Cardiología</h4>
+              <p>Peruvian cardiology society with lectures, conferences, and cardiovascular medicine updates.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@youngindiaintensivist7709', '_blank')">
+              <h4>Young India Intensivist</h4>
+              <p>Indian critical care perspective with practical ICU management and education for young intensivists.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@TexasHeartInstitute', '_blank')">
+              <h4>Texas Heart Institute</h4>
+              <p>World-renowned cardiovascular center sharing cutting-edge research and cardiac care education.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@CTSNetVideo', '_blank')">
+              <h4>CTSNet - Cardiothoracic Surgery Network</h4>
+              <p>Surgical videos, techniques, and education for cardiothoracic surgery professionals.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@amrelhusseini5321', '_blank')">
+              <h4>Amr El Husseini</h4>
+              <p>Critical care and emergency medicine education with clinical pearls and case discussions.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+
+            <div class="resource-card" onclick="window.open('https://www.youtube.com/@WorldInstituteofCCEM', '_blank')">
+              <h4>World Institute of Critical Care & Emergency Medicine (WICCM)</h4>
+              <p>Global critical care education platform with conferences, webinars, and expert lectures.</p>
+              <span class="resource-link">Visit Channel →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NUEVA SECCIÓN EN ESPAÑOL PARA PACIENTES -->
+<div class="resources-section patient-section" id="patients-families">
+        <h2>🧩 Entender la UCI: Información para pacientes y familias</h2>
+        <p style="font-size:0.95em; color:#2d3748; line-height:1.6; margin-bottom:10px;">
+          Esta sección está pensada para pacientes y familiares que se enfrentan, muchas veces por primera vez,
+          a una Unidad de Cuidados Intensivos (UCI). No reemplaza la conversación con el equipo tratante,
+          pero puede ayudarte a comprender mejor lo que estás viendo y a qué prestar atención.
+        </p>
+
+        <div class="patient-grid">
+          <div class="patient-card">
+            <h4>1. ¿Qué es la UCI?</h4>
+            <p>
+              La UCI es un área del hospital donde se atienden pacientes graves o inestables que necesitan
+              monitoreo continuo y tratamientos avanzados.
+            </p>
+            <ul>
+              <li>Monitoreo continuo de signos vitales (corazón, presión, respiración, oxígeno).</li>
+              <li>Mayor proporción de enfermeras por paciente.</li>
+              <li>Equipos especiales como ventiladores, bombas de infusión y monitores.</li>
+            </ul>
+          </div>
+
+          <div class="patient-card">
+            <h4>2. Primeras 24 horas: qué puedes esperar</h4>
+            <p>
+              Las primeras horas suelen ser las más intensas: el equipo se enfoca en estabilizar al paciente.
+              Es normal ver mucho movimiento, alarmas y personal entrando y saliendo.
+            </p>
+            <ul>
+              <li>El equipo ajusta medicamentos, oxígeno y líquidos con frecuencia.</li>
+              <li>Pueden realizarse exámenes de sangre, radiografías o ecografías junto a la cama.</li>
+              <li>Es posible que el paciente esté sedado o no pueda hablar al inicio.</li>
+            </ul>
+          </div>
+
+          <div class="patient-card">
+            <h4>3. Cómo ayudar a tu familiar</h4>
+            <p>
+              La familia es parte importante del cuidado. Pequeños gestos pueden marcar una gran diferencia
+              en la recuperación y el bienestar emocional del paciente.
+            </p>
+            <ul>
+              <li>Habla con el paciente, aunque parezca dormido: tu voz puede reconfortarlo.</li>
+              <li>Pregunta al equipo de salud cuál es el mejor momento para visitar.</li>
+              <li>Respeta las normas de higiene (lavado de manos, uso de mascarilla) para evitar infecciones.</li>
+            </ul>
+          </div>
+
+          <div class="patient-card">
+            <h4>4. Preguntas clave para el equipo de salud</h4>
+            <p>Algunas preguntas que puedes hacer al médico o a la enfermera a cargo:</p>
+            <ul>
+              <li>¿Cuál es el diagnóstico principal y qué complicaciones son las más importantes?</li>
+              <li>¿Qué se espera en las próximas 24–48 horas?</li>
+              <li>¿Cómo puedo colaborar sin interferir con la atención?</li>
+            </ul>
+          </div>
+
+          <div class="patient-card">
+            <h4>5. Cuidarte también es cuidar</h4>
+            <p>
+              Acompañar a un ser querido en la UCI puede ser agotador. Cuidar tu descanso y tu salud mental
+              también forma parte del proceso.
+            </p>
+            <ul>
+              <li>Organiza turnos con otros familiares si es posible.</li>
+              <li>Pregunta si el hospital cuenta con apoyo psicológico o trabajo social.</li>
+              <li>No dudes en decir al equipo si algo no entiendes: estás en tu derecho de preguntar.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="font-size:0.9em; color:#4a5568; margin-top:14px;">
+          Si eres paciente o familiar y tienes dudas, te recomendamos siempre hablar directamente
+          con el equipo tratante. Cada UCI y cada paciente es diferente, y la información personalizada
+          es la más importante.
+        </p>
+      </div>
+
+
+      <div class="resources-section" style="border-top: 4px solid #3182ce; background:linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%); margin-top:40px;">
+        <h2>💜 Support the Project</h2>
+        <p style="font-size:1em; color:#2d3748; line-height:1.6;">
+          <strong>Critical Care Webinars</strong> is a collaborative, non-profit educational initiative that curates global webinars, courses, and podcasts in intensive care, simulation, and medical innovation.  
+          We are committed to keeping this resource open, free, and continuously updated for the entire healthcare community.  
+        </p>
+
+        <p style="margin-top:16px; color:#4a5568;">
+          If you wish to support our work and help maintain the platform, you can make a contribution through:
+        </p>
+
+        <div style="margin-top:20px; background:#ffffff; border:2px dashed #3182ce; border-radius:10px; padding:18px;">
+          <h4 style="color:#2b6cb0; margin-bottom:10px;">💰 Donation Links:</h4>
+          <ul style="list-style:none; padding-left:0; line-height:1.8; color:#2d3748;">
+            <li><strong>BTC:</strong> <em>1Cy8uxDTQ6CWbxFxAQX88NTHh7EWZc2Z5A</em></li>
+            <li><strong>BNB:</strong> <em>3Lrosc3SFc5N9buFD4SHoHw98Tc11iYidQ</em></li>
+          </ul>
+          <p style="color:#4a5568; font-size:0.9em; margin-top:10px;">
+            Your support helps sustain and expand open access education for clinicians worldwide 🌍
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=46389417&single=true&output=csv';
+
+const WEEKS = [
+  {
+    key: 'current',
+    label: 'Week January 12 – 18, 2026',
+    start: '2026-01-12',
+    end:   '2026-01-18',
+    dayNames: {
+      '2026-01-12': 'Monday, Jan 12',
+      '2026-01-13': 'Tuesday, Jan 13',
+      '2026-01-14': 'Wednesday, Jan 14',
+      '2026-01-15': 'Thursday, Jan 15',
+      '2026-01-16': 'Friday, Jan 16',
+      '2026-01-17': 'Saturday, Jan 17',
+      '2026-01-18': 'Sunday, Jan 18'
+    }
+  },
+  {
+    key: 'prev',
+    label: 'Week January 5 – 11, 2026',
+    start: '2026-01-05',
+    end:   '2026-01-11',
+    dayNames: {
+      '2026-01-05': 'Monday, Jan 5',
+      '2026-01-06': 'Tuesday, Jan 6',
+      '2026-01-07': 'Wednesday, Jan 7',
+      '2026-01-08': 'Thursday, Jan 8',
+      '2026-01-09': 'Friday, Jan 9',
+      '2026-01-10': 'Saturday, Jan 10',
+      '2026-01-11': 'Sunday, Jan 11'
+    }
+  }
+];
+
+const IS_FIRST_WEEK_OF_YEAR = false;
+
+
+      const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
+
+      let events = [];
+      let allDates = new Set();
+      let archive = {};
+      let showTodayOnly = true;
+
+      function normalizeDate(x) {
+        if (!x) return "";
+        const s = String(x).trim();
+        if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+        const m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+        if (m) {
+          let [, d, mo, y] = m;
+          if (y.length === 2) y = (Number(y) > 50 ? "19" : "20") + y;
+          return `${y.padStart(4, "0")}-${mo.padStart(2, "0")}-${d.padStart(2, "0")}`;
+        }
+        return "";
+      }
+      function toISODate(d) {
+  const x = new Date(d + 'T00:00:00');
+  return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;
+}
+
+      function normalizeTime(x) {
+        if (x === null || x === undefined) return "";
+        let s = String(x).trim().toLowerCase();
+        s = s.replace(/\s*[ap]\.?m\.?$/, "");
+        if (/^\d{1,2}:\d{2}$/.test(s)) {
+          const [h, m] = s.split(":");
+          return `${h.padStart(2, "0")}:${m}`;
+        }
+        if (/^\d{1,2}$/.test(s)) return `${s.padStart(2, "0")}:00`;
+        const f = parseFloat(s.replace(",", "."));
+        if (!isNaN(f)) {
+          const h = Math.floor(f), m = Math.round((f - h) * 60);
+          return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+        }
+        return "";
+      }
+
+      function getField(row, keys) {
+        for (const k of keys) {
+          if (row[k] !== undefined && String(row[k]).trim() !== "") return String(row[k]).trim();
+        }
+        return "";
+      }
+
+      function parseCSV(csv) {
+        if (typeof Papa === 'undefined') {
+          throw new Error('PapaParse library not loaded');
+        }
+        
+        const result = Papa.parse(csv, {
+          header: true,
+          skipEmptyLines: "greedy",
+          transformHeader: h => String(h).trim().toLowerCase()
+        });
+
+        const rows = [];
+        for (const row of result.data) {
+          const date = normalizeDate(getField(row, ["date", "fecha", "día", "dia"]));
+          const time = normalizeTime(getField(row, ["time", "hora", "start", "inicio"]));
+          const title = getField(row, ["title", "título", "titulo", "tema", "subject"]);
+          const link = getField(row, ["link", "enlace", "url"]);
+          const organizer = getField(row, ["organizer", "organizador", "host", "org", "institucion", "institución"]);
+          const category = getField(row, ["category", "categoría", "categoria", "especialidad"]);
+          const language = getField(row, ["language", "idioma", "lang"]);
+          const certificate = getField(row, ["certificate", "certificado", "cert"]);
+          const duration = getField(row, ["duration", "duracion", "duración", "mins", "minutes"]);
+
+          if (date && time && title) {
+            rows.push({ date, time, title, link, organizer, category, language, certificate, duration });
+          }
+        }
+        return rows;
+      }
+
+      function withinRange(d, s, e) {
+  if (!d || !s || !e) return false;
+  const D = new Date(d + 'T00:00:00');
+  const S = new Date(s + 'T00:00:00');
+  const E = new Date(e + 'T23:59:59');
+  return D >= S && D <= E;
+}
+      function todayStrLima() {
+        const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+        const Y = d.getFullYear();
+        const M = String(d.getMonth() + 1).padStart(2, '0');
+        const D = String(d.getDate()).padStart(2, '0');
+        return `${Y}-${M}-${D}`;
+      }
+
+      function currentTimeLima() {
+        const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+        return {
+          hours: d.getHours(),
+          minutes: d.getMinutes()
+        };
+      }
+      function parseDurationMinutes(x) {
+  if (!x) return null;
+  const s = String(x).trim().toLowerCase();
+
+  // soporta: "60", "60 min", "90 mins", "75 min", "45 minutes"
+  const m = s.match(/(\d+)\s*(min|mins|minute|minutes)?/);
+  if (!m) return null;
+
+  const n = parseInt(m[1], 10);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+// Crea Date real usando offset fijo -05:00 (Perú no usa DST)
+function dateTimeLima(dateStr, timeStr) {
+  const t = (timeStr || "00:00").trim();
+  const hhmm = /^\d{2}:\d{2}$/.test(t) ? t : normalizeTime(t) || "00:00";
+  return new Date(`${dateStr}T${hhmm}:00-05:00`);
+}
+
+function isOngoingEvent(ev) {
+  const now = new Date(); // real
+  const start = dateTimeLima(ev.date, ev.time);
+  const mins = parseDurationMinutes(ev.duration) ?? 60; // default 60 si falta
+  const end = new Date(start.getTime() + mins * 60000);
+  return now >= start && now < end;
+}
+
+      function updateDateFilter(dayNames) {
+        const select = document.getElementById('dayFilter');
+        select.innerHTML = '';
+        const optAll = document.createElement('option');
+        optAll.value = 'all';
+        optAll.textContent = 'All days';
+        select.appendChild(optAll);
+        Array.from(allDates).sort().forEach(date => {
+          const option = document.createElement('option');
+          option.value = date;
+          option.textContent = dayNames[date] || date;
+          select.appendChild(option);
+        });
+      }
+
+      function initLanguageFilter(rows) {
+        const sel = document.getElementById('langFilter');
+        sel.innerHTML = '<option value="__ALL__">All languages</option>';
+        const langs = Array.from(new Set(
+          rows.map(r => (r.language || '').trim()).filter(Boolean)
+        )).sort((a, b) => a.localeCompare(b));
+        langs.forEach(l => {
+          const opt = document.createElement('option');
+          opt.value = l;
+          opt.textContent = l;
+          sel.appendChild(opt);
+        });
+        sel.onchange = () => filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+      }
+
+      function scrollToNearestEvent() {
+        const todayStr = todayStrLima();
+        const currentTime = currentTimeLima();
+        
+        const todaySections = document.querySelectorAll('.day-section');
+        let targetSection = null;
+        
+        for (const section of todaySections) {
+          const header = section.querySelector('.day-header');
+          if (header && header.classList.contains('today')) {
+            targetSection = section;
+            break;
+          }
+        }
+        
+        if (!targetSection) return;
+
+        const todayEvents = events.filter(e => e.date === todayStr);
+        if (todayEvents.length === 0) return;
+
+        let nearestEvent = null;
+        let minDiff = Infinity;
+
+        todayEvents.forEach(ev => {
+          const [h, m] = ev.time.split(':').map(Number);
+          const eventMinutes = h * 60 + m;
+          const currentMinutes = currentTime.hours * 60 + currentTime.minutes;
+          const diff = Math.abs(eventMinutes - currentMinutes);
+          
+          if (diff < minDiff) {
+            minDiff = diff;
+            nearestEvent = ev;
+          }
+        });
+
+        if (nearestEvent) {
+          setTimeout(() => {
+            const cards = targetSection.querySelectorAll('.event-card');
+            for (const card of cards) {
+              const timeEl = card.querySelector('.event-time');
+              if (timeEl && timeEl.textContent.includes(nearestEvent.time)) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                break;
+              }
+            }
+          }, 500);
+        } else {
+          setTimeout(() => {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 300);
+        }
+      }
+
+      function renderEvents(filteredEvents, dayNames) {
+        const container = document.getElementById('eventsContainer');
+        container.innerHTML = '';
+        
+        if (filteredEvents.length === 0) {
+          container.innerHTML = '<div class="loading"><p>No events found</p></div>';
+          document.getElementById('visibleEvents').textContent = '0';
+          return;
+        }
+
+        const eventsByDay = {};
+        filteredEvents.forEach(ev => {
+          (eventsByDay[ev.date] ||= []).push(ev);
+        });
+
+        const todayStr = todayStrLima();
+
+        Object.keys(eventsByDay).sort().forEach(date => {
+          const isPast = date < todayStr;
+          const isToday = date === todayStr;
+          const daySection = document.createElement('div');
+          daySection.className = 'day-section';
+          const count = eventsByDay[date].length;
+
+          const dayHeader = document.createElement('div');
+          dayHeader.className = `day-header ${isPast ? 'past' : ''} ${isToday ? 'today' : ''}`;
+          const shouldCollapse = !isToday;
+          if (shouldCollapse) dayHeader.classList.add('collapsed');
+
+          dayHeader.innerHTML = `
+            <div style="display:flex; align-items:center;">
+              <div class="day-title">${(dayNames[date] || date)} <span style="color:#718096; font-weight:600;">(${count})</span></div>
+              ${isToday ? '<span class="today-badge">📍 TODAY</span>' : ''}
+            </div>
+            <div style="display:flex; align-items:center; gap:15px;">
+              <button class="btn-secondary" data-day="${date}" onclick="event.stopPropagation()">📥 Export day (.ics)</button>
+              <span class="collapse-icon">${shouldCollapse ? '▶' : '▼'}</span>
+            </div>
+          `;
+
+          const dayContent = document.createElement('div');
+          dayContent.className = `day-content ${shouldCollapse ? 'collapsed' : ''}`;
+          if (shouldCollapse) {
+            dayContent.style.maxHeight = '0';
+          } else {
+            dayContent.style.maxHeight = 'none';
+          }
+
+          dayHeader.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') return;
+            const isCurrentlyCollapsed = dayContent.classList.contains('collapsed');
+            dayContent.classList.toggle('collapsed');
+            dayHeader.classList.toggle('collapsed');
+            if (isCurrentlyCollapsed) {
+              dayContent.style.maxHeight = dayContent.scrollHeight + 'px';
+              setTimeout(() => {
+                dayContent.style.maxHeight = 'none';
+              }, 300);
+            } else {
+              dayContent.style.maxHeight = dayContent.scrollHeight + 'px';
+              setTimeout(() => {
+                dayContent.style.maxHeight = '0';
+              }, 10);
+            }
+          });
+
+          const eventsGrid = document.createElement('div');
+          eventsGrid.className = 'events-grid';
+
+          eventsByDay[date].forEach(event => {
+            const card = document.createElement('div');
+            card.className = 'event-card';
+
+            const isCertified = (() => {
+              const raw = (event.certificate || '').toString().trim().toLowerCase();
+              if (!raw) return false;
+              return ['yes', 'y', 'true', '1', 'certified', 'sí', 'si'].includes(raw) || (raw !== 'no' && raw !== 'false' && raw !== '0');
+            })();
+
+            if (isCertified) card.classList.add('certified');
+            const ongoing = isOngoingEvent(event);
+if (ongoing) card.classList.add('ongoing');
+
+
+            card.innerHTML = `
+              <div class="category-tag">${event.category || 'General'}</div>
+              <div class="event-time">🕐 ${event.time}</div>
+              <div class="event-title">
+  ${event.title}
+  ${ongoing ? '<span class="badge badge-ongoing">🟢 ONGOING</span>' : ''}
+  ${isCertified ? '<span class="badge badge-cert">Certified</span>' : ''}
+</div>
+
+              <div class="event-organizer">📍 ${event.organizer || '—'}</div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
+                ${event.language ? `<span class="badge badge-lang">${event.language}</span>` : ''}
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                ${event.link ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
+                <button class="ics-btn" data-ics="${event.date}__${event.time}__${(event.title || '').replace(/\s+/g, '_')}">.ics</button>
+              </div>
+            `;
+
+            eventsGrid.appendChild(card);
+          });
+
+          dayContent.appendChild(eventsGrid);
+          daySection.appendChild(dayHeader);
+          daySection.appendChild(dayContent);
+          container.appendChild(daySection);
+        });
+
+        document.getElementById('visibleEvents').textContent = String(filteredEvents.length);
+
+        document.querySelectorAll('[data-day]').forEach(btn => {
+          btn.onclick = () => exportICS(filteredEvents.filter(e => e.date === btn.dataset.day), `events-${btn.dataset.day}.ics`);
+        });
+        document.querySelectorAll('[data-ics]').forEach(btn => {
+          btn.onclick = () => {
+            const [d, t] = btn.dataset.ics.split('__');
+            const ev = filteredEvents.find(e => e.date === d && e.time === t);
+            if (ev) exportICS([ev], `event-${d}-${t.replace(':', '')}.ics`);
+          };
+        });
+
+        scrollToNearestEvent();
+      }
+
+      function renderArchive(weekKey) {
+        const acc = document.getElementById('archiveAccordion');
+        const data = archive[weekKey];
+        const week = WEEKS.find(w => w.key === weekKey);
+        if (!data || !week) return;
+
+        const total = data.flat.length;
+       if (weekKey === 'prev') {
+  document.getElementById('prevWeekEvents').textContent = String(data.flat.length);
+}
+
+        const header = document.createElement('button');
+        header.className = 'accordion-header';
+        header.textContent = `${week.label} · total ${total} events`;
+
+        const content = document.createElement('div');
+        content.className = 'accordion-content';
+        content.style.display = 'none';
+
+        const exportBtn = document.createElement('button');
+        exportBtn.className = 'btn-secondary';
+        exportBtn.style.margin = '6px 0 12px 0';
+        exportBtn.textContent = '📥 Export week (.ics)';
+        exportBtn.onclick = () => exportICS(data.flat, `events_${week.label.replace(/\s+/g, '_')}.ics`);
+        content.appendChild(exportBtn);
+
+        Object.keys(data.byDay).sort().forEach(date => {
+          const list = data.byDay[date];
+          const wrap = document.createElement('div');
+          wrap.className = 'day-section';
+
+          const dayHeader = document.createElement('div');
+          dayHeader.className = 'day-header';
+          dayHeader.innerHTML = `
+            <div class="day-title">${(week.dayNames[date] || date)} <span style="color:#718096; font-weight:600;">(${list.length})</span></div>
+            <button class="btn-secondary" data-archived-day="${weekKey}__${date}">📥 Export day (.ics)</button>
+          `;
+          wrap.appendChild(dayHeader);
+
+          const grid = document.createElement('div');
+          grid.className = 'events-grid';
+          list.forEach(ev => {
+            const card = document.createElement('div');
+            card.className = 'event-card';
+
+            const isCertified = (() => {
+              const raw = (ev.certificate || '').toString().trim().toLowerCase();
+              if (!raw) return false;
+              return ['yes', 'y', 'true', '1', 'certified', 'sí', 'si'].includes(raw) || (raw !== 'no' && raw !== 'false' && raw !== '0');
+            })();
+
+            if (isCertified) card.classList.add('certified');
+            const ongoing = isOngoingEvent(ev);
+if (ongoing) card.classList.add('ongoing');
+
+
+            card.innerHTML = `
+              <div class="category-tag">${ev.category || 'General'}</div>
+              <div class="event-time">🕐 ${ev.time}</div>
+              <div class="event-title">
+                ${ev.title}
+                ${isCertified ? '<span class="badge badge-cert">Certified</span>' : ''}
+              </div>
+              <div class="event-organizer">📍 ${ev.organizer || '—'}</div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin: 6px 0 10px 0;">
+                ${ev.language ? `<span class="badge badge-lang">${ev.language}</span>` : ''}
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                ${ev.link ? `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link">Join →</a>` : ''}
+                <button class="ics-btn" data-archived-ics="${weekKey}__${ev.date}__${ev.time}">.ics</button>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+
+          wrap.appendChild(grid);
+          content.appendChild(wrap);
+        });
+
+        const block = document.createElement('div');
+        block.className = 'accordion-item';
+        block.appendChild(header);
+        block.appendChild(content);
+        acc.appendChild(block);
+
+        header.onclick = () => {
+          const isOpen = header.classList.toggle('open');
+          content.style.display = isOpen ? 'block' : 'none';
+        };
+
+        content.querySelectorAll('[data-archived-day]').forEach(btn => {
+          btn.onclick = () => {
+            const [, date] = btn.dataset.archivedDay.split('__');
+            exportICS(archive[weekKey].byDay[date], `events-${date}.ics`);
+          };
+        });
+        content.querySelectorAll('[data-archived-ics]').forEach(btn => {
+          btn.onclick = () => {
+            const [, d, t] = btn.dataset.archivedIcs.split('__');
+            const ev = archive[weekKey].flat.find(e => e.date === d && e.time === t);
+            if (ev) exportICS([ev], `event-${d}-${t.replace(':', '')}.ics`);
+          };
+        });
+      }
+
+      function filterEvents(dayNames) {
+        const select = document.getElementById('dayFilter');
+        const search = (document.getElementById('searchFilter').value || '').toLowerCase();
+        const langSel = document.getElementById('langFilter');
+        const langVal = (langSel && langSel.value) ? langSel.value : '__ALL__';
+
+        let selectedDay = select.value;
+
+        if (showTodayOnly) {
+          const t = todayStrLima();
+          if (allDates.has(t)) {
+            selectedDay = t;
+            select.value = t;
+          } else {
+            selectedDay = 'all';
+            select.value = 'all';
+          }
+        }
+
+        const out = events.filter(ev => {
+          const okDay = (selectedDay === 'all') || ev.date === selectedDay;
+          const hay = [ev.title, ev.organizer, ev.category].filter(Boolean).join(' ').toLowerCase();
+          const okSearch = !search || hay.includes(search);
+          const evLang = (ev.language || '').trim();
+          const okLang = (langVal === '__ALL__') || evLang === langVal;
+          return okDay && okSearch && okLang;
+        });
+
+        renderEvents(out, dayNames);
+      }
+
+      function toICS(list) {
+        const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Critical Care Webinars//EN"];
+        const now = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z/, "Z");
+        
+        for (const ev of list) {
+          const [h, m] = (ev.time || "00:00").split(':').map(n => parseInt(n || "0", 10));
+          const [Y, Mo, D] = ev.date.split('-').map(n => parseInt(n, 10));
+          const start = new Date(Y, (Mo - 1), D, h, m, 0);
+          const end = new Date(start.getTime() + 60 * 60 * 1000);
+          const fmt = d => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z/, "Z");
+          
+          lines.push("BEGIN:VEVENT");
+          lines.push(`UID:${Y}${String(Mo).padStart(2, '0')}${String(D).padStart(2, '0')}-${String(h).padStart(2, '0')}${String(m).padStart(2, '0')}@ccw`);
+          lines.push(`DTSTAMP:${now}`);
+          lines.push(`DTSTART:${fmt(start)}`);
+          lines.push(`DTEND:${fmt(end)}`);
+          lines.push(`SUMMARY:${(ev.title || 'Event').replace(/[\r\n,]/g, ' ')}`);
+          lines.push(`DESCRIPTION:${[(ev.organizer || ''), (ev.category || '')].filter(Boolean).join(' | ').replace(/[\r\n,]/g, ' ')}`);
+          if (ev.link) lines.push(`URL:${ev.link}`);
+          lines.push("END:VEVENT");
+        }
+        
+        lines.push("END:VCALENDAR");
+        return lines.join("\r\n");
+      }
+
+      function exportICS(list, filename) {
+        const blob = new Blob([toICS(list)], { type: "text/calendar" });
+        const url = URL.createObjectURL(blob);
+        const a = Object.assign(document.createElement("a"), { href: url, download: filename });
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function updateFutureCounter() {
+        const nowLima = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+        const count = events.reduce((acc, e) => {
+          const [Y, Mo, D] = e.date.split('-').map(Number);
+          const [h, m] = (e.time || '00:00').split(':').map(n => parseInt(n || "0", 10));
+          const dt = new Date(Y, Mo - 1, D, h, m, 0);
+          return acc + (dt >= nowLima ? 1 : 0);
+        }, 0);
+        document.getElementById('futureEvents').textContent = String(count);
+      }
+async function loadAll() {
+  const $loading = document.getElementById('loadingSection');
+  const $error = document.getElementById('errorSection');
+  const $main = document.getElementById('mainContent');
+
+  $loading.style.display = 'block';
+  $error.style.display = 'none';
+  $main.style.display = 'none';
+
+  try {
+    const res = await fetch(BASE_SHEET_CSV, { cache: "no-store" });
+    if (!res.ok) throw new Error("Cannot load Google Sheet");
+
+    const csv = await res.text();
+    const parsed = parseCSV(csv);
+
+    // Normalizar todas las fechas
+    parsed.forEach(e => {
+      e.date = normalizeDate(e.date);
+    });
+
+    const currentWeek = WEEKS.find(w => w.key === 'current');
+    const prevWeek = WEEKS.find(w => w.key === 'prev');
+
+    // Filtrar eventos de la semana actual
+    events = parsed.filter(e =>
+      withinRange(e.date, currentWeek.start, currentWeek.end)
+    );
+
+    // Filtrar eventos de la semana anterior
+    const prevList = parsed.filter(e =>
+      withinRange(e.date, prevWeek.start, prevWeek.end)
+    );
+
+
+    document.getElementById('totalEvents').textContent = events.length;
+    document.getElementById('visibleEvents').textContent = events.length;
+    document.getElementById('prevWeekEvents').textContent = prevList.length;
+
+    allDates = new Set(events.map(e => e.date));
+    initLanguageFilter(events);
+    updateDateFilter(currentWeek.dayNames);
+
+    // Preparar archivo
+    archive['prev'] = {
+      flat: prevList,
+      byDay: prevList.reduce((acc, ev) => {
+        (acc[ev.date] ||= []).push(ev);
+        return acc;
+      }, {})
+    };
+
+   document.getElementById('archiveAccordion').innerHTML = '';
+
+let hasArchive = false;
+
+if (prevList.length > 0) {
+  renderArchive('prev');
+  hasArchive = true;
+}
+
+document.getElementById('archiveBlock').style.display = hasArchive ? 'block' : 'none';
+
+    updateFutureCounter();
+    filterEvents(currentWeek.dayNames);
+
+    $loading.style.display = 'none';
+    $main.style.display = 'block';
+
+  } catch (err) {
+    console.error(err);
+    $loading.style.display = 'none';
+    $error.style.display = 'block';
+    $error.innerHTML = `
+      <strong>⚠️ Error loading events</strong><br>
+      ${err.message}<br><br>
+      Please verify that:<br>
+      • The sheet is <em>Published to the web</em> as CSV<br>
+      • PapaParse library loaded correctly<br>
+      • Your internet connection is stable<br><br>
+      <button class="btn-secondary" id="retryBtn">Retry</button>
+    `;
+    document.getElementById('retryBtn').onclick = loadAll;
+  }
+}
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('reloadBtn').onclick = () => { loadAll(); };
+        document.getElementById('searchFilter').oninput = () => filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+        document.getElementById('dayFilter').onchange = () => {
+          showTodayOnly = false;
+          const btn = document.getElementById('toggleTodayBtn');
+          btn.classList.remove('active');
+          btn.textContent = '🟣 Today only';
+          filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+        };
+        document.getElementById('exportWeek').onclick = () => exportICS(events, 'events-current-week.ics');
+        document.getElementById('toggleTodayBtn').onclick = () => {
+          showTodayOnly = !showTodayOnly;
+          const btn = document.getElementById('toggleTodayBtn');
+          if (showTodayOnly) {
+            btn.classList.add('active');
+            btn.textContent = '↩️ Show all';
+          } else {
+            btn.classList.remove('active');
+            btn.textContent = '🟣 Today only';
+            document.getElementById('dayFilter').value = 'all';
+          }
+          filterEvents(WEEKS.find(w => w.key === 'current').dayNames);
+        };
+
+        // Initialize resource section collapse functionality
+        document.querySelectorAll('.resource-collapse-header').forEach(header => {
+          header.addEventListener('click', () => {
+            const section = header.dataset.section;
+            const content = document.getElementById(`${section}-content`);
+            const isCurrentlyCollapsed = header.classList.contains('collapsed');
+            
+            header.classList.toggle('collapsed');
+            
+            if (isCurrentlyCollapsed) {
+              content.style.maxHeight = 'none';
+              const height = content.scrollHeight;
+              content.style.maxHeight = '0';
+              setTimeout(() => {
+                content.style.maxHeight = height + 'px';
+              }, 10);
+              setTimeout(() => {
+                content.style.maxHeight = 'none';
+              }, 300);
+            } else {
+              content.style.maxHeight = content.scrollHeight + 'px';
+              setTimeout(() => {
+                content.style.maxHeight = '0';
+              }, 10);
+            }
+          });
+        });
+
+        loadAll();
+        setInterval(() => { loadAll(); }, 300000);
+        setInterval(() => { updateFutureCounter(); }, 60000);
+      });
+    </script>
+  </div>
+</body>
+</html>
