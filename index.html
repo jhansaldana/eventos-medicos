@@ -1502,9 +1502,24 @@ header .intro p {
     <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=46389417&single=true&output=csv';
 
-const WEEKS = [
+WEEKS = [
   {
     key: 'current',
+    label: 'Week January 26 – February 1, 2026',
+    start: '2026-01-26',
+    end:   '2026-02-01',
+    dayNames: {
+      '2026-01-26': 'Monday, Jan 26',
+      '2026-01-27': 'Tuesday, Jan 27',
+      '2026-01-28': 'Wednesday, Jan 28',
+      '2026-01-29': 'Thursday, Jan 29',
+      '2026-01-30': 'Friday, Jan 30',
+      '2026-01-31': 'Saturday, Jan 31',
+      '2026-02-01': 'Sunday, Feb 1'
+    }
+  },
+  {
+    key: 'prev',
     label: 'Week January 19 – 25, 2026',
     start: '2026-01-19',
     end:   '2026-01-25',
@@ -1517,24 +1532,11 @@ const WEEKS = [
       '2026-01-24': 'Saturday, Jan 24',
       '2026-01-25': 'Sunday, Jan 25'
     }
-  },
-  {
-    key: 'prev',
-    label: 'Week January 12 – 18, 2026',
-    start: '2026-01-12',
-    end:   '2026-01-18',
-    dayNames: {
-      '2026-01-12': 'Monday, Jan 12',
-      '2026-01-13': 'Tuesday, Jan 13',
-      '2026-01-14': 'Wednesday, Jan 14',
-      '2026-01-15': 'Thursday, Jan 15',
-      '2026-01-16': 'Friday, Jan 16',
-      '2026-01-17': 'Saturday, Jan 17',
-      '2026-01-18': 'Sunday, Jan 18'
-    }
   }
 ];
 
+document.getElementById('weekSubtitle').textContent =
+  'Week: January 26 – February 1, 2026';
 
 const IS_FIRST_WEEK_OF_YEAR = false;
 
