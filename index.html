@@ -795,7 +795,7 @@ html{
   <!-- Subtítulo de la semana (solo una vez) -->
   
   <p class="subtitle">
-<strong>Week: January 26 – February 1, 2026</strong>
+    <strong>Week: February 2 – February 8, 2026</strong>
   <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
 
@@ -804,8 +804,8 @@ html{
 <div class="weekly-update">
   <p>
     During the <strong>last 7 days</strong>, <strong>Critical Care Webinars</strong> has reached
-    <strong>500 active users</strong> and logged <strong>3,600 events</strong>,
-    with <strong>181 returning users</strong>.
+<strong>453 active users</strong> and logged <strong>3,800 K</strong>,
+with <strong>200 returning users</strong>.
   </p>
 
   <p>
@@ -1553,10 +1553,24 @@ html{
 
     <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=46389417&single=true&output=csv';
-
 const WEEKS = [
   {
     key: 'current',
+    label: 'Week February 2 – February 8, 2026',
+    start: '2026-02-02',
+    end:   '2026-02-08',
+    dayNames: {
+      '2026-02-02': 'Monday, Feb 2',
+      '2026-02-03': 'Tuesday, Feb 3',
+      '2026-02-04': 'Wednesday, Feb 4',
+      '2026-02-05': 'Thursday, Feb 5',
+      '2026-02-06': 'Friday, Feb 6',
+      '2026-02-07': 'Saturday, Feb 7',
+      '2026-02-08': 'Sunday, Feb 8'
+    }
+  },
+  {
+    key: 'prev',
     label: 'Week January 26 – February 1, 2026',
     start: '2026-01-26',
     end:   '2026-02-01',
@@ -1569,24 +1583,8 @@ const WEEKS = [
       '2026-01-31': 'Saturday, Jan 31',
       '2026-02-01': 'Sunday, Feb 1'
     }
-  },
-  {
-    key: 'prev',
-    label: 'Week January 19 – 25, 2026',
-    start: '2026-01-19',
-    end:   '2026-01-25',
-    dayNames: {
-      '2026-01-19': 'Monday, Jan 19',
-      '2026-01-20': 'Tuesday, Jan 20',
-      '2026-01-21': 'Wednesday, Jan 21',
-      '2026-01-22': 'Thursday, Jan 22',
-      '2026-01-23': 'Friday, Jan 23',
-      '2026-01-24': 'Saturday, Jan 24',
-      '2026-01-25': 'Sunday, Jan 25'
-    }
   }
 ];
-
 
 const IS_FIRST_WEEK_OF_YEAR = false;
 
