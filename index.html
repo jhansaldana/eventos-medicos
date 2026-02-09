@@ -795,22 +795,28 @@ html{
   <!-- Subtítulo de la semana (solo una vez) -->
   
   <p class="subtitle">
-    <strong>Week: February 2 – February 8, 2026</strong>
+   <strong>Week: February 9 – February 15, 2026</strong>
   <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
 
   <!-- Intro completa: bloque amarillo + explicación + Instagram -->
   <div class="intro">
-<div class="weekly-update">
+  <div class="weekly-update">
   <p>
-    During the <strong>last 7 days</strong>, <strong>Critical Care Webinars</strong> has reached
-<strong>453 active users</strong> and logged <strong>3,800 K</strong>,
-with <strong>200 returning users</strong>.
+    Huge thanks to everyone who has collaborated, shared, and supported
+    <strong>Critical Care Webinars</strong> 💙
   </p>
 
   <p>
-    This project remains committed to <strong>decentralized, open, and barrier-free medical education</strong>,
-    helping clinicians discover valuable learning opportunities that might otherwise go unnoticed.
+    <strong>New stats (last 7 days):</strong>
+    <strong>662 active users</strong> (+46%),
+    <strong>5.4k events tracked</strong> (+42.8%),
+    and <strong>279 returning users</strong> (+39.5%).
+  </p>
+
+  <p>
+    This project stays committed to <strong>decentralized, open, and barrier-free medical education</strong>,
+    helping clinicians discover learning opportunities that might otherwise go unnoticed.
   </p>
 </div>
 
@@ -933,7 +939,7 @@ with <strong>200 returning users</strong>.
           <div class="stat-label">Upcoming events (current week)</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number" id="prevWeekEvents">120</div>
+          <div class="stat-number" id="prevWeekEvents">0</div>
           <div class="stat-label">Events last week</div>
         </div>
         <div class="stat-item">
@@ -1556,6 +1562,21 @@ const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3C
 const WEEKS = [
   {
     key: 'current',
+    label: 'Week February 9 – February 15, 2026',
+    start: '2026-02-09',
+    end:   '2026-02-15',
+    dayNames: {
+      '2026-02-09': 'Monday, Feb 9',
+      '2026-02-10': 'Tuesday, Feb 10',
+      '2026-02-11': 'Wednesday, Feb 11',
+      '2026-02-12': 'Thursday, Feb 12',
+      '2026-02-13': 'Friday, Feb 13',
+      '2026-02-14': 'Saturday, Feb 14',
+      '2026-02-15': 'Sunday, Feb 15'
+    }
+  },
+  {
+    key: 'prev',
     label: 'Week February 2 – February 8, 2026',
     start: '2026-02-02',
     end:   '2026-02-08',
@@ -1568,26 +1589,9 @@ const WEEKS = [
       '2026-02-07': 'Saturday, Feb 7',
       '2026-02-08': 'Sunday, Feb 8'
     }
-  },
-  {
-    key: 'prev',
-    label: 'Week January 26 – February 1, 2026',
-    start: '2026-01-26',
-    end:   '2026-02-01',
-    dayNames: {
-      '2026-01-26': 'Monday, Jan 26',
-      '2026-01-27': 'Tuesday, Jan 27',
-      '2026-01-28': 'Wednesday, Jan 28',
-      '2026-01-29': 'Thursday, Jan 29',
-      '2026-01-30': 'Friday, Jan 30',
-      '2026-01-31': 'Saturday, Jan 31',
-      '2026-02-01': 'Sunday, Feb 1'
-    }
   }
 ];
-
 const IS_FIRST_WEEK_OF_YEAR = false;
-
 
       const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
 
