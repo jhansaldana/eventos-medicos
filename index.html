@@ -795,7 +795,7 @@ html{
   <!-- Subtítulo de la semana (solo una vez) -->
   
   <p class="subtitle">
-   <strong>Week: February 16 – February 22, 2026</strong>
+   <strong>Week: February 23 – March 1, 2026</strong>
   <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
 </p>
 
@@ -1560,6 +1560,21 @@ const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3C
 const WEEKS = [
   {
     key: 'current',
+    label: 'Week February 23 – March 1, 2026',
+    start: '2026-02-23',
+    end:   '2026-03-01',
+    dayNames: {
+      '2026-02-23': 'Monday, Feb 23',
+      '2026-02-24': 'Tuesday, Feb 24',
+      '2026-02-25': 'Wednesday, Feb 25',
+      '2026-02-26': 'Thursday, Feb 26',
+      '2026-02-27': 'Friday, Feb 27',
+      '2026-02-28': 'Saturday, Feb 28',
+      '2026-03-01': 'Sunday, Mar 1'
+    }
+  },
+  {
+    key: 'prev',
     label: 'Week February 16 – February 22, 2026',
     start: '2026-02-16',
     end:   '2026-02-22',
@@ -1571,21 +1586,6 @@ const WEEKS = [
       '2026-02-20': 'Friday, Feb 20',
       '2026-02-21': 'Saturday, Feb 21',
       '2026-02-22': 'Sunday, Feb 22'
-    }
-  },
-  {
-    key: 'prev',
-    label: 'Week February 9 – February 15, 2026',
-    start: '2026-02-09',
-    end:   '2026-02-15',
-    dayNames: {
-      '2026-02-09': 'Monday, Feb 9',
-      '2026-02-10': 'Tuesday, Feb 10',
-      '2026-02-11': 'Wednesday, Feb 11',
-      '2026-02-12': 'Thursday, Feb 12',
-      '2026-02-13': 'Friday, Feb 13',
-      '2026-02-14': 'Saturday, Feb 14',
-      '2026-02-15': 'Sunday, Feb 15'
     }
   }
 ];
