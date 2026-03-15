@@ -1718,7 +1718,14 @@ const IS_FIRST_WEEK_OF_YEAR = false;
 
   return "";
 }
-
+function getField(row, keys) {
+  for (const k of keys) {
+    if (row[k] !== undefined && String(row[k]).trim() !== "") {
+      return String(row[k]).trim();
+    }
+  }
+  return "";
+}
       function parseCSV(csv) {
         if (typeof Papa === 'undefined') {
           throw new Error('PapaParse library not loaded');
