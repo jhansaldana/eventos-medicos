@@ -792,42 +792,38 @@ html{
     </nav>
   </div>
 
-  <!-- Subtítulo de la semana (solo una vez) -->
-  
+  <!-- Subtítulo de la semana -->
   <p class="subtitle">
-  <strong>Week: March 9 – March 15, 2026</strong>
-  <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
-</p>
+    <strong id="weekLabel">Week loading...</strong>
+    <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
+  </p>
 
-  <!-- Intro completa: bloque amarillo + explicación + Instagram -->
+  <!-- Intro completa -->
   <div class="intro">
- <div class="weekly-update">
-  <p>
-    Thank you to everyone who has been collaborating with <strong>Critical Care Webinars</strong> —
-    sharing events, reporting broken links, and helping us keep the agenda accurate.
-  </p>
+    <div class="weekly-update">
+      <p>
+        Thank you to everyone who has been collaborating with <strong>Critical Care Webinars</strong> —
+        sharing events, reporting broken links, and helping us keep the agenda accurate.
+      </p>
 
-  <p>
-<div class="weekly-update">
-  <p>
-    During the last 7 days, CCW reached <strong>500 active users</strong> and recorded
-    <strong>4.1k events</strong>, with <strong>211 returning users</strong>.
-  </p>
+      <p>
+        During the last 7 days, CCW reached <strong>500 active users</strong> and recorded
+        <strong>4.1k events</strong>, with <strong>211 returning users</strong>.
+      </p>
 
-  <p>
-    Top countries by active users:
-    <strong>Peru (163)</strong>, <strong>Mexico (72)</strong>, 
-    <strong>Colombia (46)</strong>, <strong>Chile (20)</strong>, 
-    <strong>Argentina (18)</strong>, <strong>Costa Rica (18)</strong>, 
-    <strong>Spain (18)</strong>.
-  </p>
-</div>  </p>
+      <p>
+        Top countries by active users:
+        <strong>Peru (163)</strong>, <strong>Mexico (72)</strong>,
+        <strong>Colombia (46)</strong>, <strong>Chile (20)</strong>,
+        <strong>Argentina (18)</strong>, <strong>Costa Rica (18)</strong>,
+        <strong>Spain (18)</strong>.
+      </p>
 
-  <p>
-    This project remains committed to <strong>decentralized, open, and barrier-free medical education</strong>,
-    helping clinicians discover valuable learning opportunities that might otherwise go unnoticed.
-  </p>
-</div>
+      <p>
+        This project remains committed to <strong>decentralized, open, and barrier-free medical education</strong>,
+        helping clinicians discover valuable learning opportunities that might otherwise go unnoticed.
+      </p>
+    </div>
 
 <p style="margin-top:18px;">
   <strong>Who we are & What is Critical Care Webinars</strong><br>
@@ -1568,38 +1564,93 @@ html{
 
     <script>
 const BASE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSgscb3CQReXXkS1S7Sgj_e-COWBuQ38YO-eJ9Cr3wOvV8MCPGFt-s-01KLNkCpi00zqFnMvMsL4zTi/pub?gid=46389417&single=true&output=csv';
-const WEEKS = [
-  {
-    key: 'current',
-    label: 'Week March 9 – March 15, 2026',
-    start: '2026-03-09',
-    end:   '2026-03-15',
-    dayNames: {
-      '2026-03-09': 'Monday, Mar 9',
-      '2026-03-10': 'Tuesday, Mar 10',
-      '2026-03-11': 'Wednesday, Mar 11',
-      '2026-03-12': 'Thursday, Mar 12',
-      '2026-03-13': 'Friday, Mar 13',
-      '2026-03-14': 'Saturday, Mar 14',
-      '2026-03-15': 'Sunday, Mar 15'
-    }
-  },
-  {
-    key: 'prev',
-    label: 'Week March 2 – March 8, 2026',
-    start: '2026-03-02',
-    end:   '2026-03-08',
-    dayNames: {
-      '2026-03-02': 'Monday, Mar 2',
-      '2026-03-03': 'Tuesday, Mar 3',
-      '2026-03-04': 'Wednesday, Mar 4',
-      '2026-03-05': 'Thursday, Mar 5',
-      '2026-03-06': 'Friday, Mar 6',
-      '2026-03-07': 'Saturday, Mar 7',
-      '2026-03-08': 'Sunday, Mar 8'
-    }
+function getLimaNow() {
+  return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }));
+}
+
+function addDays(date, days) {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function formatISO(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function buildDayNames(startDate) {
+  const out = {};
+  for (let i = 0; i < 7; i++) {
+    const d = addDays(startDate, i);
+    const iso = formatISO(d);
+    const weekday = d.toLocaleDateString('en-US', { weekday: 'long' });
+    const month = d.toLocaleDateString('en-US', { month: 'short' });
+    const day = d.getDate();
+    out[iso] = `${weekday}, ${month} ${day}`;
   }
-];
+  return out;
+}
+
+function buildWeekLabel(start, end) {
+  const startMonth = start.toLocaleDateString('en-US', { month: 'long' });
+  const endMonth = end.toLocaleDateString('en-US', { month: 'long' });
+
+  if (start.getMonth() === end.getMonth()) {
+    return `Week ${startMonth} ${start.getDate()} – ${end.getDate()}, ${end.getFullYear()}`;
+  }
+
+  return `Week ${startMonth} ${start.getDate()} – ${endMonth} ${end.getDate()}, ${end.getFullYear()}`;
+}
+
+function getWeekWithSundayCutoff() {
+  const now = getLimaNow();
+  const day = now.getDay(); // Sunday = 0
+  const hour = now.getHours();
+
+  let ref = new Date(now);
+
+  // Si es domingo 20:00 o más, saltar a la siguiente semana
+  if (day === 0 && hour >= 20) {
+    ref = addDays(ref, 1);
+  }
+
+  const weekday = ref.getDay();
+  const diffToMonday = weekday === 0 ? -6 : 1 - weekday;
+
+  const monday = addDays(ref, diffToMonday);
+  const sunday = addDays(monday, 6);
+
+  return { start: monday, end: sunday };
+}
+
+function getDynamicWeeks() {
+  const current = getWeekWithSundayCutoff();
+
+  const prevStart = addDays(current.start, -7);
+  const prevEnd = addDays(current.end, -7);
+
+  return [
+    {
+      key: 'current',
+      label: buildWeekLabel(current.start, current.end),
+      start: formatISO(current.start),
+      end: formatISO(current.end),
+      dayNames: buildDayNames(current.start)
+    },
+    {
+      key: 'prev',
+      label: buildWeekLabel(prevStart, prevEnd),
+      start: formatISO(prevStart),
+      end: formatISO(prevEnd),
+      dayNames: buildDayNames(prevStart)
+    }
+  ];
+}
+
+const WEEKS = getDynamicWeeks();
 const IS_FIRST_WEEK_OF_YEAR = false;
 
       const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
@@ -2142,9 +2193,11 @@ async function loadAll() {
     parsed.forEach(e => {
       e.date = normalizeDate(e.date);
     });
+const currentWeek = WEEKS.find(w => w.key === 'current');
+const prevWeek = WEEKS.find(w => w.key === 'prev');
 
-    const currentWeek = WEEKS.find(w => w.key === 'current');
-    const prevWeek = WEEKS.find(w => w.key === 'prev');
+const weekLabelEl = document.getElementById('weekLabel');
+if (weekLabelEl) weekLabelEl.textContent = currentWeek.label;
 
     // Filtrar eventos de la semana actual
     events = parsed.filter(e =>
