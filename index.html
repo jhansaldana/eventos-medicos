@@ -1675,30 +1675,49 @@ const IS_FIRST_WEEK_OF_YEAR = false;
   const x = new Date(d + 'T00:00:00');
   return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`;
 }
+  function normalizeTime(x) {
+  if (x === null || x === undefined || x === "") return "";
 
-      function normalizeTime(x) {
-        if (x === null || x === undefined) return "";
-        let s = String(x).trim().toLowerCase();
-        s = s.replace(/\s*[ap]\.?m\.?$/, "");
-        if (/^\d{1,2}:\d{2}$/.test(s)) {
-          const [h, m] = s.split(":");
-          return `${h.padStart(2, "0")}:${m}`;
-        }
-        if (/^\d{1,2}$/.test(s)) return `${s.padStart(2, "0")}:00`;
-        const f = parseFloat(s.replace(",", "."));
-        if (!isNaN(f)) {
-          const h = Math.floor(f), m = Math.round((f - h) * 60);
-          return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
-        }
-        return "";
-      }
+  // Caso 1: viene como número decimal de Google Sheets (ej. 0.520833 = 12:30)
+  if (typeof x === "number" && x >= 0 && x < 1) {
+    const totalMinutes = Math.round(x * 24 * 60);
+    const h = Math.floor(totalMinutes / 60);
+    const m = totalMinutes % 60;
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+  }
 
-      function getField(row, keys) {
-        for (const k of keys) {
-          if (row[k] !== undefined && String(row[k]).trim() !== "") return String(row[k]).trim();
-        }
-        return "";
-      }
+  let s = String(x).trim().toLowerCase();
+  s = s.replace(/\s+/g, " ");
+  s = s.replace(/\s*[ap]\.?m\.?$/, "");
+
+  // Caso 2: formato HH:MM
+  if (/^\d{1,2}:\d{1,2}$/.test(s)) {
+    let [h, m] = s.split(":").map(v => parseInt(v, 10));
+    if (isNaN(h) || isNaN(m)) return "";
+    if (h < 0 || h > 23 || m < 0 || m > 59) return "";
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+  }
+
+  // Caso 3: solo hora entera
+  if (/^\d{1,2}$/.test(s)) {
+    const h = parseInt(s, 10);
+    if (h < 0 || h > 23) return "";
+    return `${String(h).padStart(2, "0")}:00`;
+  }
+
+  // Caso 4: decimal tipo 7.5 = 07:30
+  const f = parseFloat(s.replace(",", "."));
+  if (!isNaN(f) && f >= 0 && f <= 24) {
+    const h = Math.floor(f);
+    const m = Math.round((f - h) * 60);
+    if (m === 60) {
+      return `${String(h + 1).padStart(2, "0")}:00`;
+    }
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+  }
+
+  return "";
+}
 
       function parseCSV(csv) {
         if (typeof Papa === 'undefined') {
@@ -1714,7 +1733,8 @@ const IS_FIRST_WEEK_OF_YEAR = false;
         const rows = [];
         for (const row of result.data) {
           const date = normalizeDate(getField(row, ["date", "fecha", "día", "dia"]));
-          const time = normalizeTime(getField(row, ["time", "hora", "start", "inicio"]));
+          const rawTime = row["time"] ?? row["hora"] ?? row["start"] ?? row["inicio"] ?? "";
+          const time = normalizeTime(rawTime);
           const title = getField(row, ["title", "título", "titulo", "tema", "subject"]);
           const link = getField(row, ["link", "enlace", "url"]);
           const organizer = getField(row, ["organizer", "organizador", "host", "org", "institucion", "institución"]);
