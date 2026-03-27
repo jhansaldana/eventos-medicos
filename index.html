@@ -89,7 +89,21 @@ header .intro p {
 .nav-links a:hover {
   color: #2b6cb0;
 }
+.section-intro {
+  margin-bottom: 14px;
+}
 
+.section-intro h2 {
+  font-size: 1.5em;
+  color: #1e3a5f;
+  margin-bottom: 6px;
+}
+
+.section-intro p {
+  color: #64748b;
+  font-size: 0.98em;
+  line-height: 1.5;
+}
 /* En móvil que no se rompa */
 @media (max-width: 768px) {
   .header-top {
@@ -140,81 +154,85 @@ header .intro p {
       color: #c53030;
     }
 
-    .filters {
-      background: #ffffff;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
+  .filters {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
 
-    .filter-actions {
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-bottom: 10px;
-    }
+  .filter-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
 
     .filter-label {
       font-weight: bold;
       color: #2b6cb0;
     }
 
-    select,
-    input[type="text"] {
-      padding: 10px 15px;
-      border: 2px solid #3182ce;
-      border-radius: 8px;
-      font-size: 1em;
-      outline: none;
-      transition: all 0.3s;
-      background: #ffffff;
-      color: #1a202c;
-    }
+  select,
+input[type="text"] {
+  padding: 11px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 0.98em;
+  outline: none;
+  transition: all 0.25s;
+  background: #ffffff;
+  color: #1a202c;
+  min-height: 44px;
+}
+  select:focus,
+input[type="text"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
 
-    select:focus,
-    input[type="text"]:focus {
-      border-color: #2b6cb0;
-      box-shadow: 0 0 0 3px rgba(49,130,206,.15);
-    }
+.toggle-today {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+}
 
-    .toggle-today {
-      background: #ffffff;
-      color: #2b6cb0;
-      border: 2px solid #2b6cb0;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all .2s;
-    }
-
-    .toggle-today.active {
-      background: #2b6cb0;
-      color:#ffffff;
-    }
+.toggle-today.active {
+  background: #1d4ed8;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
 
     .day-section {
       margin-bottom: 30px;
       scroll-margin-top: 100px;
     }
 
-    .day-header {
-      background: #ffffff;
-      border-radius: 10px;
-      padding: 15px 20px;
-      margin-bottom: 0;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
+.day-header {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.25s;
+}
 
     .day-header:hover { background: #f7fafc; }
 
@@ -251,32 +269,34 @@ header .intro p {
 
     .day-content.collapsed { max-height: 0 !important; }
 
-    .day-title {
-      color: #2b6cb0;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
+   .day-title {
+  color: #1e3a5f;
+  font-size: 1.3em;
+  font-weight: 700;
+  line-height: 1.3;
+}
 
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 20px;
-    }
+ .events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
 
-    .event-card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
-      border-left: 5px solid #3182ce;
-      scroll-margin-top: 120px;
-    }
+  .event-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.25s, box-shadow 0.25s;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid #3182ce;
+  scroll-margin-top: 120px;
+}
 
-    .event-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
+ .event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
 
     .event-time {
       color: #2b6cb0;
@@ -288,42 +308,40 @@ header .intro p {
       gap: 8px;
     }
 
-    .event-title {
-      color: #1a202c;
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
+   .event-title {
+  color: #0f172a;
+  font-size: 1.08em;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
 
-    .event-organizer {
-      color: #4a5568;
-      font-size: 0.9em;
-      margin-bottom: 15px;
-      font-style: italic;
-    }
-
-    .event-link,
-    .ics-btn {
-      display: inline-block;
-      background: #3182ce;
-      color: #ffffff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .event-link:hover,
-    .ics-btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 5px 15px rgba(49,130,206,0.4);
-      background: #2b6cb0;
-    }
-
+.event-organizer {
+  color: #64748b;
+  font-size: 0.92em;
+  margin-bottom: 14px;
+  font-style: normal;
+  line-height: 1.4;
+}
+.event-link,
+.ics-btn {
+  display: inline-block;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.25s;
+  border: none;
+  cursor: pointer;
+}
+.event-link:hover,
+.ics-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(37,99,235,0.22);
+  background: #1d4ed8;
+}
     .btn-secondary {
       background: #ffffff;
       color: #3182ce;
@@ -351,31 +369,39 @@ header .intro p {
       font-weight: 600;
     }
 
-    .stats {
-      background: #ffffff;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
+   .stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
 
-    .stat-item { text-align: center; }
+.stat-item {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px 18px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  border: 1px solid #e2e8f0;
+}
 
-    .stat-number {
-      font-size: 2.5em;
-      color: #2b6cb0;
-      font-weight: bold;
-    }
+.stat-number {
+  font-size: 2.2em;
+  color: #1d4ed8;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
 
-    .stat-label {
-      color: #4a5568;
-      font-size: 1em;
-    }
-
+.stat-label {
+  color: #475569;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+    .stat-item .small-note {
+  margin-top: 8px;
+  display: block;
+}
     .small-note { font-size: .85em; color:#4a5568; }
 
     .archive {
@@ -929,11 +955,14 @@ html{
           <div class="small-note" style="margin-top:6px">Import into Google/Outlook</div>
         </div>
       </div>
-
+<div class="section-intro">
+  <h2>Browse this week’s events</h2>
+  <p>Filter by day, language, or topic to quickly find the sessions most relevant to you.</p>
+</div>
       <div class="filter-actions">
         <button id="toggleTodayBtn" class="toggle-today">🟣 Today only</button>
       </div>
-
+      
       <div class="filters">
         <span class="filter-label">Filter:</span>
         <select id="dayFilter"></select>
@@ -943,7 +972,10 @@ html{
         <input type="text" id="searchFilter" placeholder="Search by topic, organizer, or specialty…">
         <button id="reloadBtn" class="btn-secondary">🔄 Refresh</button>
       </div>
-
+<div class="section-intro" style="margin-top:8px;">
+  <h2>Upcoming webinars and academic events</h2>
+  <p>Sessions are grouped by day and displayed in Lima, Peru time (GMT-5).</p>
+</div>
       <div id="eventsContainer"></div>
 
       <div class="archive" id="archiveBlock" style="display:none;">
