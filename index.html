@@ -20,34 +20,37 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #ebf8ff 0%, #dbeafe 100%);
-      min-height: 100vh;
-      padding: 20px;
-      color: #1a202c;
-    }
+  body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f8fb;
+  min-height: 100vh;
+  padding: 20px;
+  color: #1a202c;
+}
 
     .container { max-width: 1200px; margin: 0 auto; }
 
     header {
-      background: #ffffff;
-      border-radius: 15px;
-      padding: 30px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border: 1px solid #e2e8f0;
+}
     h1 {
-      color: #2b6cb0;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
+  color: #1e3a5f;
+  font-size: 2.3em;
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
 
-    .subtitle {
-      color: #4a5568;
-      font-size: 1.05em;
-    }
+   .subtitle {
+  color: #475569;
+  font-size: 1em;
+  line-height: 1.5;
+  margin-top: 8px;
+}
    .header-top {
   display: flex;
   justify-content: space-between;
@@ -94,18 +97,16 @@ header .intro p {
     align-items: flex-start;
   }
 }
-
-    .intro {
-      margin-top: 14px;
-      color: #2d3748;
-      line-height: 1.5;
-      font-size: 0.98em;
-      background: #f7fafc;
-      border: 1px solid rgba(49,130,206,.25);
-      padding: 12px 14px;
-      border-radius: 10px;
-    }
-
+.intro {
+  margin-top: 18px;
+  color: #2d3748;
+  line-height: 1.7;
+  font-size: 0.98em;
+  background: #f8fbfe;
+  border: 1px solid #d9e8f5;
+  padding: 18px 20px;
+  border-radius: 14px;
+}
     .loading {
       background: #ffffff;
       border-radius: 15px;
@@ -610,11 +611,6 @@ header .intro p {
 
     /* Sección pacientes */
    
-.patient-section {
-  border-top: 3px solid #2b6cb0;
-  background: linear-gradient(135deg,#f7fafc 0%,#edf2f7 100%);
-  padding: 20px; /* un poco menos que 30px */
-}
     .paypal-btn {
   background: #0070ba; /* PayPal blue */
 }
@@ -741,12 +737,6 @@ header .intro p {
     }
 
   
-
-@media (max-width: 900px) {
-  .about-container {
-    grid-template-columns: 1fr;
-  }
-}
     /* Support the project anchor */
 .support-anchor{
   color:#2b6cb0;
@@ -768,10 +758,10 @@ html{
 <body>
   <div class="container">
 
-     <img 
+<img 
   src="https://raw.githubusercontent.com/jhansaldana/eventos-medicos/main/CCW%20PORTADA.png"
   alt="CCW Banner"
-  style="width:100%; max-height:260px; object-fit:contain; margin-bottom:20px; border-radius:12px; background:#000;">
+  style="width:100%; max-height:240px; object-fit:cover; margin-bottom:20px; border-radius:16px; background:#0f172a; box-shadow:0 8px 24px rgba(0,0,0,0.12);">
 
 <header>
   <!-- Logo + Título + Nav -->
@@ -781,22 +771,21 @@ html{
         src="https://raw.githubusercontent.com/jhansaldana/eventos-medicos/main/IMG_5085.jpg"
         alt="CCW Logo"
         style="height:55px; border-radius:8px; object-fit:contain;">
-      <h1>📅 Critical Care Webinars</h1>
+<h1>CCW Academy</h1>
     </div>
 
     <nav>
-      <ul class="nav-links">
-        <li><a href="#eventsContainer">Webinars</a></li>
-        <li><a href="#resources-section-main">Resources</a></li>
-      </ul>
-    </nav>
-  </div>
+    <ul class="nav-links">
+  <li><a href="#eventsContainer">Webinars</a></li>
+  <li><a href="#resources-section-main">Resources</a></li>
+  <li><a href="#support-ccw">Support</a></li>
+</ul>
 
   <!-- Subtítulo de la semana -->
-  <p class="subtitle">
-    <strong id="weekLabel">Week loading...</strong>
-    <span class="small-note">Times shown in Lima, Perú (GMT-5)</span>
-  </p>
+ <p class="subtitle">
+  <strong id="weekLabel">Week loading...</strong><br>
+  <span class="small-note">Global critical care education · Times shown in Lima, Perú (GMT-5)</span>
+</p>
 
   <!-- Intro completa -->
   <div class="intro">
@@ -905,17 +894,6 @@ html{
     WhatsApp
   </a>
   <p style="margin-bottom:14px; color:#4a5568; font-size:0.95em;">
-  If this page has been useful to you, remember that you can
-  <a href="#support-ccw" class="support-anchor">support the project</a>
-  and help Critical Care Webinars continue growing.
-</p>
-  <a href="#support-ccw"
-   class="insta-btn paypal-btn">
-  <svg class="insta-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M7.2 19.2H5.6a.8.8 0 0 1-.79-.93L6.7 4.4c.05-.4.4-.7.8-.7h6.1c2.9 0 4.8 1.6 4.8 4.2 0 3.1-2 5.2-5.3 5.6-.3.04-.6.06-.9.06h-2.3c-.2 0-.4.15-.43.35l-.8 5.2c-.05.35-.35.6-.7.6zm2.9-7.3h2.2c2.7 0 4.2-1.3 4.2-3.7 0-1.7-1.1-2.7-3-2.7H8.4l-1.1 7.3h2.8z"/>
-  </svg>
-  PayPal
-</a>
 
 </div>
 
@@ -1650,10 +1628,6 @@ function getDynamicWeeks() {
 }
 
 const WEEKS = getDynamicWeeks();
-const IS_FIRST_WEEK_OF_YEAR = false;
-
-      const buildSheetUrl = (gid) => BASE_SHEET_CSV.replace(/gid=\d+/, `gid=${gid}`);
-
       let events = [];
       let allDates = new Set();
       let archive = {};
